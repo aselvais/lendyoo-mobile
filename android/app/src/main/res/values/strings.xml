@@ -1,0 +1,4 @@
+<resources>
+    <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">mhId9RSSPKAC3M5FlaCASBYO4Nl3d6a1b3b3-a940-4ce5-ace9-1b792d004c3a</string>
+    <string name="app_name">Lendyou</string>
+</resources>
