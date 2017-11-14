@@ -14,18 +14,26 @@ class LandingScreen extends Component
 	 * @type {{fadeAnim: *}}
 	 */
 	state = {
-		fadeAnim: new Animated.Value(0),  // Initial value for opacity: 0
+		fadeAnim: new Animated.Value(0),
 	};
+
+	/**
+	 *
+	 */
+	_anim = Animated.timing(
+		this.state.fadeAnim,
+		{
+			toValue: 1,
+			duration: 1500,
+		}
+	);
 
 	/**
 	 *
 	 */
 	componentDidMount()
 	{
-		Animated.timing(
-			this.state.fadeAnim,
-			{ toValue: 1, duration: 1500, }
-		).start();
+		this._anim.start();
 	}
 
 	/**
@@ -37,10 +45,13 @@ class LandingScreen extends Component
 		let { fadeAnim } = this.state;
 
 		return (
-			<LinearGradient colors={['#FFFFFF', '#BBBBBB', '#FFFFFF']} style={styles.linearGradient}>
+			<LinearGradient colors={['#FFFFFF', '#AAAAAA']} style={styles.linearGradient}>
 				<View style={styles.container}>
 					<Animated.View
-						style={{ ...this.props.style, opacity: fadeAnim, }}>
+						style={{
+							...this.props.style,
+							opacity: fadeAnim,
+						}}>
 						<Image style={styles.logo} source={require('../../images/logo.png')}/>
 					</Animated.View>
 					<Text style={styles.titleText}>
