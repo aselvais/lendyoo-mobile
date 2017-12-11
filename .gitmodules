@@ -1,0 +1,4 @@
+[submodule "src/shared"]
+	path = src/shared
+	url = https://github.com/aselvais/lendyoo-shared.git
+	branch = master
