@@ -53,3 +53,20 @@ List the deployed versions:
 code-push deployment ls WinLoseOrTie-android
 code-push deployment ls WinLoseOrTie-ios
 ```
+
+
+
+## Screens
+
+
+- Landing / Onboarding
+- Signup
+- Login
+- Settings
+- Contacts
+- Lend
+- Loans history
+- Loan status
+
+
+

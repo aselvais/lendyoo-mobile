@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import {Animated, Dimensions, Image, StyleSheet, Text, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import AbstractScreen from "./AbstractScreen";
 
 const {height, width} = Dimensions.get('window');
 
 /**
  *
  */
-class LandingScreen extends Component
+class LandingScreen extends AbstractScreen
 {
 	/**
 	 *
