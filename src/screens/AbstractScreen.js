@@ -1,23 +1,14 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, TouchableHighlight} from 'react-native';
-import { Icon } from 'native-base';
+import {StyleSheet, Text} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import {Body, Button, Container, Content, Footer, FooterTab, Header, Icon, Left, Right, Title} from 'native-base';
+
 
 /**
  *
  */
 class AbstractScreen extends Component
 {
-
-	/**
-	 *
-	 * @type {{drawerLabel: string, drawerIcon: function({tintColor: *}): *}}
-	 */
-	static navigationOptions = {
-		drawerLabel: 'AbstractScreen',
-		drawerIcon: ({ tintColor }) => (<Icon name='home' />),
-	};
-
 	/**
 	 *
 	 * @returns {string}
@@ -34,15 +25,33 @@ class AbstractScreen extends Component
 	render()
 	{
 		return (
-			<LinearGradient colors={['#FFFFFF', '#AAAAAA']} style={styles.linearGradient}>
-				<View style={styles.container}>
-					<TouchableHighlight onPress={() => this.props.navigation.navigate('DrawerToggle')}>
-					<Text style={styles.titleText}>
-						{ this.getTitle() }
-					</Text>
-					</TouchableHighlight>
-				</View>
-			</LinearGradient>
+			<Container>
+				<Header>
+					<Left>
+						<Button transparent onPress={() => this.props.navigation.navigate('DrawerToggle')}>
+							<Icon name='menu'/>
+						</Button>
+					</Left>
+					<Body>
+					<Title>Header</Title>
+					</Body>
+					<Right/>
+				</Header>
+				<LinearGradient colors={['#FFFFFF', '#AAAAAA']} style={styles.linearGradient}>
+					<Content>
+						<Text style={styles.titleText}>
+							{this.getTitle()}
+						</Text>
+					</Content>
+				</LinearGradient>
+				<Footer>
+					<FooterTab>
+						<Button full>
+							<Text>Footer</Text>
+						</Button>
+					</FooterTab>
+				</Footer>
+			</Container>
 		);
 	};
 
@@ -50,7 +59,6 @@ class AbstractScreen extends Component
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
 	},

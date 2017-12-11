@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Animated, Dimensions, Image, StyleSheet, Text, View, TouchableHighlight} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import AbstractScreen from "./AbstractScreen";
-import { Icon } from 'native-base';
+
 
 const {height, width} = Dimensions.get('window');
 
@@ -11,14 +11,6 @@ const {height, width} = Dimensions.get('window');
  */
 class LandingScreen extends AbstractScreen
 {
-	/**
-	 *
-	 * @type {{drawerLabel: string, drawerIcon: function({tintColor: *}): *}}
-	 */
-	static navigationOptions = {
-		drawerLabel: 'Welcome',
-		drawerIcon: ({ tintColor }) => (<Icon name='home' />),
-	};
 	/**
 	 *
 	 * @type {{fadeAnim: *}}

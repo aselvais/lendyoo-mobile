@@ -8,15 +8,6 @@ import { Icon } from 'native-base';
  */
 class LendScreen extends AbstractScreen
 {
-	/**
-	 *
-	 * @type {{drawerLabel: string, drawerIcon: function({tintColor: *}): *}}
-	 */
-	static navigationOptions = {
-		drawerLabel: 'Lend item',
-		drawerIcon: ({ tintColor }) => (<Icon name='add-circle' />),
-	};
-
 	getTitle()
 	{
 		return 'LendScreen';

@@ -8,14 +8,6 @@ import { Icon } from 'native-base';
  */
 class HistoryScreen extends AbstractScreen
 {
-	/**
-	 *
-	 * @type {{drawerLabel: string, drawerIcon: function({tintColor: *}): *}}
-	 */
-	static navigationOptions = {
-		drawerLabel: 'Loans history',
-		drawerIcon: ({ tintColor }) => (<Icon name='list' />),
-	};
 
 	getTitle()
 	{

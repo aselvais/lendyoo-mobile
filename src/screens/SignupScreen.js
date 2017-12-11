@@ -8,14 +8,6 @@ import { Icon } from 'native-base';
  */
 class SignupScreen extends AbstractScreen
 {
-	/**
-	 *
-	 * @type {{drawerLabel: string, drawerIcon: function({tintColor: *}): *}}
-	 */
-	static navigationOptions = {
-		drawerLabel: 'Signup',
-		drawerIcon: ({ tintColor }) => (<Icon name='body' />),
-	};
 
 	getTitle()
 	{

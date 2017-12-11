@@ -8,15 +8,6 @@ import { Icon } from 'native-base';
  */
 class ContactsScreen extends AbstractScreen
 {
-	/**
-	 *
-	 * @type {{drawerLabel: string, drawerIcon: function({tintColor: *}): *}}
-	 */
-	static navigationOptions = {
-		drawerLabel: 'Contacts',
-		drawerIcon: ({ tintColor }) => (<Icon name='contacts' />),
-	};
-
 	getTitle()
 	{
 		return 'ContactsScreen';
