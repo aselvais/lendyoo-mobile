@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, TouchableHighlight} from 'react-native';
+import { Icon } from 'native-base';
 import LinearGradient from 'react-native-linear-gradient';
 
 /**
@@ -7,6 +8,15 @@ import LinearGradient from 'react-native-linear-gradient';
  */
 class AbstractScreen extends Component
 {
+
+	/**
+	 *
+	 * @type {{drawerLabel: string, drawerIcon: function({tintColor: *}): *}}
+	 */
+	static navigationOptions = {
+		drawerLabel: 'AbstractScreen',
+		drawerIcon: ({ tintColor }) => (<Icon name='home' />),
+	};
 
 	/**
 	 *

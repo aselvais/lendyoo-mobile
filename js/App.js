@@ -9,6 +9,7 @@ import LoanstatusScreen from "./screens/LoanstatusScreen";
 import LoginScreen from "./screens/LoginScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import SignupScreen from "./screens/SignupScreen";
+import AboutScreen from "./screens/AboutScreen";
 
 
 /**
@@ -16,15 +17,14 @@ import SignupScreen from "./screens/SignupScreen";
  */
 export default DrawerNavigator({
 	LandingScreen: {screen: LandingScreen},
+	SignupScreen: {screen: SignupScreen},
+	LoginScreen: {screen: LoginScreen},
 	HistoryScreen: {screen: HistoryScreen},
-	ContactsScreen: {screen: ContactsScreen},
 	LendScreen: {screen: LendScreen},
 	LoanstatusScreen: {screen: LoanstatusScreen},
-	LoginScreen: {screen: LoginScreen},
+	ContactsScreen: {screen: ContactsScreen},
 	SettingsScreen: {screen: SettingsScreen},
-	SignupScreen: {screen: SignupScreen}
-
-
+	AboutScreen: {screen: AboutScreen},
 });
 
 
