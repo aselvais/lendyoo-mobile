@@ -1,29 +1,31 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet} from 'react-native';
+import {DrawerNavigator} from 'react-navigation';
 import LandingScreen from "./screens/LandingScreen";
+import HistoryScreen from "./screens/HistoryScreen";
+import ContactsScreen from "./screens/ContactsScreen";
+import LendScreen from "./screens/LendScreen";
+import LoanstatusScreen from "./screens/LoanstatusScreen";
+import LoginScreen from "./screens/LoginScreen";
+import SettingsScreen from "./screens/SettingsScreen";
+import SignupScreen from "./screens/SignupScreen";
+
 
 /**
  *
  */
-export default class App extends React.Component
-{
-	/**
-	 *
-	 * @returns {*}
-	 */
-	render()
-	{
-		return (
-			<LandingScreen/>
-		);
-	}
-}
+export default DrawerNavigator({
+	LandingScreen: {screen: LandingScreen},
+	HistoryScreen: {screen: HistoryScreen},
+	ContactsScreen: {screen: ContactsScreen},
+	LendScreen: {screen: LendScreen},
+	LoanstatusScreen: {screen: LoanstatusScreen},
+	LoginScreen: {screen: LoginScreen},
+	SettingsScreen: {screen: SettingsScreen},
+	SignupScreen: {screen: SignupScreen}
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#fff',
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
+
 });
+
+
+const styles = StyleSheet.create({});

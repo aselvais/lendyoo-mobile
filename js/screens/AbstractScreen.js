@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, TouchableHighlight} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 /**
@@ -26,9 +26,11 @@ class AbstractScreen extends Component
 		return (
 			<LinearGradient colors={['#FFFFFF', '#AAAAAA']} style={styles.linearGradient}>
 				<View style={styles.container}>
+					<TouchableHighlight onPress={() => this.props.navigation.navigate('DrawerToggle')}>
 					<Text style={styles.titleText}>
 						{ this.getTitle() }
 					</Text>
+					</TouchableHighlight>
 				</View>
 			</LinearGradient>
 		);

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Animated, Dimensions, Image, StyleSheet, Text, View} from 'react-native';
+import {Animated, Dimensions, Image, StyleSheet, Text, View, TouchableHighlight} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import AbstractScreen from "./AbstractScreen";
 
@@ -10,6 +10,15 @@ const {height, width} = Dimensions.get('window');
  */
 class LandingScreen extends AbstractScreen
 {
+	static navigationOptions = {
+//		drawerLabel: 'Home',
+		/* drawerIcon: ({ tintColor }) => (
+			<Image
+				source={require('./chats-icon.png')}
+				style={[styles.icon, {tintColor: tintColor}]}
+			/>
+		), */
+	};
 	/**
 	 *
 	 * @type {{fadeAnim: *}}
@@ -47,17 +56,21 @@ class LandingScreen extends AbstractScreen
 
 		return (
 			<LinearGradient colors={['#FFFFFF', '#AAAAAA']} style={styles.linearGradient}>
-				<View style={styles.container}>
+				<View style={styles.container} >
 					<Animated.View
 						style={{
 							...this.props.style,
 							opacity: fadeAnim,
 						}}>
-						<Image style={styles.logo} source={require('../../images/logo.png')}/>
+						<Image
+							style={styles.logo} source={require('../../images/logo.png')}
+						/>
 					</Animated.View>
+					<TouchableHighlight onPress={() => this.props.navigation.navigate('DrawerToggle')}>
 					<Text style={styles.titleText}>
 						Lendyou !
 					</Text>
+					</TouchableHighlight>
 				</View>
 			</LinearGradient>
 		);
