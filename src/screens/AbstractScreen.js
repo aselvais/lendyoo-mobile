@@ -1,14 +1,19 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text} from 'react-native';
+import {Dimensions, StyleSheet, Text} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {Body, Button, Container, Content, Footer, FooterTab, Header, Icon, Left, Right, Title} from 'native-base';
 
+import styles from './GlobalStyles';
 
 /**
  *
  */
 class AbstractScreen extends Component
 {
+	width = Dimensions.get('window').width;
+	height = Dimensions.get('window').height;
+	static _styles = styles;
+
 	/**
 	 *
 	 * @returns {string}
@@ -16,6 +21,39 @@ class AbstractScreen extends Component
 	getTitle()
 	{
 		return 'AbstractScreen';
+	}
+
+	/**
+	 *
+	 * @returns {*}
+	 */
+	getFooter()
+	{
+		return null;
+		/* return (
+			<Footer>
+			<FooterTab>
+				<Button full>
+					<Text>Footer</Text>
+				</Button>
+			</FooterTab>
+		</Footer>
+		); */
+	}
+
+	/**
+	 *
+	 * @returns {*}
+	 */
+	getContent()
+	{
+		return (
+			<Content>
+				<Text style={AbstractScreen._styles.titleText}>
+					{this.getTitle()}
+				</Text>
+			</Content>
+		);
 	}
 
 	/**
@@ -33,44 +71,18 @@ class AbstractScreen extends Component
 						</Button>
 					</Left>
 					<Body>
-					<Title>Header</Title>
+					<Title>iLendYou</Title>
 					</Body>
 					<Right/>
 				</Header>
-				<LinearGradient colors={['#FFFFFF', '#AAAAAA']} style={styles.linearGradient}>
-					<Content>
-						<Text style={styles.titleText}>
-							{this.getTitle()}
-						</Text>
-					</Content>
+				<LinearGradient colors={['#FFFFFF', '#AAAAAA']} style={AbstractScreen._styles.linearGradient}>
+					{this.getContent()}
 				</LinearGradient>
-				<Footer>
-					<FooterTab>
-						<Button full>
-							<Text>Footer</Text>
-						</Button>
-					</FooterTab>
-				</Footer>
+				{this.getFooter()}
 			</Container>
 		);
 	};
 
 }
-
-const styles = StyleSheet.create({
-	container: {
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-	linearGradient: {
-		flex: 1,
-		paddingLeft: 15,
-		paddingRight: 15,
-		borderRadius: 5
-	},
-	titleText: {
-		backgroundColor: 'transparent',
-	},
-});
 
 export default AbstractScreen;
