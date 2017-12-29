@@ -1,7 +1,7 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
 import AbstractScreen from "./AbstractScreen";
-import { Icon } from 'native-base';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Content, Icon} from 'native-base';
 
 /**
  *
@@ -10,11 +10,21 @@ class LoginScreen extends AbstractScreen
 {
 	getTitle()
 	{
-		return 'LoginScreen';
+		return 'Login';
 	}
+
 }
 
-const styles = StyleSheet.create({
-});
+const _localStyles = StyleSheet.create(
+	{
+		mainContainer: {
+			flex: 1,
+			flexDirection: 'column',
+			justifyContent: 'space-between',
+			alignItems: 'stretch',
+		},
+	}
+);
+const styles = {...AbstractScreen._styles, ..._localStyles};
 
 export default LoginScreen;

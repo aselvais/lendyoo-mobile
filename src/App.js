@@ -16,18 +16,18 @@ import AboutScreen from "./screens/AboutScreen";
  *
  */
 export default DrawerNavigator({
-	SignupScreen: {
-		screen: SignupScreen, navigationOptions: {
-			drawerLabel: 'Sign-up',
-			drawerIcon: <Icon name='body'/>,
-			headerTitle: 'Sign-up',
-		}
-	},
 	LandingScreen: {
 		screen: LandingScreen, navigationOptions: {
 			drawerLabel: 'Welcome',
 			drawerIcon: <Icon name='home'/>,
 			headerTitle: 'Home',
+		}
+	},
+	SignupScreen: {
+		screen: SignupScreen, navigationOptions: {
+			drawerLabel: 'Sign-up',
+			drawerIcon: <Icon name='body'/>,
+			headerTitle: 'Sign-up',
 		}
 	},
 	LoginScreen: {

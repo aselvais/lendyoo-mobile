@@ -1,8 +1,7 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import AbstractScreen from "./AbstractScreen";
-import {Content, Icon, Button} from 'native-base';
-import {Col, Grid, Row} from "react-native-easy-grid";
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Content, Icon} from 'native-base';
 
 /**
  *
@@ -16,7 +15,7 @@ class SignupScreen extends AbstractScreen
 	 */
 	getTitle()
 	{
-		return 'SignupScreen';
+		return 'Sign-up';
 	}
 
 	/**
@@ -26,62 +25,87 @@ class SignupScreen extends AbstractScreen
 	getContent()
 	{
 		return (
-			<Grid>
-				<Row size={40} style={styles.allcentered}><Text>SING UP</Text></Row>
-				<Row size={20} style={styles.allcentered}>
-					<TouchableOpacity style={styles.fbBtnTouch} onPress={ () => console.warn('fbBtn Touch Touched !') }>
-						<Grid>
-							<Col><Icon name="logo-facebook" style={{fontSize: 20, color: '#FFFFFF'}}/></Col>
-							<Col><Text style={styles.fbBtnText}>Sign up with{"\n"}Facebook</Text></Col>
-						</Grid>
+			<View style={styles.mainContainer}>
+
+				<View style={styles.genericRow}>
+					<View style={styles.titleContainer}>
+						<Text style={styles.titleTxt}>SING UP</Text>
+					</View>
+				</View>
+
+				<View style={styles.genericRow}>
+					<TouchableOpacity onPress={() => console.warn('fbBtn Touch Touched !')}>
+						<View style={styles.fbBtnContainer}>
+							<View style={styles.fbBtnCol01}>
+								<Icon name="logo-facebook" style={{fontSize: 40, color: '#FFFFFF'}}/>
+							</View>
+							<View style={styles.fbBtnCol02}>
+								<Text style={styles.fbBtnText}>Sign up with{"\n"}Facebook</Text>
+							</View>
+						</View>
 					</TouchableOpacity>
-				</Row>
-				<Row size={30} style={styles.allcentered}>
-					<TouchableOpacity style={styles.underlineBtnTouch} onPress={ () => console.warn('underlineBtnTouch Touched !') }>
-						<Text style={styles.underlineBtnText}>User other log{"\n   "}in methods</Text>
+				</View>
+
+				<View style={styles.genericRow}>
+					<TouchableOpacity onPress={() => console.warn('underlineBtnTouch Touched !')}>
+						<View style={styles.underlineBtnContainer}>
+							<Text style={styles.underlineBtnText}>Use other log{"\n  "}in methods</Text>
+						</View>
 					</TouchableOpacity>
-				</Row>
-				<Row size={10} style={styles.lastrow}>
-					<Button style={styles.buttonOrange}>
-					<Text style={styles.buttonTextColor}>HAVE AN ACCOUNT? LOG IN</Text>
-					</Button>
-				</Row>
-			</Grid>
+				</View>
+
+				<View style={styles.genericRow}>
+					<TouchableOpacity onPress={() => console.warn('fbBtn Touch Touched !')}>
+						<View style={styles.buttonOrangeContainer}>
+							<Text style={styles.buttonTextColor}>HAVE AN ACCOUNT? LOG IN</Text>
+						</View>
+					</TouchableOpacity>
+				</View>
+
+			</View>
 		);
 	}
 
 
 }
+
 const _localStyles = StyleSheet.create(
 	{
-		lastrow: {
-			alignItems: 'center',
-			alignSelf: 'center',
-		},
-		buttonOrange: {
-			backgroundColor: '#ED7322',
-			borderRadius: 0,
-			width: '100%',
-			justifyContent: 'center',
-		},
-		buttonTextColor: {
-			color: '#FFFFFF',
-			fontSize: 16,
+		mainContainer: {
+			flex: 1,
+			flexDirection: 'column',
+			justifyContent: 'space-between',
+			alignItems: 'stretch',
 		},
 
-		fbBtnTouch: {
+		genericRow: {
+			flexDirection: 'column',
+			alignItems: 'stretch',
+		},
+
+		fbBtnContainer: {
+			alignSelf: 'stretch',
 			alignItems: 'center',
-			alignSelf: 'center',
-			width: '100%',
+			flexDirection: 'row',
 			backgroundColor: '#0086B3',
 			padding: 20,
+			margin: 20,
+		},
+		fbBtnCol01: {
+			flex:1,
+			alignItems: 'flex-end',
+			paddingRight: 10,
+		},
+		fbBtnCol02: {
+			flex:2,
 		},
 		fbBtnText: {
 			color: '#FFFFFF',
 			fontSize: 20,
 		},
 
-		underlineBtnTouch: {
+
+		underlineBtnContainer: {
 			alignItems: 'center',
 			alignSelf: 'center',
 			width: '100%',
@@ -90,7 +114,8 @@ const _localStyles = StyleSheet.create(
 			alignItems: 'center',
 			textDecorationLine: 'underline',
 			fontSize: 25,
-		}
+		},
+
 	}
 );
 const styles = {...AbstractScreen._styles, ..._localStyles};
