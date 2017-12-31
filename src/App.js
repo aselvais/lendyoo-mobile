@@ -16,6 +16,14 @@ import AboutScreen from "./screens/AboutScreen";
  *
  */
 export default DrawerNavigator({
+	LoginScreen: {
+		screen: LoginScreen, navigationOptions: {
+			drawerLabel: 'Login',
+			drawerIcon: <Icon name='log-in'/>,
+			headerTitle: 'Login',
+		}
+	},
+	/*--------------------------------------------------------------------------------*/
 	LandingScreen: {
 		screen: LandingScreen, navigationOptions: {
 			drawerLabel: 'Welcome',
@@ -30,13 +38,13 @@ export default DrawerNavigator({
 			headerTitle: 'Sign-up',
 		}
 	},
-	LoginScreen: {
+/*	LoginScreen: {
 		screen: LoginScreen, navigationOptions: {
 			drawerLabel: 'Login',
 			drawerIcon: <Icon name='log-in'/>,
 			headerTitle: 'Login',
 		}
-	},
+	},*/
 	HistoryScreen: {
 		screen: HistoryScreen, navigationOptions: {
 			drawerLabel: 'Loans history',

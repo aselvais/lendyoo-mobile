@@ -50,7 +50,7 @@ class LandingScreen extends AbstractScreen
 			<LinearGradient colors={['#FFFFFF', '#AAAAAA']} style={styles.linearGradient}>
 				<View style={styles.mainContainer}>
 
-					<View style={[styles.container, { flex: 30, flexDirection: 'column', alignItems: 'center'}]}>
+					<View style={[styles.container, { flex: 35, flexDirection: 'column', alignItems: 'center'}]}>
 						<View>
 						<Animated.View style={{ ...this.props.style, opacity: fadeAnim, }}>
 							<Image style={styles.logo} source={require('../../images/logo.png')}/>
@@ -63,7 +63,7 @@ class LandingScreen extends AbstractScreen
 
 
 					<View style={[styles.container, {
-						flex: 50,
+						flex: 45,
 						flexDirection: 'column',
 						alignItems: 'center',
 					}]}>
@@ -111,6 +111,7 @@ const _localStyles = StyleSheet.create(
 		},
 
 		logo: {
+			paddingTop: 80,
 			width: width/4,
 			height: width/4,
 			resizeMode: 'contain',

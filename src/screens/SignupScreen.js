@@ -15,7 +15,7 @@ class SignupScreen extends AbstractScreen
 	 */
 	getTitle()
 	{
-		return 'Sign-up';
+		return 'SING UP';
 	}
 
 	/**
@@ -29,7 +29,7 @@ class SignupScreen extends AbstractScreen
 
 				<View style={styles.genericRow}>
 					<View style={styles.titleContainer}>
-						<Text style={styles.titleTxt}>SING UP</Text>
+						<Text style={styles.titleTxt}>{this.getTitle()}</Text>
 					</View>
 				</View>
 
