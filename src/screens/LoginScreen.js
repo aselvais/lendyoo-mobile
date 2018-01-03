@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Animated, Dimensions, Image, StyleSheet, Text, View, TouchableOpacity, TextInput} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, TextInput, ScrollView} from 'react-native';
 import AbstractScreen from "./AbstractScreen";
 import {Content, Icon} from 'native-base';
 
@@ -29,6 +29,8 @@ class LoginScreen extends AbstractScreen
 	getContent()
 	{
 		return (
+			<ScrollView contentContainerStyle={{ flexGrow: 1 }} >
+
 			<View style={styles.mainContainer}>
 
 				<View style={styles.genericRow}>
@@ -95,8 +97,8 @@ class LoginScreen extends AbstractScreen
 					</TouchableOpacity>
 				</View>
 
-
 			</View>
+			</ScrollView>
 		);
 	}
 
@@ -109,11 +111,6 @@ const _localStyles = StyleSheet.create(
 			flexDirection: 'column',
 			justifyContent: 'space-between',
 			alignItems: 'stretch',
-		},
-
-		allborder: {
-			borderWidth: 1,
-			borderColor: '#FF0000',
 		},
 
 		formElemContainer: {

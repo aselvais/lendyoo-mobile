@@ -29,7 +29,7 @@ export default StyleSheet.create({
 	titleTxt: {
 		color: '#00B8EC',
 		paddingTop: 30,
-		fontSize: 34
+		fontSize: 28
 	},
 
 	buttonOrangeContainer: {

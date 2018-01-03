@@ -16,13 +16,15 @@ import AboutScreen from "./screens/AboutScreen";
  *
  */
 export default DrawerNavigator({
-	LoginScreen: {
-		screen: LoginScreen, navigationOptions: {
-			drawerLabel: 'Login',
-			drawerIcon: <Icon name='log-in'/>,
-			headerTitle: 'Login',
+
+	SettingsScreen: {
+		screen: SettingsScreen, navigationOptions: {
+			drawerLabel: 'Settings',
+			drawerIcon: <Icon name='settings'/>,
+			headerTitle: 'Settings',
 		}
 	},
+
 	/*--------------------------------------------------------------------------------*/
 	LandingScreen: {
 		screen: LandingScreen, navigationOptions: {
@@ -38,13 +40,13 @@ export default DrawerNavigator({
 			headerTitle: 'Sign-up',
 		}
 	},
-/*	LoginScreen: {
+	LoginScreen: {
 		screen: LoginScreen, navigationOptions: {
 			drawerLabel: 'Login',
 			drawerIcon: <Icon name='log-in'/>,
 			headerTitle: 'Login',
 		}
-	},*/
+	},
 	HistoryScreen: {
 		screen: HistoryScreen, navigationOptions: {
 			drawerLabel: 'Loans history',
@@ -73,6 +75,7 @@ export default DrawerNavigator({
 			headerTitle: 'Contacts',
 		}
 	},
+	/*
 	SettingsScreen: {
 		screen: SettingsScreen, navigationOptions: {
 			drawerLabel: 'Settings',
@@ -80,6 +83,7 @@ export default DrawerNavigator({
 			headerTitle: 'Settings',
 		}
 	},
+	*/
 	AboutScreen: {
 		screen: AboutScreen, navigationOptions: {
 			drawerLabel: 'About',
