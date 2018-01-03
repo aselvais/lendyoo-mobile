@@ -37,7 +37,7 @@ class LoginScreen extends AbstractScreen
 					</View>
 				</View>
 
-				<View style={styles.formElemContainer}>
+				<View style={[styles.formElemContainer, styles.bottomLine]}>
 					<View style={styles.formElemRow01}><Text>Email</Text></View>
 					<View style={styles.formElemRow02}><TextInput style={styles.formTextInput} onChangeText={(text) => this.setState({text})} value={this.state.email}/></View>
 				</View>
@@ -61,10 +61,14 @@ class LoginScreen extends AbstractScreen
 					</View>
 				</View>
 
-				<View style={styles.genericRow}>
-					<View style={styles.orContainer}>
-						<Text style={styles.orText}>OR</Text>
-					</View>
+				<View style={{
+					alignItems: 'stretch',
+					flexDirection: 'row',
+					justifyContent: 'center',
+				}}>
+					<View style={[styles.orContainer, { flex: 2, height: '50%', borderBottomWidth: 2, borderBottomColor: '#000' }]}></View>
+					<View style={[styles.orContainer, { flex: 1 }]}><Text style={styles.orText}>OR</Text></View>
+					<View style={[styles.orContainer, { flex: 2, height: '50%', borderBottomWidth: 2, borderBottomColor: '#000'  }]}></View>
 				</View>
 
 				<View style={styles.genericRow}>
@@ -107,12 +111,21 @@ const _localStyles = StyleSheet.create(
 			alignItems: 'stretch',
 		},
 
+		allborder: {
+			borderWidth: 1,
+			borderColor: '#FF0000',
+		},
+
 		formElemContainer: {
 			flexDirection: 'row',
 		},
 		formElemRow01: {
 			flex: 1,
 			alignSelf: 'center',
+		},
+		bottomLine: {
+			borderBottomWidth: 2,
+			borderBottomColor: '#000',
 		},
 		formElemRow02: {
 			flex: 3
@@ -144,7 +157,7 @@ const _localStyles = StyleSheet.create(
 		},
 
 		orContainer: {
-
+			alignItems: 'center',
 		},
 		orText: {
 			color: '#000000',
