@@ -10,11 +10,22 @@ const {height, width} = Dimensions.get('window');
  */
 class SettingsScreen extends AbstractScreen
 {
+	/**
+	 *
+	 * @returns {string}
+	 */
 	getTitle()
 	{
 		return 'ACCOUNT & SETTINGS';
 	}
 
+	/**
+	 *
+	 * @param label
+	 * @param placeholder
+	 * @param bottomline
+	 * @returns {*}
+	 */
 	getFormElement(label='email', placeholder='email', bottomline=true)
 	{
 		let stl = [styles.formElemContainer];
@@ -24,8 +35,8 @@ class SettingsScreen extends AbstractScreen
 		}
 		return (
 			<View style={stl}>
-				<View style={styles.formElemRow01}><Text>{label}</Text></View>
-				<View style={styles.formElemRow02}><TextInput style={styles.formTextInput} value={placeholder}/></View>
+				<View style={styles.formElemRow01}><Text style={styles.formText}>{label}</Text></View>
+				<View style={styles.formElemRow02}><TextInput style={styles.formTextInput} underlineColorAndroid="transparent" value={placeholder}/></View>
 			</View>
 		);
 	}

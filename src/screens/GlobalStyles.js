@@ -6,10 +6,6 @@ export default StyleSheet.create({
 		justifyContent: 'center',
 	},
 	linearGradient: {
-		//  flexDirection: row, row-reverse, column, column-reverse
-		//  justifyContent: flex-start, flex-end, center, space-between, space-around
-		//  alignSelf: auto, flex-start, flex-end, center, stretch
-		//  alignItems: flex-start, flex-end, center, stretch
 		flex: 1,
 		paddingLeft: 15,
 		paddingRight: 15,
@@ -28,7 +24,7 @@ export default StyleSheet.create({
 	},
 	titleTxt: {
 		color: '#00B8EC',
-		paddingTop: 30,
+		paddingTop: 20,
 		fontSize: 28
 	},
 
@@ -42,6 +38,9 @@ export default StyleSheet.create({
 	buttonTextColor: {
 		fontSize: 16,
 		color: '#FFFFFF',
+	},
+	formText: {
+		color: '#000',
 	},
 
 });

@@ -40,13 +40,13 @@ class LoginScreen extends AbstractScreen
 				</View>
 
 				<View style={[styles.formElemContainer, styles.bottomLine]}>
-					<View style={styles.formElemRow01}><Text>Email</Text></View>
-					<View style={styles.formElemRow02}><TextInput style={styles.formTextInput} onChangeText={(text) => this.setState({text})} value={this.state.email}/></View>
+					<View style={styles.formElemRow01}><Text style={styles.formText}>Email</Text></View>
+					<View style={styles.formElemRow02}><TextInput style={styles.formTextInput} underlineColorAndroid="transparent" onChangeText={(text) => this.setState({text})} value={this.state.email}/></View>
 				</View>
 
 				<View style={styles.formElemContainer}>
-					<View style={styles.formElemRow01}><Text>Password</Text></View>
-					<View style={styles.formElemRow02}><TextInput style={styles.formTextInput} onChangeText={(text) => this.setState({text})} value={this.state.password}/></View>
+					<View style={styles.formElemRow01}><Text style={styles.formText}>Password</Text></View>
+					<View style={styles.formElemRow02}><TextInput style={styles.formTextInput} underlineColorAndroid="transparent" onChangeText={(text) => this.setState({text})} value={this.state.password}/></View>
 				</View>
 
 				<View style={styles.genericRow}>
