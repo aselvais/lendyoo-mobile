@@ -17,11 +17,11 @@ import AboutScreen from "./screens/AboutScreen";
  */
 export default DrawerNavigator({
 
-	HistoryScreen: {
-		screen: HistoryScreen, navigationOptions: {
-			drawerLabel: 'Loans history',
-			drawerIcon: <Icon name='list'/>,
-			headerTitle: 'Loans history',
+	LendScreen: {
+		screen: LendScreen, navigationOptions: {
+			drawerLabel: 'Lend item',
+			drawerIcon: <Icon name='add-circle'/>,
+			headerTitle: 'Lend item',
 		}
 	},
 
@@ -47,20 +47,20 @@ export default DrawerNavigator({
 			headerTitle: 'Login',
 		}
 	},
-/*	HistoryScreen: {
+	HistoryScreen: {
 		screen: HistoryScreen, navigationOptions: {
 			drawerLabel: 'Loans history',
 			drawerIcon: <Icon name='list'/>,
 			headerTitle: 'Loans history',
 		}
-	},*/
-	LendScreen: {
+	},
+/*	LendScreen: {
 		screen: LendScreen, navigationOptions: {
 			drawerLabel: 'Lend item',
 			drawerIcon: <Icon name='add-circle'/>,
 			headerTitle: 'Lend item',
 		}
-	},
+	},*/
 	LoanstatusScreen: {
 		screen: LoanstatusScreen, navigationOptions: {
 			drawerLabel: 'Loans status',
