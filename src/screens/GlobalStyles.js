@@ -7,9 +7,9 @@ export default StyleSheet.create({
 	},
 	linearGradient: {
 		flex: 1,
-		paddingLeft: 15,
-		paddingRight: 15,
-		borderRadius: 5,
+//		paddingLeft: 15,
+//		paddingRight: 15,
+		borderRadius: 0,
 	},
 	titleText: {
 		backgroundColor: 'transparent',
@@ -41,6 +41,11 @@ export default StyleSheet.create({
 	},
 	formText: {
 		color: '#000',
+	},
+
+	redBorders: {
+		borderWidth: 1,
+		borderColor: '#FF0000',
 	},
 
 });
