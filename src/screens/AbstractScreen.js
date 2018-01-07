@@ -10,8 +10,8 @@ import styles from './GlobalStyles';
  */
 class AbstractScreen extends Component
 {
-	width = Dimensions.get('window').width;
-	height = Dimensions.get('window').height;
+	static width = Dimensions.get('window').width;
+	static height = Dimensions.get('window').height;
 	static _styles = styles;
 
 	/**

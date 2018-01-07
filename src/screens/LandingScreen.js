@@ -4,8 +4,6 @@ import LinearGradient from 'react-native-linear-gradient';
 import AbstractScreen from "./AbstractScreen";
 import {Content, Icon} from 'native-base';
 
-const {height, width} = Dimensions.get('window');
-
 /**
  *
  */
@@ -112,8 +110,8 @@ const _localStyles = StyleSheet.create(
 
 		logo: {
 			paddingTop: 80,
-			width: width/4,
-			height: width/4,
+			width: AbstractScreen.width/4,
+			height: AbstractScreen.width/4,
 			resizeMode: 'contain',
 		},
 	}
