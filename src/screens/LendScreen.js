@@ -9,6 +9,10 @@ import {Content, Icon} from 'native-base';
  */
 class LendScreen extends AbstractScreen
 {
+	state = {
+		loanmaindirection: true,
+	};
+
 	/**
 	 *
 	 * @returns {string}
@@ -18,20 +22,48 @@ class LendScreen extends AbstractScreen
 		return 'Lend';
 	}
 
+	/**
+	 *
+	 * @returns {*}
+	 */
 	getTopLoanBarJSX()
 	{
 		return(
 			<View style={styles.topContainer}>
 				<View style={[styles.avatarContainer, {marginLeft: 25,}]}>
 					<Image style={styles.imageAvatar} source={require('../../images/20664038_10158962015225136_6191620256789104695_n.jpg')}/>
-					<Text style={styles.titleTopText}>FROM</Text>
+					<Text style={styles.titleTopText}>{(this.state.loanmaindirection) ? 'FROM' : 'TO'}</Text>
 				</View>
+
+				<TouchableOpacity onPress={ () => this.setState({loanmaindirection: !this.state.loanmaindirection}) }>
 				<View>
-					<Image style={styles.imageLogo} source={require('../../images/lendyoologoshadow.png')}/>
+					<Image style={[styles.imageLogo, {
+						transform: [{ scaleX: (this.state.loanmaindirection) ? 1 : -1 }]
+					}]} source={require('../../images/lendyoologoshadow.png')}/>
 				</View>
+				</TouchableOpacity>
+
 				<View style={[styles.avatarContainer, {marginRight: 25,}]}>
 					<Image style={styles.imageAvatar} source={require('../../images/22179904_10212243801302792_6096409457610505771_o.jpg')}/>
-					<Text style={styles.titleTopText}>TO</Text>
+					<Text style={styles.titleTopText}>{(this.state.loanmaindirection) ? 'TO' : 'FROM'}</Text>
+				</View>
+			</View>
+		);
+	}
+
+	/**
+	 *
+	 * @returns {*}
+	 */
+	getPhotoContainerJSX()
+	{
+		return (
+			<View style={{ alignItems: 'center', }}>
+				<View style={styles.formElemRow01}>
+					<Text style={styles.descText}>Return date</Text>
+				</View>
+				<View style={styles.formElemRow02}>
+					<TextInput style={styles.formTextInput} underlineColorAndroid="transparent" value="12/12/2018"/>
 				</View>
 			</View>
 		);
@@ -45,22 +77,11 @@ class LendScreen extends AbstractScreen
 	{
 		return (
 		<View style={styles.mainContainer}>
-
 			{this.getTopLoanBarJSX()}
-
 			<View style={styles.photoContainer}>
 				<Text style={styles.titleText}>photo</Text>
 			</View>
-
-			<View style={{ alignItems: 'center', }}>
-				<View style={styles.formElemRow01}>
-					<Text style={styles.descText}>Return date</Text>
-				</View>
-				<View style={styles.formElemRow02}>
-					<TextInput style={styles.formTextInput} underlineColorAndroid="transparent" value="12/12/2018"/>
-				</View>
-			</View>
-
+			{this.getPhotoContainerJSX()}
 			<View>
 				<TouchableOpacity>
 					<View style={styles.buttonOrangeContainer}>

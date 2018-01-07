@@ -63,11 +63,7 @@ class LoginScreen extends AbstractScreen
 					</View>
 				</View>
 
-				<View style={{
-					alignItems: 'stretch',
-					flexDirection: 'row',
-					justifyContent: 'center',
-				}}>
+				<View style={styles.orContainerMain}>
 					<View style={[styles.orContainer, { flex: 2, height: '50%', borderBottomWidth: 2, borderBottomColor: '#000' }]}></View>
 					<View style={[styles.orContainer, { flex: 1 }]}><Text style={styles.orText}>OR</Text></View>
 					<View style={[styles.orContainer, { flex: 2, height: '50%', borderBottomWidth: 2, borderBottomColor: '#000'  }]}></View>
@@ -115,6 +111,8 @@ const _localStyles = StyleSheet.create(
 
 		formElemContainer: {
 			flexDirection: 'row',
+			marginLeft: 10,
+			marginRight: 10,
 		},
 		formElemRow01: {
 			flex: 1,
@@ -125,7 +123,7 @@ const _localStyles = StyleSheet.create(
 			borderBottomColor: '#000',
 		},
 		formElemRow02: {
-			flex: 3
+			flex: 3,
 		},
 		formTextInput: {
 			height: 40,
@@ -153,6 +151,14 @@ const _localStyles = StyleSheet.create(
 			padding: 20,
 		},
 
+
+		orContainerMain: {
+			alignItems: 'stretch',
+			flexDirection: 'row',
+			justifyContent: 'center',
+			marginLeft: 10,
+			marginRight: 10,
+		},
 		orContainer: {
 			alignItems: 'center',
 		},
