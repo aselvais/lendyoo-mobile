@@ -74,6 +74,7 @@ export default DrawerNavigator({
 			headerTitle: 'Settings',
 		}
 	},
+	/*
 	AboutScreen: {
 		screen: AboutScreen, navigationOptions: {
 			drawerLabel: 'About',
@@ -81,6 +82,7 @@ export default DrawerNavigator({
 			headerTitle: 'About',
 		}
 	},
+	*/
 });
 
 
