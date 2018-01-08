@@ -17,14 +17,6 @@ import AboutScreen from "./screens/AboutScreen";
  */
 export default DrawerNavigator({
 
-	LoanstatusScreen: {
-		screen: LoanstatusScreen, navigationOptions: {
-			drawerLabel: 'Loans status',
-			drawerIcon: <Icon name='alert'/>,
-			headerTitle: 'Loans status',
-		}
-	},
-
 	/*--------------------------------------------------------------------------------*/
 	LandingScreen: {
 		screen: LandingScreen, navigationOptions: {

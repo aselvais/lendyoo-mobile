@@ -159,6 +159,8 @@ const _localStyles = StyleSheet.create(
 
 		formElemContainer: {
 			flexDirection: 'row',
+			marginLeft: 10,
+			marginRight: 10,
 		},
 		formElemRow01: {
 			flex: 1,

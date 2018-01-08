@@ -1,7 +1,7 @@
 import React from 'react';
-import {StyleSheet, View, TouchableOpacity, Text, } from 'react-native';
+import {StyleSheet, Switch, Text, TouchableOpacity, View, TextInput, } from 'react-native';
 import AbstractScreen from "./AbstractScreen";
-import { Icon } from 'native-base';
+import {Icon} from 'native-base';
 
 /**
  *
@@ -14,7 +14,29 @@ class LoanstatusScreen extends AbstractScreen
 	 */
 	getTitle()
 	{
-		return 'LOAN DETAIL';
+		return 'LOAN STATUS';
+	}
+
+	/**
+	 *
+	 * @param label
+	 * @param placeholder
+	 * @param bottomline
+	 * @returns {*}
+	 */
+	getFormElement(label='email', placeholder='email', bottomline=true)
+	{
+		let stl = [styles.formElemContainer];
+		if (bottomline)
+		{
+			stl.push(styles.bottomLine);
+		}
+		return (
+			<View style={stl}>
+				<View style={styles.formElemRow01}><Text style={styles.formText}>{label}</Text></View>
+				<View style={styles.formElemRow02}><TextInput style={styles.formTextInput} underlineColorAndroid="transparent" value={placeholder}/></View>
+			</View>
+		);
 	}
 
 	/**
@@ -26,15 +48,26 @@ class LoanstatusScreen extends AbstractScreen
 		return (
 			<View style={styles.mainContainer}>
 
-				<View style={{ alignItems: 'center', }}>
-					<Text style={styles.txtDetailTitle}>{this.getTitle()}</Text>
+				<View style={{alignItems: 'center',}}>
+					<Text style={styles.titleTxt}>{this.getTitle()}</Text>
 				</View>
 
-				<View style={{ alignItems: 'center', }}>
-					<Text>Form</Text>
+				<View style={{alignItems: 'center', marginLeft: 30, marginRight: 30, }}>
+					{this.getFormElement('Object name', 'DVD Matrix', true)}
+					{this.getFormElement('Object type', 'Movie DVD', true)}
+					{this.getFormElement('Loan end date', '01/12/2017', false)}
 				</View>
 
-				<View style={{ alignItems: 'center', }}>
+				<View style={styles.reminderContainer}>
+					<View style={{ padding: 10, }}>
+						<Text style={styles.txtReminders}>Smart automatic reminders</Text>
+					</View>
+					<View style={{ padding: 10, }}>
+						<Switch/>
+					</View>
+				</View>
+
+				<View style={{alignItems: 'center',}}>
 					<Text style={styles.txtMoreinfo}>Access to location and agenda is required (why?)</Text>
 				</View>
 
@@ -61,10 +94,15 @@ const _localStyles = StyleSheet.create({
 		alignItems: 'stretch',
 	},
 
-	txtDetailTitle: {
-		marginTop: 30,
-		color: '#9A9A9A',
-		fontSize: 25,
+	titleTxt: {
+		color: '#00B8EC',
+		paddingTop: 20,
+		fontSize: 28
+	},
+
+	txtReminders: {
+		color: '#000',
+		fontSize: 17,
 	},
 
 	txtMoreinfo: {
@@ -75,6 +113,42 @@ const _localStyles = StyleSheet.create({
 		marginRight: 60,
 		textAlign: 'center',
 	},
+
+	formElemContainer: {
+		flexDirection: 'row',
+		marginLeft: 10,
+		marginRight: 10,
+	},
+	formElemRow01: {
+		flex: 3,
+		alignSelf: 'center',
+	},
+	bottomLine: {
+		borderBottomWidth: 2,
+		borderBottomColor: '#000',
+	},
+	formElemRow02: {
+		flex: 3
+	},
+
+	formText: {
+		color: '#000',
+		fontSize: 18,
+	},
+	formTextInput: {
+		height: 40,
+		color: '#8C8C8C',
+		/* borderColor: 'gray',
+		borderWidth: 1, */
+	},
+
+	reminderContainer: {
+		alignItems: 'center',
+		flexDirection: 'row',
+		justifyContent: 'center',
+	},
+
+
 
 });
 const styles = {...AbstractScreen._styles, ..._localStyles};
