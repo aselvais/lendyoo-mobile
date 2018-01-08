@@ -55,7 +55,7 @@ class LandingScreen extends AbstractScreen
 						</Animated.View>
 						</View>
 						<View>
-							<Text style={{ color: '#9A9A9A', paddingTop: 10, fontSize: 20 }}>iLendYou</Text>
+							<Text style={{ color: '#9A9A9A', paddingTop: 10, fontSize: 20 }}>{this.appTitle}</Text>
 						</View>
 					</View>
 

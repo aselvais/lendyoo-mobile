@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Image, StyleSheet, TextInput, Text, View, TouchableOpacity, } from 'react-native';
-// import LinearGradient from 'react-native-linear-gradient';
 import AbstractScreen from "./AbstractScreen";
 import {Content, Icon} from 'native-base';
 

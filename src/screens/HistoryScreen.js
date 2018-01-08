@@ -88,7 +88,7 @@ class HistoryScreen extends AbstractScreen
 						</Button>
 					</Left>
 					<Body>
-					<Title>iLendYou</Title>
+					<Title>{this.appTitle}</Title>
 					</Body>
 					<Right/>
 				</Header>

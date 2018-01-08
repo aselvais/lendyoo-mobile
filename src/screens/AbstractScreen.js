@@ -14,6 +14,8 @@ class AbstractScreen extends Component
 	static height = Dimensions.get('window').height;
 	static _styles = styles;
 
+	appTitle = 'iLENDyou';
+
 	/**
 	 *
 	 * @returns {string}
@@ -71,7 +73,7 @@ class AbstractScreen extends Component
 						</Button>
 					</Left>
 					<Body>
-					<Title>iLendYou</Title>
+					<Title>{this.appTitle}</Title>
 					</Body>
 					<Right/>
 				</Header>
