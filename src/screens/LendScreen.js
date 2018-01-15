@@ -43,15 +43,16 @@ class LendScreen extends AbstractScreen
 	 */
 	getContent()
 	{
+		let { navigation } = this.props;
 		return (
 		<View style={styles.mainContainer}>
-			<Fromtobar/>
+			<Fromtobar navigation={navigation}/>
 			<View style={styles.photoContainer}>
 				<Text style={styles.titleText}>photo</Text>
 			</View>
 			{this.getPhotoContainerJSX()}
 			<View>
-				<TouchableOpacity>
+				<TouchableOpacity onPress={ () => navigation.navigate('LoanstatusScreen') }>
 					<View style={styles.buttonOrangeContainer}>
 						<Text style={styles.buttonTextColor}>SAVE LOAN</Text>
 					</View>

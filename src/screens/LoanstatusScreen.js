@@ -45,6 +45,7 @@ class LoanstatusScreen extends AbstractScreen
 	 */
 	getContent()
 	{
+		let { navigation } = this.props;
 		return (
 			<View style={styles.mainContainer}>
 
@@ -73,7 +74,7 @@ class LoanstatusScreen extends AbstractScreen
 
 
 				<View>
-					<TouchableOpacity>
+					<TouchableOpacity onPress={ () => navigation.navigate('HistoryScreen') }>
 						<View style={styles.buttonOrangeContainer}>
 							<Text style={styles.buttonTextColor}>SAVE LOAN</Text>
 						</View>

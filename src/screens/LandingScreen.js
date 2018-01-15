@@ -43,6 +43,7 @@ class LandingScreen extends AbstractScreen
 	render()
 	{
 		let { fadeAnim } = this.state;
+		let { navigation } = this.props;
 
 		return (
 			<LinearGradient colors={['#FFFFFF', '#AAAAAA']} style={styles.linearGradient}>
@@ -78,7 +79,7 @@ class LandingScreen extends AbstractScreen
 					</View>
 
 					<View style={[styles.container, { flex: 20, justifyContent: 'flex-end'}]}>
-						<TouchableOpacity onPress={() => this.props.navigation.navigate('LoginScreen')}>
+						<TouchableOpacity onPress={() => navigation.navigate('LoginScreen')}>
 							<View style={styles.buttonOrangeContainer}>
 								<Text style={styles.buttonTextColor}>GET STARTED</Text>
 							</View>

@@ -47,21 +47,24 @@ class HistoryScreen extends AbstractScreen
 	getContent()
 	{
 		let {models} = this.state;
+		let { navigation } = this.props;
 		return (
 			<View style={styles.mainContainer}>
 				{
 					models.map( (d, k) => (
-						<TouchableOpacity key={d._id} onPress={() => console.warn('item Touched !')}>
+						<TouchableOpacity key={d._id} onPress={ () => navigation.navigate('LoanstatusScreen') }>
 						<View style={[styles.loanIemContainer, {backgroundColor: (k%2 == 0) ? '#FFF' : '#EEE'}]}>
 							<View style={styles.loanIemCol01}>
-								<Image style={styles.imageAvatar} source={require('../../images/20664038_10158962015225136_6191620256789104695_n.jpg')}/>
+								<Image style={styles.imageAvatar}
+									   source={{uri: 'https://api.lendyou.io/api-v2/photo/getloanimage/' + d._id + '/100'}}
+								/>
 							</View>
 							<View style={styles.loanIemCol02}>
-								<Text style={styles.loanIemText02}>Loan to</Text>
-								<Text style={styles.loanIemText03}>{d.Contact_id}</Text>
+								<Text style={styles.loanIemText02}>Item</Text>
+								<Text style={styles.loanIemText03}>{d.title}</Text>
 							</View>
 							<View style={styles.loanIemCol03}>
-								<Text style={styles.loanIemText04}>{d.title}</Text>
+								<Text style={styles.loanIemText04}>{d.Contact_id}</Text>
 							</View>
 						</View>
 						</TouchableOpacity>
@@ -77,6 +80,7 @@ class HistoryScreen extends AbstractScreen
 	 */
 	render()
 	{
+		let {navigation} = this.props;
 		return (
 			<Container>
 				<Header>
@@ -100,7 +104,7 @@ class HistoryScreen extends AbstractScreen
 				</ScrollView>
 
 				<View style={styles.genericRow}>
-					<TouchableOpacity onPress={() => console.warn('fbBtn Touch Touched !')}>
+					<TouchableOpacity onPress={() => navigation.navigate('LendScreen') }>
 						<View style={styles.buttonOrangeContainer}>
 							<Text style={styles.buttonTextColor}>LEND/BORROW</Text>
 						</View>
@@ -117,9 +121,9 @@ class HistoryScreen extends AbstractScreen
 const _localStyles = StyleSheet.create(
 	{
 		imageAvatar: {
-			width: 40,
-			height: 40,
-			borderRadius: 20,
+			width: 50,
+			height: 50,
+			borderRadius: 25,
 		},
 		loanIemContainer: {
 			height: 70,

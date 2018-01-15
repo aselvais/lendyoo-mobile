@@ -9,8 +9,8 @@ import { Root, Content, Icon, Toast, Button, } from 'native-base';
 class LoginScreen extends AbstractScreen
 {
 	state = {
-		email: 'name@example.com',
-		password: 'Required',
+		email: 'arnaud@antidot.ca',
+		password: 'test',
 		showToast: false,
 	};
 
@@ -73,7 +73,10 @@ class LoginScreen extends AbstractScreen
 
 				<View style={styles.formElemContainer}>
 					<View style={styles.formElemRow01}><Text style={styles.formText}>Password</Text></View>
-					<View style={styles.formElemRow02}><TextInput style={styles.formTextInput} underlineColorAndroid="transparent" onChangeText={(text) => this.setState({text})} value={this.state.password}/></View>
+					<View style={styles.formElemRow02}><TextInput
+						style={styles.formTextInput}
+						secureTextEntry={true}
+						underlineColorAndroid="transparent" onChangeText={(text) => this.setState({text})} value={this.state.password}/></View>
 				</View>
 
 				<View style={styles.genericRow}>

@@ -22,6 +22,7 @@ class Fromtobar extends AbstractScreen
 	 */
 	render()
 	{
+		let {navigation} = this.props;
 		return(
 			<View style={styles.topContainer}>
 				<View style={[styles.avatarContainer, {marginLeft: 25,}]}>
@@ -37,10 +38,12 @@ class Fromtobar extends AbstractScreen
 					</View>
 				</TouchableOpacity>
 
-				<View style={[styles.avatarContainer, {marginRight: 25,}]}>
+				<TouchableOpacity onPress={ () => navigation.navigate('ContactsScreen') }>
+					<View style={[styles.avatarContainer, {marginRight: 25,}]}>
 					<Image style={styles.imageAvatar} source={require('../../../images/22179904_10212243801302792_6096409457610505771_o.jpg')}/>
 					<Text style={styles.titleTopText}>{(this.state.loanmaindirection) ? 'TO' : 'FROM'}</Text>
 				</View>
+				</TouchableOpacity>
 			</View>
 		);
 	}

@@ -26,6 +26,7 @@ class ContactsScreen extends AbstractScreen
 	 */
 	getContent()
 	{
+		let {navigation} = this.props;
 		let data = [
 			{from: 'Mister 01', to: 'Mister 02', loan: 'Object'},
 			{from: 'Mister 02', to: 'Mister 02', loan: 'Object'},
@@ -53,7 +54,7 @@ class ContactsScreen extends AbstractScreen
 			<View style={styles.mainContainer}>
 				{
 					data.map( (d, k) => (
-						<TouchableOpacity key={k} onPress={() => console.warn('item Touched !')}>
+						<TouchableOpacity key={k} onPress={ () => navigation.navigate('LendScreen') }>
 							<View style={[styles.loanIemContainer, {backgroundColor: (k%2 == 0) ? '#FFF' : '#EEE'}]}>
 								<View style={styles.loanIemCol01}>
 									<Image style={styles.imageAvatar} source={require('../../images/10498217_10152245479307634_4137351399163079376_o.jpg')}/>
