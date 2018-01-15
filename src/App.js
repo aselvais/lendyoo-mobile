@@ -1,5 +1,4 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
 import {DrawerNavigator} from 'react-navigation';
 import {Icon} from 'native-base';
 import LandingScreen from "./screens/LandingScreen";
@@ -12,12 +11,8 @@ import SettingsScreen from "./screens/SettingsScreen";
 import SignupScreen from "./screens/SignupScreen";
 import AboutScreen from "./screens/AboutScreen";
 
-/**
- *
- */
-export default DrawerNavigator({
 
-	/*--------------------------------------------------------------------------------*/
+let _routesConfig = {
 	LandingScreen: {
 		screen: LandingScreen, navigationOptions: {
 			drawerLabel: 'Welcome',
@@ -83,7 +78,14 @@ export default DrawerNavigator({
 		}
 	},
 	*/
+};
+
+/**
+ *
+ */
+export default DrawerNavigator(_routesConfig, {
+	useNativeAnimations: true,
+	drawerOpenRoute: 'DrawerOpen',
+	drawerCloseRoute: 'DrawerClose',
+	drawerToggleRoute: 'DrawerToggle',
 });
-
-
-const styles = StyleSheet.create({});

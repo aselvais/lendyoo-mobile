@@ -77,6 +77,7 @@ class ContactsScreen extends AbstractScreen
 	 */
 	render()
 	{
+		let {navigation} = this.props;
 		return (
 			<Container>
 				<Header>
@@ -91,7 +92,7 @@ class ContactsScreen extends AbstractScreen
 					<Right/>
 				</Header>
 
-				<Fromtobar/>
+				<Fromtobar navigation={navigation}/>
 
 				<ScrollView contentContainerStyle={{ flexGrow: 1 }} >
 					{this.getContent()}

@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, Text, Image, TouchableOpacity, } from "react-native";
+import {StyleSheet, View, Text, Image, TouchableOpacity, TouchableWithoutFeedback, Animated, Easing, } from "react-native";
 import AbstractScreen from "../AbstractScreen";
 
 /**
@@ -7,14 +7,65 @@ import AbstractScreen from "../AbstractScreen";
  */
 class Fromtobar extends AbstractScreen
 {
-
 	/**
-	 *
 	 * @type {{loanmaindirection: boolean}}
 	 */
 	state = {
 		loanmaindirection: true,
 	};
+	/**
+	 *
+	 */
+	flipValue = new Animated.Value(0);
+
+	/**
+	 *
+	 */
+	flipLogo()
+	{
+		let {loanmaindirection} = this.state;
+		this.flipValue.setValue(loanmaindirection ? 0 : 1);
+		Animated.timing(
+			this.flipValue,
+			{
+				toValue: loanmaindirection ? 1 : 0,
+				duration: 100,
+				easing: Easing.ease
+			}
+		).start();
+	}
+
+	/**
+	 *
+	 */
+	onPressLoanDirection()
+	{
+		this.flipLogo();
+		this.setState({loanmaindirection: !this.state.loanmaindirection});
+	}
+
+	/**
+	 * Returns JSX for the round top avatar buttons
+	 *
+	 * @param style Styles to add
+	 * @param imgSrc Image source
+	 * @param txt1 Label 01
+	 * @param txt2 Label 02
+	 * @param toRoute Name of the route to link to on press
+	 * @returns {*}
+	 */
+	getAvatarJSX(style={marginLeft: 25,}, imgSrc, txt1='FROM', txt2='TO', toRoute=null)
+	{
+		let {navigation} = this.props;
+		let _mJSX = <View style={[styles.avatarContainer, style]}>
+						<Image style={styles.imageAvatar} source={imgSrc}/>
+						<Text style={styles.titleTopText}>{(this.state.loanmaindirection) ? txt1 : txt2}</Text>
+					</View>;
+		if (toRoute)
+			return <TouchableOpacity onPress={ () => navigation.navigate(toRoute) }>{_mJSX}</TouchableOpacity>;
+		else
+			return _mJSX;
+	}
 
 	/**
 	 *
@@ -23,27 +74,25 @@ class Fromtobar extends AbstractScreen
 	render()
 	{
 		let {navigation} = this.props;
+		let {loanmaindirection} = this.state;
+		const spin = this.flipValue.interpolate({
+			inputRange: [0, 1],
+			outputRange: [-1, 1]
+		});
 		return(
 			<View style={styles.topContainer}>
-				<View style={[styles.avatarContainer, {marginLeft: 25,}]}>
-					<Image style={styles.imageAvatar} source={require('../../../images/20664038_10158962015225136_6191620256789104695_n.jpg')}/>
-					<Text style={styles.titleTopText}>{(this.state.loanmaindirection) ? 'FROM' : 'TO'}</Text>
-				</View>
 
-				<TouchableOpacity onPress={ () => this.setState({loanmaindirection: !this.state.loanmaindirection}) }>
+				{this.getAvatarJSX( {marginLeft: 25,}, require('../../../images/20664038_10158962015225136_6191620256789104695_n.jpg'), 'FROM', 'TO', 'ContactsScreen', )}
+
+				<TouchableWithoutFeedback onPress={ () => this.onPressLoanDirection() }>
 					<View>
-						<Image style={[styles.imageLogo, {
-							transform: [{ scaleX: (this.state.loanmaindirection) ? 1 : -1 }]
+						<Animated.Image style={[styles.imageLogo, {
+							transform: [{ scaleX: spin }]
 						}]} source={require('../../../images/lendyoologoshadow.png')}/>
 					</View>
-				</TouchableOpacity>
+				</TouchableWithoutFeedback>
 
-				<TouchableOpacity onPress={ () => navigation.navigate('ContactsScreen') }>
-					<View style={[styles.avatarContainer, {marginRight: 25,}]}>
-					<Image style={styles.imageAvatar} source={require('../../../images/22179904_10212243801302792_6096409457610505771_o.jpg')}/>
-					<Text style={styles.titleTopText}>{(this.state.loanmaindirection) ? 'TO' : 'FROM'}</Text>
-				</View>
-				</TouchableOpacity>
+				{this.getAvatarJSX({ marginRight: 25,}, require('../../../images/22179904_10212243801302792_6096409457610505771_o.jpg'), 'TO', 'FROM', null )}
 			</View>
 		);
 	}
