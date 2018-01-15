@@ -3,13 +3,14 @@ import AbstractScreen from "./AbstractScreen";
 import {StyleSheet, Text, TouchableOpacity, View, ScrollView, Image} from 'react-native';
 import {Body, Button, Container, Content, Footer, FooterTab, Header, Icon, Left, Right, Title} from 'native-base';
 
-
-
 /**
  *
  */
 class HistoryScreen extends AbstractScreen
 {
+	state = {
+		models: []
+	};
 
 	/**
 	 *
@@ -20,50 +21,47 @@ class HistoryScreen extends AbstractScreen
 		return 'LOAN HISTORY';
 	}
 
+	componentDidMount()
+	{
+		console.log(this.user);
+		this.loanCollection.setRemoteLoansFromUser(this.user._id).then(
+			(d) => {
+				if (d) {
+					this.setState({models: this.loanCollection.models});
+				}
+				else
+				{
+					console.log('Error loanCollection.setRemoteLoansFromUser returned false');
+				}
+			},
+			(err) => {
+				console.log('Error ', err);
+			}
+		);
+	}
+
 	/**
 	 *
 	 * @returns {*}
 	 */
 	getContent()
 	{
-		let data = [
-			{from: 'Mister 01', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 02', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 03', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 04', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 05', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 06', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 07', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 08', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 09', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 10', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 11', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 12', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 13', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 14', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 15', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 16', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 17', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 18', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 19', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 20', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 21', to: 'Mister 02', loan: 'Object'},
-		];
+		let {models} = this.state;
 		return (
 			<View style={styles.mainContainer}>
 				{
-					data.map( (d, k) => (
-						<TouchableOpacity key={k} onPress={() => console.warn('item Touched !')}>
+					models.map( (d, k) => (
+						<TouchableOpacity key={d._id} onPress={() => console.warn('item Touched !')}>
 						<View style={[styles.loanIemContainer, {backgroundColor: (k%2 == 0) ? '#FFF' : '#EEE'}]}>
 							<View style={styles.loanIemCol01}>
 								<Image style={styles.imageAvatar} source={require('../../images/20664038_10158962015225136_6191620256789104695_n.jpg')}/>
 							</View>
 							<View style={styles.loanIemCol02}>
 								<Text style={styles.loanIemText02}>Loan to</Text>
-								<Text style={styles.loanIemText03}>Arnaud Selvais</Text>
+								<Text style={styles.loanIemText03}>{d.Contact_id}</Text>
 							</View>
 							<View style={styles.loanIemCol03}>
-								<Text style={styles.loanIemText04}>DVD Star Wars The Last Jedi</Text>
+								<Text style={styles.loanIemText04}>{d.title}</Text>
 							</View>
 						</View>
 						</TouchableOpacity>
@@ -88,7 +86,7 @@ class HistoryScreen extends AbstractScreen
 						</Button>
 					</Left>
 					<Body>
-					<Title>{this.appTitle}</Title>
+						<Title>{this.appTitle}</Title>
 					</Body>
 					<Right/>
 				</Header>

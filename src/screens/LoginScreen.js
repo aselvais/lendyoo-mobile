@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, TextInput, ScrollView} from 'react-native';
 import AbstractScreen from "./AbstractScreen";
-import {Content, Icon} from 'native-base';
+import { Root, Content, Icon, Toast, Button, } from 'native-base';
 
 /**
  *
@@ -11,6 +11,7 @@ class LoginScreen extends AbstractScreen
 	state = {
 		email: 'name@example.com',
 		password: 'Required',
+		showToast: false,
 	};
 
 	/**
@@ -24,11 +25,37 @@ class LoginScreen extends AbstractScreen
 
 	/**
 	 *
+	 */
+	clickLogin()
+	{
+		let {navigation} = this.props;
+		let username = 'arnaud@antidot.ca';
+		let password = 'test';
+		this.user.authenticate(username, password).then(
+			(d) => {
+				if (d) {
+					/* Toast.show({ text: 'Success', position: 'top', buttonText: 'OK', type: 'success', });
+					console.log(this.user); */
+					navigation.navigate('HistoryScreen');
+				} else {
+					Toast.show({ text: 'Wrong username or password', position: 'top', buttonText: 'OK', type: 'danger', });
+				}
+			},
+			(err) => {
+				console.log('ERROR');
+				console.log(err);
+			}
+		);
+	}
+
+	/**
+	 *
 	 * @returns {*}
 	 */
 	getContent()
 	{
 		return (
+			<Root>
 			<ScrollView contentContainerStyle={{ flexGrow: 1 }} >
 
 			<View style={styles.mainContainer}>
@@ -50,7 +77,7 @@ class LoginScreen extends AbstractScreen
 				</View>
 
 				<View style={styles.genericRow}>
-					<TouchableOpacity onPress={() => console.warn('fbBtn Touch Touched !')}>
+					<TouchableOpacity onPress={() => this.clickLogin() }>
 						<View style={styles.buttonOrangeContainer}>
 							<Text style={styles.buttonTextColor}>LOGIN</Text>
 						</View>
@@ -86,7 +113,7 @@ class LoginScreen extends AbstractScreen
 				</View>
 
 				<View style={styles.genericRow}>
-					<TouchableOpacity onPress={() => console.warn('fbBtn Touch Touched !')}>
+					<TouchableOpacity>
 						<View style={[styles.buttonOrangeContainer, styles.buttonDarkBlueContainer]}>
 							<Text style={styles.buttonTextColor}>Login with Google</Text>
 						</View>
@@ -95,6 +122,7 @@ class LoginScreen extends AbstractScreen
 
 			</View>
 			</ScrollView>
+			</Root>
 		);
 	}
 

@@ -78,7 +78,7 @@ class LandingScreen extends AbstractScreen
 					</View>
 
 					<View style={[styles.container, { flex: 20, justifyContent: 'flex-end'}]}>
-						<TouchableOpacity onPress={() => this.props.navigation.navigate('SignupScreen')}>
+						<TouchableOpacity onPress={() => this.props.navigation.navigate('LoginScreen')}>
 							<View style={styles.buttonOrangeContainer}>
 								<Text style={styles.buttonTextColor}>GET STARTED</Text>
 							</View>
