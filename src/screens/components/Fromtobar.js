@@ -10,9 +10,7 @@ class Fromtobar extends AbstractScreen
 	/**
 	 * @type {{loanmaindirection: boolean}}
 	 */
-	state = {
-		loanmaindirection: true,
-	};
+	state = { loanmaindirection: true, };
 	/**
 	 *
 	 */
@@ -21,50 +19,36 @@ class Fromtobar extends AbstractScreen
 	/**
 	 *
 	 */
-	flipLogo()
+	onPressLoanDirection()
 	{
 		let {loanmaindirection} = this.state;
 		this.flipValue.setValue(loanmaindirection ? 0 : 1);
-		Animated.timing(
-			this.flipValue,
-			{
+		Animated.timing(this.flipValue, {
 				toValue: loanmaindirection ? 1 : 0,
 				duration: 100,
 				easing: Easing.ease
-			}
-		).start();
-	}
-
-	/**
-	 *
-	 */
-	onPressLoanDirection()
-	{
-		this.flipLogo();
-		this.setState({loanmaindirection: !this.state.loanmaindirection});
+			}).start(
+			() => this.setState({loanmaindirection: !this.state.loanmaindirection})
+		);
 	}
 
 	/**
 	 * Returns JSX for the round top avatar buttons
 	 *
-	 * @param style Styles to add
-	 * @param imgSrc Image source
-	 * @param txt1 Label 01
-	 * @param txt2 Label 02
-	 * @param toRoute Name of the route to link to on press
+	 * @param style
+	 * @param label
+	 * @param imgSrc01
+	 * @param imgSrc02
 	 * @returns {*}
 	 */
-	getAvatarJSX(style={marginLeft: 25,}, imgSrc, txt1='FROM', txt2='TO', toRoute=null)
+	getAvatarJSX(style={marginLeft: 25,}, label='', imgSrc01, imgSrc02)
 	{
 		let {navigation} = this.props;
 		let _mJSX = <View style={[styles.avatarContainer, style]}>
-						<Image style={styles.imageAvatar} source={imgSrc}/>
-						<Text style={styles.titleTopText}>{(this.state.loanmaindirection) ? txt1 : txt2}</Text>
+						<Image style={styles.imageAvatar} source={(this.state.loanmaindirection) ? imgSrc01 : imgSrc02}/>
+						<Text style={styles.titleTopText}>{label}</Text>
 					</View>;
-		if (toRoute)
-			return <TouchableOpacity onPress={ () => navigation.navigate(toRoute) }>{_mJSX}</TouchableOpacity>;
-		else
-			return _mJSX;
+		return <TouchableOpacity onPress={ () => navigation.navigate('ContactsScreen') }>{_mJSX}</TouchableOpacity>;
 	}
 
 	/**
@@ -75,29 +59,24 @@ class Fromtobar extends AbstractScreen
 	{
 		let {navigation} = this.props;
 		let {loanmaindirection} = this.state;
-		const spin = this.flipValue.interpolate({
-			inputRange: [0, 1],
-			outputRange: [-1, 1]
-		});
+		const spin = this.flipValue.interpolate({ inputRange: [0, 1], outputRange: [-1, 1] });
+		let usr01 = require('../../../images/20664038_10158962015225136_6191620256789104695_n.jpg');
+		let usr02 = require('../../../images/22179904_10212243801302792_6096409457610505771_o.jpg');
 		return(
 			<View style={styles.topContainer}>
-
-				{this.getAvatarJSX( {marginLeft: 25,}, require('../../../images/20664038_10158962015225136_6191620256789104695_n.jpg'), 'FROM', 'TO', 'ContactsScreen', )}
-
+				{this.getAvatarJSX( {marginLeft: 25,}, 'FROM', usr01, usr02 )}
 				<TouchableWithoutFeedback onPress={ () => this.onPressLoanDirection() }>
 					<View>
-						<Animated.Image style={[styles.imageLogo, {
-							transform: [{ scaleX: spin }]
-						}]} source={require('../../../images/lendyoologoshadow.png')}/>
+						<Animated.Image
+							style={[styles.imageLogo, { transform: [{ scaleX: spin }] }]}
+							source={require('../../../images/lendyoologoshadow.png')}/>
 					</View>
 				</TouchableWithoutFeedback>
-
-				{this.getAvatarJSX({ marginRight: 25,}, require('../../../images/22179904_10212243801302792_6096409457610505771_o.jpg'), 'TO', 'FROM', null )}
+				{this.getAvatarJSX({ marginRight: 25,}, 'TO', usr02, usr01 )}
 			</View>
 		);
 	}
 }
-
 
 const _localStyles = StyleSheet.create({
 	topContainer: {
