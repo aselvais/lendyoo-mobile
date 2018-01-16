@@ -1,11 +1,11 @@
-import ModelAbstract from '../libs/ModelAbstract';
+import ContactFrontend from '../shared/models/frontend/Contact';
 
 /**
  * Contact model.
  * Person you can lend an item to
  *
  */
-class Contact extends ModelAbstract
+class Contact extends ContactFrontend
 {
 
 	constructor(data=null)

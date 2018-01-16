@@ -4,7 +4,6 @@
 class i18n
 {
 
-
 	translate( str='' )
 	{
 		return str;

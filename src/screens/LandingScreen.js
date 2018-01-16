@@ -3,6 +3,7 @@ import {Animated, Dimensions, Image, StyleSheet, Text, View, TouchableOpacity} f
 import LinearGradient from 'react-native-linear-gradient';
 import AbstractScreen from "./AbstractScreen";
 import {Content, Icon} from 'native-base';
+import LoginScreen from "./LoginScreen";
 
 /**
  *

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, TextInput, ScrollView} from 'react-native';
 import AbstractScreen from "./AbstractScreen";
 import { Root, Content, Icon, Toast, Button, } from 'native-base';
+import LinearGradient from 'react-native-linear-gradient';
 
 /**
  *
@@ -34,9 +35,8 @@ class LoginScreen extends AbstractScreen
 		this.user.authenticate(username, password).then(
 			(d) => {
 				if (d) {
-					/* Toast.show({ text: 'Success', position: 'top', buttonText: 'OK', type: 'success', });
-					console.log(this.user); */
-					navigation.navigate('HistoryScreen');
+					// Toast.show({ text: 'Success', position: 'top', buttonText: 'OK', type: 'success', });
+					navigation.navigate('Home');
 				} else {
 					Toast.show({ text: 'Wrong username or password', position: 'top', buttonText: 'OK', type: 'danger', });
 				}
@@ -52,10 +52,11 @@ class LoginScreen extends AbstractScreen
 	 *
 	 * @returns {*}
 	 */
-	getContent()
+	render()
 	{
 		return (
-			<Root>
+			<LinearGradient colors={['#FFFFFF', '#AAAAAA']} style={styles.linearGradient}>
+				<View style={styles.mainContainer}>
 			<ScrollView contentContainerStyle={{ flexGrow: 1 }} >
 
 			<View style={styles.mainContainer}>
@@ -125,7 +126,8 @@ class LoginScreen extends AbstractScreen
 
 			</View>
 			</ScrollView>
-			</Root>
+				</View>
+			</LinearGradient>
 		);
 	}
 

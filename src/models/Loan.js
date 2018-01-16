@@ -1,9 +1,9 @@
-import ModelAbstract from '../libs/ModelAbstract';
+import LoanFrontend from '../shared/models/frontend/Loan';
 
 /**
  * Loan model
  */
-class Loan extends ModelAbstract
+class Loan extends LoanFrontend
 {
 
 	/**

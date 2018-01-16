@@ -1,6 +1,7 @@
 import React from 'react';
-import {DrawerNavigator} from 'react-navigation';
+import {DrawerNavigator, StackNavigator, } from 'react-navigation';
 import {Icon} from 'native-base';
+
 import LandingScreen from "./screens/LandingScreen";
 import HistoryScreen from "./screens/HistoryScreen";
 import ContactsScreen from "./screens/ContactsScreen";
@@ -12,28 +13,7 @@ import SignupScreen from "./screens/SignupScreen";
 import AboutScreen from "./screens/AboutScreen";
 
 
-let _routesConfig = {
-	LandingScreen: {
-		screen: LandingScreen, navigationOptions: {
-			drawerLabel: 'Welcome',
-			drawerIcon: <Icon name='home'/>,
-			headerTitle: 'Home',
-		}
-	},
-	SignupScreen: {
-		screen: SignupScreen, navigationOptions: {
-			drawerLabel: 'Sign-up',
-			drawerIcon: <Icon name='body'/>,
-			headerTitle: 'Sign-up',
-		}
-	},
-	LoginScreen: {
-		screen: LoginScreen, navigationOptions: {
-			drawerLabel: 'Login',
-			drawerIcon: <Icon name='log-in'/>,
-			headerTitle: 'Login',
-		}
-	},
+const ObjDrawerNavigator = DrawerNavigator({
 	HistoryScreen: {
 		screen: HistoryScreen, navigationOptions: {
 			drawerLabel: 'Loans history',
@@ -46,6 +26,50 @@ let _routesConfig = {
 			drawerLabel: 'Lend item',
 			drawerIcon: <Icon name='add-circle'/>,
 			headerTitle: 'Lend item',
+		}
+	},
+	SettingsScreen: {
+		screen: SettingsScreen, navigationOptions: {
+			drawerLabel: 'Settings',
+			drawerIcon: <Icon name='settings'/>,
+			headerTitle: 'Settings',
+		}
+	},
+	AboutScreen: {
+		screen: AboutScreen, navigationOptions: {
+			drawerLabel: 'About',
+			drawerIcon: <Icon name='information-circle'/>,
+			headerTitle: 'About',
+		}
+	},
+}, {
+	useNativeAnimations: true,
+	drawerOpenRoute: 'DrawerOpen',
+	drawerCloseRoute: 'DrawerClose',
+	drawerToggleRoute: 'DrawerToggle',
+});
+const ObjStackNavigator = StackNavigator({
+	LandingScreen: {
+		screen: LandingScreen, navigationOptions: {
+			headerMode: 'none',
+			header: null,
+		}
+	},
+	LoginScreen: {
+		screen: LoginScreen, navigationOptions: {
+			headerMode: 'none',
+			header: null,
+		}
+	},
+	Home: {screen: ObjDrawerNavigator, navigationOptions:{
+			headerMode: 'none',
+			header: null,
+		}},
+	SignupScreen: {
+		screen: SignupScreen, navigationOptions: {
+			drawerLabel: 'Sign-up',
+			drawerIcon: <Icon name='body'/>,
+			headerTitle: 'Sign-up',
 		}
 	},
 	LoanstatusScreen: {
@@ -62,30 +86,7 @@ let _routesConfig = {
 			headerTitle: 'Contacts',
 		}
 	},
-	SettingsScreen: {
-		screen: SettingsScreen, navigationOptions: {
-			drawerLabel: 'Settings',
-			drawerIcon: <Icon name='settings'/>,
-			headerTitle: 'Settings',
-		}
-	},
-	/*
-	AboutScreen: {
-		screen: AboutScreen, navigationOptions: {
-			drawerLabel: 'About',
-			drawerIcon: <Icon name='information-circle'/>,
-			headerTitle: 'About',
-		}
-	},
-	*/
-};
-
-/**
- *
- */
-export default DrawerNavigator(_routesConfig, {
-	useNativeAnimations: true,
-	drawerOpenRoute: 'DrawerOpen',
-	drawerCloseRoute: 'DrawerClose',
-	drawerToggleRoute: 'DrawerToggle',
 });
+
+export default ObjStackNavigator;
+

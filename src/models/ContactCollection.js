@@ -1,13 +1,16 @@
 
-import CollectionAbstract from '../libs/CollectionAbstract';
+import ContactCollectionFrontend from '../shared/models/frontend/ContactCollection';
 import Contact from './Contact';
 
 /**
  * Collection of contacts
  */
-class ContactCollection extends CollectionAbstract
+class ContactCollection extends ContactCollectionFrontend
 {
 
+	/**
+	 *
+	 */
 	constructor()
 	{
 		super();

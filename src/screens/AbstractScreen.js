@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Dimensions, StyleSheet, Text} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {Body, Button, Container, Content, Footer, FooterTab, Header, Icon, Left, Right, Title} from 'native-base';
+import {Body, Button, Container, Content, Footer, FooterTab, Header, Icon, Left, Right, Title, Root, } from 'native-base';
 import LendyooRegistry from '../libs/LendyooRegistry';
 
 import styles from './GlobalStyles';
@@ -93,6 +93,7 @@ class AbstractScreen extends Component
 	render()
 	{
 		return (
+			<Root>
 			<Container>
 				<Header>
 					<Left>
@@ -110,6 +111,7 @@ class AbstractScreen extends Component
 				</LinearGradient>
 				{this.getFooter()}
 			</Container>
+			</Root>
 		);
 	};
 

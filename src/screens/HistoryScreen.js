@@ -1,7 +1,7 @@
 import React from 'react';
 import AbstractScreen from "./AbstractScreen";
 import {StyleSheet, Text, TouchableOpacity, View, ScrollView, Image} from 'react-native';
-import {Body, Button, Container, Content, Footer, FooterTab, Header, Icon, Left, Right, Title} from 'native-base';
+import { Body, Button, Container, Content, Footer, FooterTab, Header, Icon, Left, Right, Title, Toast, Root, } from 'native-base';
 
 /**
  *
@@ -9,7 +9,8 @@ import {Body, Button, Container, Content, Footer, FooterTab, Header, Icon, Left,
 class HistoryScreen extends AbstractScreen
 {
 	state = {
-		models: []
+		showToast: false,
+		models: [],
 	};
 
 	/**
@@ -23,7 +24,6 @@ class HistoryScreen extends AbstractScreen
 
 	componentDidMount()
 	{
-		console.log(this.user);
 		this.loanCollection.setRemoteLoansFromUser(this.user._id).then(
 			(d) => {
 				if (d) {
@@ -110,7 +110,6 @@ class HistoryScreen extends AbstractScreen
 						</View>
 					</TouchableOpacity>
 				</View>
-
 			</Container>
 		);
 	};
