@@ -3,6 +3,7 @@ import AbstractScreen from "./AbstractScreen";
 import {StyleSheet, Text, TouchableOpacity, View, ScrollView, Image} from 'react-native';
 import {Body, Button, Container, Content, Footer, FooterTab, Header, Icon, Left, Right, Title} from 'native-base';
 import Fromtobar from './components/Fromtobar';
+import LinearGradient from 'react-native-linear-gradient';
 
 
 /**
@@ -79,26 +80,17 @@ class ContactsScreen extends AbstractScreen
 	{
 		let {navigation} = this.props;
 		return (
+			<LinearGradient colors={['#FFFFFF', '#AAAAAA']} style={styles.linearGradient}>
+				<View style={styles.mainContainer}>
 			<Container>
-				<Header>
-					<Left>
-						<Button transparent onPress={() => this.props.navigation.navigate('DrawerToggle')}>
-							<Icon name='menu'/>
-						</Button>
-					</Left>
-					<Body>
-					<Title>{this.appTitle}</Title>
-					</Body>
-					<Right/>
-				</Header>
-
-				<Fromtobar navigation={navigation}/>
 
 				<ScrollView contentContainerStyle={{ flexGrow: 1 }} >
 					{this.getContent()}
 				</ScrollView>
 
 			</Container>
+				</View>
+			</LinearGradient>
 		);
 	};
 

@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, Switch, Text, TouchableOpacity, View, TextInput, } from 'react-native';
 import AbstractScreen from "./AbstractScreen";
 import {Icon} from 'native-base';
+import LinearGradient from 'react-native-linear-gradient';
 
 /**
  *
@@ -43,7 +44,7 @@ class LoanstatusScreen extends AbstractScreen
 	 *
 	 * @returns {*}
 	 */
-	getContent()
+	render()
 	{
 		let { navigation } = this.props;
 		return (

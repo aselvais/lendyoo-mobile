@@ -2,6 +2,7 @@ import React from 'react';
 import AbstractScreen from "./AbstractScreen";
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Content, Icon} from 'native-base';
+import LinearGradient from 'react-native-linear-gradient';
 
 /**
  *
@@ -22,10 +23,13 @@ class SignupScreen extends AbstractScreen
 	 *
 	 * @returns {*}
 	 */
-	getContent()
+	render()
 	{
 		return (
-			<View style={styles.mainContainer}>
+			<LinearGradient colors={['#FFFFFF', '#AAAAAA']} style={styles.linearGradient}>
+				<View style={styles.mainContainer}>
+
+				<View style={styles.mainContainer}>
 
 				<View style={styles.genericRow}>
 					<View style={styles.titleContainer}>
@@ -63,6 +67,8 @@ class SignupScreen extends AbstractScreen
 				</View>
 
 			</View>
+				</View>
+			</LinearGradient>
 		);
 	}
 
