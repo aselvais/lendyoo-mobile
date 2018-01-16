@@ -2,16 +2,27 @@ import React from 'react';
 import AbstractScreen from "./AbstractScreen";
 import {StyleSheet, Text, TouchableOpacity, View, ScrollView, Image} from 'react-native';
 import { Body, Button, Container, Content, Footer, FooterTab, Header, Icon, Left, Right, Title, Toast, Root, } from 'native-base';
+import ContactCollection from "../models/ContactCollection";
 
 /**
  *
  */
 class HistoryScreen extends AbstractScreen
 {
+	/**
+	 *
+	 */
 	state = {
 		showToast: false,
 		models: [],
+		contactCollectionModels: [],
 	};
+
+	/**
+	 *
+	 * @type {ContactCollection}
+	 */
+	contactCollection = new ContactCollection();
 
 	/**
 	 *
@@ -22,21 +33,31 @@ class HistoryScreen extends AbstractScreen
 		return 'LOAN HISTORY';
 	}
 
+	/**
+	 *
+	 */
 	componentDidMount()
 	{
-		this.loanCollection.setRemoteLoansFromUser(this.user._id).then(
+		this.contactCollection.setRemoteContactsFromUser(this.user._id).then(
 			(d) => {
-				if (d) {
-					this.setState({models: this.loanCollection.models});
-				}
-				else
-				{
-					console.log('Error loanCollection.setRemoteLoansFromUser returned false');
-				}
+				this.setState({contactCollectionModels: this.contactCollection.models}, () => {
+					this.loanCollection.setRemoteLoansFromUser(this.user._id).then(
+						(d) => {
+							if (d) {
+								this.setState({models: this.loanCollection.models});
+							}
+							else
+							{
+								console.log('Error loanCollection.setRemoteLoansFromUser returned false');
+							}
+						},
+						(err) => {
+							console.log('Error ', err);
+						}
+					);
+				});
 			},
-			(err) => {
-				console.log('Error ', err);
-			}
+			(err) => console.log('error', err)
 		);
 	}
 
@@ -46,7 +67,7 @@ class HistoryScreen extends AbstractScreen
 	 */
 	getContent()
 	{
-		let {models} = this.state;
+		let {models } = this.state;
 		let { navigation } = this.props;
 		return (
 			<View style={styles.mainContainer}>
@@ -55,16 +76,15 @@ class HistoryScreen extends AbstractScreen
 						<TouchableOpacity key={d._id} onPress={ () => navigation.navigate('LoanstatusScreen') }>
 						<View style={[styles.loanIemContainer, {backgroundColor: (k%2 == 0) ? '#FFF' : '#EEE'}]}>
 							<View style={styles.loanIemCol01}>
-								<Image style={styles.imageAvatar}
-									   source={{uri: 'https://api.lendyou.io/api-v2/photo/getloanimage/' + d._id + '/100'}}
-								/>
+								<Image style={styles.imageAvatar} source={{uri: 'https://api.lendyou.io/api-v2/photo/getloanimage/' + d._id + '/100'}} />
 							</View>
 							<View style={styles.loanIemCol02}>
 								<Text style={styles.loanIemText02}>Item</Text>
 								<Text style={styles.loanIemText03}>{d.title}</Text>
 							</View>
 							<View style={styles.loanIemCol03}>
-								<Text style={styles.loanIemText04}>{d.Contact_id}</Text>
+								<Text style={styles.loanIemText04}></Text>
+								<Text style={styles.loanIemText04}>{this.contactCollection.getModelById(d.Contact_id).getFullName()}</Text>
 							</View>
 						</View>
 						</TouchableOpacity>

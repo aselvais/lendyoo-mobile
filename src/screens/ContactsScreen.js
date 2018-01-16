@@ -4,6 +4,7 @@ import {StyleSheet, Text, TouchableOpacity, View, ScrollView, Image} from 'react
 import {Body, Button, Container, Content, Footer, FooterTab, Header, Icon, Left, Right, Title} from 'native-base';
 import Fromtobar from './components/Fromtobar';
 import LinearGradient from 'react-native-linear-gradient';
+import ContactCollection from "../models/ContactCollection";
 
 
 /**
@@ -11,6 +12,19 @@ import LinearGradient from 'react-native-linear-gradient';
  */
 class ContactsScreen extends AbstractScreen
 {
+	/**
+	 *
+	 */
+	state = {
+		showToast: false,
+		models: [],
+	};
+
+	/**
+	 *
+	 * @type {ContactCollection}
+	 */
+	contactCollection = new ContactCollection();
 
 	/**
 	 *
@@ -23,46 +37,35 @@ class ContactsScreen extends AbstractScreen
 
 	/**
 	 *
+	 */
+	componentDidMount()
+	{
+		this.contactCollection.setRemoteContactsFromUser(this.user._id).then(
+			(d) => this.setState({models: this.contactCollection.models}),
+			(err) => console.log('error', err)
+		);
+	}
+
+	/**
+	 *
 	 * @returns {*}
 	 */
 	getContent()
 	{
 		let {navigation} = this.props;
-		let data = [
-			{from: 'Mister 01', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 02', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 03', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 04', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 05', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 06', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 07', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 08', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 09', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 10', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 11', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 12', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 13', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 14', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 15', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 16', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 17', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 18', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 19', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 20', to: 'Mister 02', loan: 'Object'},
-			{from: 'Mister 21', to: 'Mister 02', loan: 'Object'},
-		];
+		let {models} = this.state;
 		return (
 			<View style={styles.mainContainer}>
 				{
-					data.map( (d, k) => (
-						<TouchableOpacity key={k} onPress={ () => navigation.navigate('LendScreen') }>
+					models.map( (d, k) => (
+						<TouchableOpacity key={d._id} onPress={ () => navigation.navigate('LendScreen') }>
 							<View style={[styles.loanIemContainer, {backgroundColor: (k%2 == 0) ? '#FFF' : '#EEE'}]}>
 								<View style={styles.loanIemCol01}>
-									<Image style={styles.imageAvatar} source={require('../../images/10498217_10152245479307634_4137351399163079376_o.jpg')}/>
+									<Image style={styles.imageAvatar} source={require('../../images/contactDefault.png')}/>
 								</View>
 								<View style={styles.loanIemCol02}>
 									<Text style={styles.loanIemText02}>Name:</Text>
-									<Text style={styles.loanIemText03}>Arnaud Selvais</Text>
+									<Text style={styles.loanIemText03}>{d.getFullName()}</Text>
 								</View>
 							</View>
 						</TouchableOpacity>

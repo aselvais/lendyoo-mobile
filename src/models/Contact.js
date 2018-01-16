@@ -25,7 +25,11 @@ class Contact extends ContactFrontend
 	 */
 	getFullName()
 	{
-		return this.firstName + ' ' + this.lastName;
+		let n = '';
+		if (this.firstName != '' || this.lastName != '') n = this.firstName + ' ' + this.lastName;
+		if (this.name != '') n = this.name;
+		if (n == '') n = this.email;
+		return n;
 	}
 
 }
