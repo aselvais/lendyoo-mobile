@@ -99,7 +99,8 @@ const _localStyles = StyleSheet.create({
 	titleTxt: {
 		color: '#00B8EC',
 		paddingTop: 20,
-		fontSize: 28
+		fontSize: 28,
+		backgroundColor: 'rgba(0,0,0,0)',
 	},
 
 	txtReminders: {
@@ -136,6 +137,7 @@ const _localStyles = StyleSheet.create({
 	formText: {
 		color: '#000',
 		fontSize: 18,
+		backgroundColor: 'rgba(0,0,0,0)',
 	},
 	formTextInput: {
 		height: 40,

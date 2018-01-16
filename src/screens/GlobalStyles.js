@@ -25,7 +25,8 @@ export default StyleSheet.create({
 	titleTxt: {
 		color: '#00B8EC',
 		paddingTop: 20,
-		fontSize: 28
+		fontSize: 28,
+		backgroundColor: 'rgba(0,0,0,0)',
 	},
 
 	buttonOrangeContainer: {
@@ -41,6 +42,7 @@ export default StyleSheet.create({
 	},
 	formText: {
 		color: '#000',
+		backgroundColor: 'rgba(0,0,0,0)',
 	},
 
 	redBorders: {

@@ -167,6 +167,7 @@ const _localStyles = StyleSheet.create(
 		forgotText: {
 			color: '#9A9A9A',
 			fontSize: 25,
+			backgroundColor: 'rgba(0,0,0,0)',
 		},
 
 		buttonOrange2Container: {
@@ -198,6 +199,7 @@ const _localStyles = StyleSheet.create(
 		orText: {
 			color: '#000000',
 			fontSize: 20,
+			backgroundColor: 'rgba(0,0,0,0)',
 		},
 
 

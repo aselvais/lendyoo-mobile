@@ -74,6 +74,7 @@ class LandingScreen extends AbstractScreen
 							paddingLeft: 50,
 							paddingRight: 50,
 							textAlign: 'center',
+							backgroundColor: 'rgba(0,0,0,0)',
 						}}>
 							THIS IS A F*CKING GREAT ONBOARDING SCREEN
 						</Text>
