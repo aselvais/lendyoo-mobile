@@ -1,31 +1,32 @@
 import LoanFrontend from '../shared/models/frontend/Loan';
+import {observable} from 'mobx';
 
 /**
  * Loan model
  */
 class Loan extends LoanFrontend
 {
+	@observable id = '';
+	@observable fromId = null;
+	@observable toId = null;
+	@observable photo = null;
+	@observable isSaved = false;
+	@observable title = '';
+	@observable detail = '';
+	@observable loanDate = new Date();
+	@observable loanExpirationDate = new Date();
+	@observable lastReminderSent = '';
+	@observable sendReminders = true;
+	@observable remindersFrequency = 7;
 
 	/**
 	 *
 	 * @param data
 	 */
-	constructor(data=[])
+	constructor(data={})
 	{
 		super(data);
-
-		if (!this.id) this.id = '';
-		if (!this.fromId) this.fromId = null;
-		if (!this.toId) this.toId = null;
-		if (!this.photo) this.photo = null;
-		if (!this.isSaved) this.isSaved = false;
-		if (!this.title) this.title = '';
-		if (!this.detail) this.detail = '';
-		if (!this.loanDate) this.loanDate = null;
-		if (!this.loanExpirationDate) this.loanExpirationDate = '';
-		if (!this.lastReminderSent) this.lastReminderSent = '';
-		if (!this.sendReminders) this.sendReminders = true;
-		if (!this.remindersFrequency) this.remindersFrequency = 7;
+		this.loanExpirationDate = new Date(this.loanDate.getFullYear(), this.loanDate.getMonth(), this.loanDate.getDate()+15)
 	}
 
 	/**

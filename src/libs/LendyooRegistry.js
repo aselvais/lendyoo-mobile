@@ -4,6 +4,7 @@ import User from '../models/User';
 import ContactCollection from '../models/ContactCollection';
 import LoanCollection from '../models/LoanCollection';
 import Loan from '../models/Loan';
+import {observable} from 'mobx';
 
 let instance = null;
 
@@ -14,7 +15,13 @@ let instance = null;
  */
 class LendyooRegistry
 {
+	@observable isNewLoan = true;
+	newLoan = new Loan({id: Math.random() });
 
+	/**
+	 *
+	 * @returns {*}
+	 */
 	constructor()
 	{
 		if(!instance){
@@ -53,6 +60,15 @@ class LendyooRegistry
 		{
 			return false;
 		}
+	}
+
+	/**
+	 *
+	 * @param v
+	 */
+	setNewLoanMode(v=true)
+	{
+		this.isNewLoan = v;
 	}
 
 

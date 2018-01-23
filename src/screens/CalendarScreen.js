@@ -5,10 +5,12 @@ import { Icon, Container, Content } from 'native-base';
 import { Calendar } from 'react-native-calendars';
 import moment from 'moment';
 import Loan from "../models/Loan";
+import {observer} from 'mobx-react/native';
 
 /**
  *
  */
+@observer
 class CalendarScreen extends AbstractScreen
 {
 	/**
@@ -23,7 +25,15 @@ class CalendarScreen extends AbstractScreen
 	 *
 	 * @type {Loan}
 	 */
-	model = this.lendyooRegistry.loanCollection.getActiveModel();
+	model = (this.lendyooRegistry.isNewLoan) ? this.lendyooRegistry.newLoan : this.lendyooRegistry.loanCollection.getActiveModel();
+
+	componentWillMount()
+	{
+		console.log(this.lendyooRegistry.instanceTime);
+		console.log(this.lendyooRegistry.isNewLoan);
+		console.log(this.model.id);
+		console.log(this.model.dateExpiration);
+	}
 
 	/**
 	 *
@@ -41,7 +51,7 @@ class CalendarScreen extends AbstractScreen
 	onDayPressed(day)
 	{
 		let nDate = new Date(day.year, day.month-1, day.day);
-		if (this.model && this.model.dateExpiration) this.model.dateExpiration = nDate;
+		this.model.dateExpiration = nDate;
 		this.setState({selectedDate: nDate}, () => this.props.navigation.goBack());
 	}
 

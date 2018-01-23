@@ -4,14 +4,14 @@ import AbstractScreen from "./AbstractScreen";
 import {Content, Icon} from 'native-base';
 import Fromtobar from './components/Fromtobar';
 import moment from "moment/moment";
+import {observer} from 'mobx-react/native';
 
 /**
  *
  */
+@observer
 class LendScreen extends AbstractScreen
 {
-
-	model = this.lendyooRegistry.loanCollection.getActiveModel();
 
 	/**
 	 *
@@ -20,8 +20,15 @@ class LendScreen extends AbstractScreen
 	constructor(props)
 	{
 		super(props);
-		this.lendyooRegistry.loanCollection.createNewLoan();
-		this.model = this.lendyooRegistry.loanCollection.getActiveModel();
+		this.lendyooRegistry.setNewLoanMode(true);
+	}
+
+	componentWillMount()
+	{
+		console.log(this.lendyooRegistry.instanceTime);
+		console.log(this.lendyooRegistry.isNewLoan);
+		console.log(this.lendyooRegistry.newLoan.id);
+		console.log(this.lendyooRegistry.newLoan.dateExpiration);
 	}
 
 	/**
@@ -39,12 +46,8 @@ class LendScreen extends AbstractScreen
 	 */
 	getPhotoContainerJSX()
 	{
-
-		let dDate = (this.model && this.model.dateExpiration) ? this.model.dateExpiration : new Date();
-
-		let mDate = moment(dDate).format('DD/MM/YYYY');
 		let { navigation } = this.props;
-
+		let mDate = moment((this.lendyooRegistry.newLoan && this.lendyooRegistry.newLoan.dateExpiration) ? this.lendyooRegistry.newLoan.dateExpiration : new Date()).format('DD/MM/YYYY');
 		return (
 			<TouchableOpacity onPress={ () => navigation.navigate('CalendarScreen') }>
 			<View style={{ alignItems: 'center', }}>

@@ -3,10 +3,12 @@ import AbstractScreen from "./AbstractScreen";
 import {StyleSheet, Text, TouchableOpacity, View, ScrollView, Image} from 'react-native';
 import { Body, Button, Container, Content, Footer, FooterTab, Header, Icon, Left, Right, Title, Toast, Root, } from 'native-base';
 import ContactCollection from "../models/ContactCollection";
+import {observer} from 'mobx-react/native';
 
 /**
  *
  */
+@observer
 class HistoryScreen extends AbstractScreen
 {
 	/**
@@ -23,6 +25,16 @@ class HistoryScreen extends AbstractScreen
 	 * @type {ContactCollection}
 	 */
 	contactCollection = new ContactCollection();
+
+	/**
+	 *
+	 * @param props
+	 */
+	constructor(props)
+	{
+		super(props);
+		this.lendyooRegistry.setNewLoanMode(false);
+	}
 
 	/**
 	 *
