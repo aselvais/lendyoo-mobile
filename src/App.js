@@ -11,6 +11,8 @@ import LoginScreen from "./screens/LoginScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import SignupScreen from "./screens/SignupScreen";
 import AboutScreen from "./screens/AboutScreen";
+import CalendarScreen from "./screens/CalendarScreen";
+import ImagedetailScreen from "./screens/ImagedetailScreen";
 
 
 const ObjDrawerNavigator = DrawerNavigator({
@@ -84,6 +86,20 @@ const ObjStackNavigator = StackNavigator({
 			drawerLabel: 'Contacts',
 			drawerIcon: <Icon name='contacts'/>,
 			headerTitle: 'Contacts',
+		}
+	},
+	CalendarScreen: {
+		screen: CalendarScreen, navigationOptions: {
+			drawerLabel: 'Calendar',
+			drawerIcon: <Icon name='calendar'/>,
+			headerTitle: 'Return date',
+		}
+	},
+	ImagedetailScreen: {
+		screen: ImagedetailScreen, navigationOptions: {
+			drawerLabel: 'Image detail',
+			drawerIcon: <Icon name='information-circle'/>,
+			headerTitle: 'Image detail',
 		}
 	},
 });

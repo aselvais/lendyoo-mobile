@@ -1,14 +1,28 @@
 import React from 'react';
-import { StyleSheet, TextInput, Text, View, TouchableOpacity, } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, } from 'react-native';
 import AbstractScreen from "./AbstractScreen";
 import {Content, Icon} from 'native-base';
 import Fromtobar from './components/Fromtobar';
+import moment from "moment/moment";
 
 /**
  *
  */
 class LendScreen extends AbstractScreen
 {
+
+	model = this.lendyooRegistry.loanCollection.getActiveModel();
+
+	/**
+	 *
+	 * @param props
+	 */
+	constructor(props)
+	{
+		super(props);
+		this.lendyooRegistry.loanCollection.createNewLoan();
+		this.model = this.lendyooRegistry.loanCollection.getActiveModel();
+	}
 
 	/**
 	 *
@@ -25,15 +39,23 @@ class LendScreen extends AbstractScreen
 	 */
 	getPhotoContainerJSX()
 	{
+
+		let dDate = (this.model && this.model.dateExpiration) ? this.model.dateExpiration : new Date();
+
+		let mDate = moment(dDate).format('DD/MM/YYYY');
+		let { navigation } = this.props;
+
 		return (
+			<TouchableOpacity onPress={ () => navigation.navigate('CalendarScreen') }>
 			<View style={{ alignItems: 'center', }}>
 				<View style={styles.formElemRow01}>
 					<Text style={styles.descText}>Return date</Text>
 				</View>
 				<View style={styles.formElemRow02}>
-					<TextInput style={styles.formTextInput} underlineColorAndroid="transparent" value="12/12/2018"/>
+					<Text style={styles.formTextInput}>{mDate}</Text>
 				</View>
 			</View>
+			</TouchableOpacity>
 		);
 	}
 

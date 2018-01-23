@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, TextInput, ScrollView} from 'react-native';
+import React from 'react';
+import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import AbstractScreen from "./AbstractScreen";
-import { Root, Content, Icon, Toast, Button, } from 'native-base';
+import {Button, Content, Icon, Root, Toast,} from 'native-base';
 import LinearGradient from 'react-native-linear-gradient';
 
 /**
@@ -30,18 +30,28 @@ class LoginScreen extends AbstractScreen
 	clickLogin()
 	{
 		let {navigation} = this.props;
-		let username = 'arnaud@antidot.ca';
-		let password = 'test';
+		let username = this.state.email; // 'arnaud@antidot.ca';
+		let password = this.state.password; //'test';
 		this.user.authenticate(username, password).then(
-			(d) => {
-				if (d) {
+			(d) =>
+			{
+				if (d)
+				{
 					// Toast.show({ text: 'Success', position: 'top', buttonText: 'OK', type: 'success', });
 					navigation.navigate('Home');
-				} else {
-					Toast.show({ text: 'Wrong username or password', position: 'top', buttonText: 'OK', type: 'danger', });
+				}
+				else
+				{
+					Toast.show({
+						text: 'Wrong username or password',
+						position: 'top',
+						buttonText: 'OK',
+						type: 'danger',
+					});
 				}
 			},
-			(err) => {
+			(err) =>
+			{
 				console.log('ERROR');
 				console.log(err);
 			}
@@ -55,79 +65,97 @@ class LoginScreen extends AbstractScreen
 	render()
 	{
 		return (
-			<LinearGradient colors={['#FFFFFF', '#AAAAAA']} style={styles.linearGradient}>
-				<View style={styles.mainContainer}>
-			<ScrollView contentContainerStyle={{ flexGrow: 1 }} >
+			<Root>
+				<LinearGradient colors={['#FFFFFF', '#AAAAAA']} style={styles.linearGradient}>
+					<View style={styles.mainContainer}>
+						<ScrollView contentContainerStyle={{flexGrow: 1}}>
 
-			<View style={styles.mainContainer}>
+							<View style={styles.mainContainer}>
 
-				<View style={styles.genericRow}>
-					<View style={styles.titleContainer}>
-						<Text style={styles.titleTxt}>{this.getTitle()}</Text>
+								<View style={styles.genericRow}>
+									<View style={styles.titleContainer}>
+										<Text style={styles.titleTxt}>{this.getTitle()}</Text>
+									</View>
+								</View>
+
+								<View style={[styles.formElemContainer, styles.bottomLine]}>
+									<View style={styles.formElemRow01}><Text style={styles.formText}>Email</Text></View>
+									<View style={styles.formElemRow02}><TextInput style={styles.formTextInput}
+																				  underlineColorAndroid="transparent"
+																				  onChangeText={(email) => this.setState({email})}
+																				  value={this.state.email}/></View>
+								</View>
+
+								<View style={styles.formElemContainer}>
+									<View style={styles.formElemRow01}><Text
+										style={styles.formText}>Password</Text></View>
+									<View style={styles.formElemRow02}><TextInput
+										style={styles.formTextInput}
+										secureTextEntry={true}
+										underlineColorAndroid="transparent"
+										onChangeText={(password) => this.setState({password})}
+										value={this.state.password}/></View>
+								</View>
+
+								<View style={styles.genericRow}>
+									<TouchableOpacity onPress={() => this.clickLogin()}>
+										<View style={styles.buttonOrangeContainer}>
+											<Text style={styles.buttonTextColor}>LOGIN</Text>
+										</View>
+									</TouchableOpacity>
+								</View>
+
+								<View style={styles.genericRow}>
+									<View style={styles.titleContainer}>
+										<Text style={styles.forgotText}>Forgot password?</Text>
+									</View>
+								</View>
+
+								<View style={styles.orContainerMain}>
+									<View style={[styles.orContainer, {
+										flex: 2,
+										height: '50%',
+										borderBottomWidth: 2,
+										borderBottomColor: '#000'
+									}]}></View>
+									<View style={[styles.orContainer, {flex: 1}]}><Text style={styles.orText}>OR</Text></View>
+									<View style={[styles.orContainer, {
+										flex: 2,
+										height: '50%',
+										borderBottomWidth: 2,
+										borderBottomColor: '#000'
+									}]}></View>
+								</View>
+
+								<View style={styles.genericRow}>
+									<TouchableOpacity onPress={() => console.warn('fbBtn Touch Touched !')}>
+										<View style={[styles.buttonOrangeContainer, styles.buttonOrange2Container]}>
+											<Text style={styles.buttonTextColor}>CREATE ACCOUNT</Text>
+										</View>
+									</TouchableOpacity>
+								</View>
+
+								<View style={styles.genericRow}>
+									<TouchableOpacity onPress={() => console.warn('fbBtn Touch Touched !')}>
+										<View style={[styles.buttonOrangeContainer, styles.buttonBlueContainer]}>
+											<Text style={styles.buttonTextColor}>Login with Facebook</Text>
+										</View>
+									</TouchableOpacity>
+								</View>
+
+								<View style={styles.genericRow}>
+									<TouchableOpacity>
+										<View style={[styles.buttonOrangeContainer, styles.buttonDarkBlueContainer]}>
+											<Text style={styles.buttonTextColor}>Login with Google</Text>
+										</View>
+									</TouchableOpacity>
+								</View>
+
+							</View>
+						</ScrollView>
 					</View>
-				</View>
-
-				<View style={[styles.formElemContainer, styles.bottomLine]}>
-					<View style={styles.formElemRow01}><Text style={styles.formText}>Email</Text></View>
-					<View style={styles.formElemRow02}><TextInput style={styles.formTextInput} underlineColorAndroid="transparent" onChangeText={(text) => this.setState({text})} value={this.state.email}/></View>
-				</View>
-
-				<View style={styles.formElemContainer}>
-					<View style={styles.formElemRow01}><Text style={styles.formText}>Password</Text></View>
-					<View style={styles.formElemRow02}><TextInput
-						style={styles.formTextInput}
-						secureTextEntry={true}
-						underlineColorAndroid="transparent" onChangeText={(text) => this.setState({text})} value={this.state.password}/></View>
-				</View>
-
-				<View style={styles.genericRow}>
-					<TouchableOpacity onPress={() => this.clickLogin() }>
-						<View style={styles.buttonOrangeContainer}>
-							<Text style={styles.buttonTextColor}>LOGIN</Text>
-						</View>
-					</TouchableOpacity>
-				</View>
-
-				<View style={styles.genericRow}>
-					<View style={styles.titleContainer}>
-						<Text style={styles.forgotText}>Forgot password?</Text>
-					</View>
-				</View>
-
-				<View style={styles.orContainerMain}>
-					<View style={[styles.orContainer, { flex: 2, height: '50%', borderBottomWidth: 2, borderBottomColor: '#000' }]}></View>
-					<View style={[styles.orContainer, { flex: 1 }]}><Text style={styles.orText}>OR</Text></View>
-					<View style={[styles.orContainer, { flex: 2, height: '50%', borderBottomWidth: 2, borderBottomColor: '#000'  }]}></View>
-				</View>
-
-				<View style={styles.genericRow}>
-					<TouchableOpacity onPress={() => console.warn('fbBtn Touch Touched !')}>
-						<View style={[styles.buttonOrangeContainer, styles.buttonOrange2Container]}>
-							<Text style={styles.buttonTextColor}>CREATE ACCOUNT</Text>
-						</View>
-					</TouchableOpacity>
-				</View>
-
-				<View style={styles.genericRow}>
-					<TouchableOpacity onPress={() => console.warn('fbBtn Touch Touched !')}>
-						<View style={[styles.buttonOrangeContainer, styles.buttonBlueContainer]}>
-							<Text style={styles.buttonTextColor}>Login with Facebook</Text>
-						</View>
-					</TouchableOpacity>
-				</View>
-
-				<View style={styles.genericRow}>
-					<TouchableOpacity>
-						<View style={[styles.buttonOrangeContainer, styles.buttonDarkBlueContainer]}>
-							<Text style={styles.buttonTextColor}>Login with Google</Text>
-						</View>
-					</TouchableOpacity>
-				</View>
-
-			</View>
-			</ScrollView>
-				</View>
-			</LinearGradient>
+				</LinearGradient>
+			</Root>
 		);
 	}
 
@@ -201,8 +229,6 @@ const _localStyles = StyleSheet.create(
 			fontSize: 20,
 			backgroundColor: 'rgba(0,0,0,0)',
 		},
-
-
 
 
 	}

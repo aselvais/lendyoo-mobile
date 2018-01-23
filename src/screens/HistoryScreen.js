@@ -63,6 +63,16 @@ class HistoryScreen extends AbstractScreen
 
 	/**
 	 *
+	 * @param d
+	 */
+	onPressLoan(d)
+	{
+		this.lendyooRegistry.loanCollection.setActiveModel(d);
+		this.props.navigation.navigate('LoanstatusScreen');
+	}
+
+	/**
+	 *
 	 * @returns {*}
 	 */
 	getContent()
@@ -73,7 +83,7 @@ class HistoryScreen extends AbstractScreen
 			<View style={styles.mainContainer}>
 				{
 					models.map( (d, k) => (
-						<TouchableOpacity key={d._id} onPress={ () => navigation.navigate('LoanstatusScreen') }>
+						<TouchableOpacity key={d._id} onPress={ () => this.onPressLoan(d) }>
 						<View style={[styles.loanIemContainer, {backgroundColor: (k%2 == 0) ? '#FFF' : '#EEE'}]}>
 							<View style={styles.loanIemCol01}>
 								<Image style={styles.imageAvatar} source={{uri: 'https://api.lendyou.io/api-v2/photo/getloanimage/' + d._id + '/100'}} />
