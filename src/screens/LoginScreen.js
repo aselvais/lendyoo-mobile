@@ -10,8 +10,8 @@ import LinearGradient from 'react-native-linear-gradient';
 class LoginScreen extends AbstractScreen
 {
 	state = {
-		email: 'arnaud@antidot.ca',
-		password: 'test',
+		email: 'raphael@thys.email',
+		password: 'Al1c3150273',
 		showToast: false,
 	};
 
@@ -164,6 +164,7 @@ class LoginScreen extends AbstractScreen
 const _localStyles = StyleSheet.create(
 	{
 		mainContainer: {
+			paddingTop: 20,
 			flex: 1,
 			flexDirection: 'column',
 			justifyContent: 'space-between',

@@ -60,8 +60,8 @@ class Fromtobar extends AbstractScreen
 		let {navigation} = this.props;
 		let {loanmaindirection} = this.state;
 		const spin = this.flipValue.interpolate({ inputRange: [0, 1], outputRange: [-1, 1] });
-		let usr01 = require('../../../images/20664038_10158962015225136_6191620256789104695_n.jpg');
-		let usr02 = require('../../../images/22179904_10212243801302792_6096409457610505771_o.jpg');
+		let usr01 = require('../../../images/contactDefault.png');
+		let usr02 = require('../../../images/contactDefault.png');
 		return(
 			<View style={styles.topContainer}>
 				{this.getAvatarJSX( {marginLeft: 25,}, 'FROM', usr01, usr02 )}

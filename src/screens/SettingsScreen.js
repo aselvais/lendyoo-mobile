@@ -1,15 +1,22 @@
 import React from 'react';
 import AbstractScreen from "./AbstractScreen";
-import {Dimensions, StyleSheet, Text, TouchableOpacity, View, Image, ScrollView, TextInput} from 'react-native';
-import {Content, Icon} from 'native-base';
-
-const {height, width} = Dimensions.get('window');
+import {Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View,} from 'react-native';
+import {Content, Icon, Item, Picker,} from 'native-base';
+import moment from 'moment';
 
 /**
  *
  */
 class SettingsScreen extends AbstractScreen
 {
+	state = {
+		fname: this.user.fname,
+		lname: this.user.lname,
+		gender: this.user.gender,
+		email: this.user.email,
+		dateOfBirth: this.user.dateOfBirth,
+	};
+
 	/**
 	 *
 	 * @returns {string}
@@ -26,7 +33,7 @@ class SettingsScreen extends AbstractScreen
 	 * @param bottomline
 	 * @returns {*}
 	 */
-	getFormElement(label='email', placeholder='email', bottomline=true)
+	getFormElement(label = 'email', placeholder = 'email', bottomline = true)
 	{
 		let stl = [styles.formElemContainer];
 		if (bottomline)
@@ -36,9 +43,39 @@ class SettingsScreen extends AbstractScreen
 		return (
 			<View style={stl}>
 				<View style={styles.formElemRow01}><Text style={styles.formText}>{label}</Text></View>
-				<View style={styles.formElemRow02}><TextInput style={styles.formTextInput} underlineColorAndroid="transparent" value={placeholder}/></View>
+				<View style={styles.formElemRow02}><TextInput style={styles.formTextInput}
+															  underlineColorAndroid="transparent" value={placeholder}/></View>
 			</View>
 		);
+	}
+
+	callPicker(type = 'date')
+	{
+		switch (type)
+		{
+			case 'date':
+				this.props.navigation.navigate('CalendarScreen');
+				break;
+			case 'image':
+				this.props.navigation.navigate('ImagepickerScreen');
+				break;
+		}
+	}
+
+	/**
+	 *
+	 * @param value
+	 */
+	onValueChange(value = '')
+	{
+		this.syncValues('gender', value);
+	}
+
+	syncValues(k, v)
+	{
+		let vv = {};
+		vv[k] = v;
+		this.setState(vv, () => this.user[k] = v);
 	}
 
 	/**
@@ -48,43 +85,75 @@ class SettingsScreen extends AbstractScreen
 	getContent()
 	{
 		return (
-			<ScrollView contentContainerStyle={{ flexGrow: 1 }} >
-			<View style={styles.mainContainer}>
+			<ScrollView contentContainerStyle={{flexGrow: 1}}>
+				<View style={styles.mainContainer}>
 
-				<View style={styles.genericRow}>
-					<View style={styles.imageContainer}>
-						<Image style={styles.imageAvatar} source={require('../../images/20664038_10158962015225136_6191620256789104695_n.jpg')}/>
-					</View>
-					<View style={styles.titleContainer}>
-						<Text style={styles.titleTxtSettings}>{this.getTitle()}</Text>
-					</View>
-				</View>
-
-				<View style={styles.genericRow}>
-					{this.getFormElement('First Name', 'Raphael', true)}
-					{this.getFormElement('Last Name', 'Thys', true)}
-					{this.getFormElement('Gender', 'M', true)}
-					{this.getFormElement('E-mail', 'rthys@gmail.com', true)}
-					{this.getFormElement('Date of birth', '12/12/1912', true)}
-				</View>
-
-				<View style={styles.genericRow}>
-					<TouchableOpacity onPress={ () => this.props.navigation.navigate('LandingScreen') }>
-					<View style={styles.titleContainer}>
-						<Text style={styles.forgotText}>Log-out</Text>
-					</View>
-					</TouchableOpacity>
-				</View>
-
-				<View style={styles.genericRow}>
-					<TouchableOpacity onPress={() => console.warn('fbBtn Touch Touched !')}>
-						<View style={styles.buttonOrangeContainer}>
-							<Text style={styles.buttonTextColor}>SAVE</Text>
+					<View style={styles.genericRow}>
+						<TouchableOpacity onPress={() => this.callPicker('image')}>
+							<View style={styles.imageContainer}>
+								<Image style={styles.imageAvatar} source={require('../../images/contactDefault.png')}/>
+							</View>
+						</TouchableOpacity>
+						<View style={styles.titleContainer}>
+							<Text style={styles.titleTxtSettings}>{this.getTitle()}</Text>
 						</View>
-					</TouchableOpacity>
-				</View>
+					</View>
 
-			</View>
+					<View style={styles.genericRow}>
+						{this.getFormElement('First Name', this.state.fname, true)}
+						{this.getFormElement('Last Name', this.state.lname, true)}
+
+						<View style={[styles.formElemContainer, styles.bottomLine]}>
+							<View style={styles.formElemRow01}><Text style={styles.formText}>Gender</Text></View>
+							<View style={styles.formElemRow02}>
+								<Picker
+									textStyle={[styles.formTextInput, {paddingTop: 10, paddingLeft: 0, marginLeft: 0}]}
+									iosHeader="Select one"
+									mode="dropdown"
+									selectedValue={this.state.gender}
+									onValueChange={(d) => this.onValueChange(d)}>
+									<Item label="Male" value="M"/>
+									<Item label="Female" value="F"/>
+									<Item label="Other" value="O"/>
+								</Picker>
+							</View>
+						</View>
+
+						{this.getFormElement('E-mail', this.state.email, true)}
+
+						<TouchableOpacity onPress={() => this.callPicker('date')}>
+							<View style={[styles.formElemContainer]}>
+								<View style={styles.formElemRow01}><Text style={styles.formText}>
+									Date of birth
+								</Text></View>
+								<View style={styles.formElemRow02}>
+									<Text style={[styles.formTextInput, {paddingTop: 10, fontSize: 15}]}>
+										{moment(this.state.dateOfBirth).format('DD/MM/YYYY')}
+									</Text>
+								</View>
+							</View>
+						</TouchableOpacity>
+
+
+					</View>
+
+					<View style={styles.genericRow}>
+						<TouchableOpacity onPress={() => this.props.navigation.navigate('LandingScreen')}>
+							<View style={styles.titleContainer}>
+								<Text style={styles.forgotText}>Log-out</Text>
+							</View>
+						</TouchableOpacity>
+					</View>
+
+					<View style={styles.genericRow}>
+						<TouchableOpacity onPress={() => console.warn('fbBtn Touch Touched !')}>
+							<View style={styles.buttonOrangeContainer}>
+								<Text style={styles.buttonTextColor}>SAVE</Text>
+							</View>
+						</TouchableOpacity>
+					</View>
+
+				</View>
 			</ScrollView>
 		);
 	}
@@ -130,12 +199,12 @@ const _localStyles = StyleSheet.create(
 			margin: 20,
 		},
 		fbBtnCol01: {
-			flex:1,
+			flex: 1,
 			alignItems: 'flex-end',
 			paddingRight: 10,
 		},
 		fbBtnCol02: {
-			flex:2,
+			flex: 2,
 		},
 		fbBtnText: {
 			color: '#FFFFFF',
@@ -177,7 +246,7 @@ const _localStyles = StyleSheet.create(
 		},
 		formTextInput: {
 			height: 40,
-			color: '#8C8C8C',
+			color: '#767676',
 			/* borderColor: 'gray',
 			borderWidth: 1, */
 		},

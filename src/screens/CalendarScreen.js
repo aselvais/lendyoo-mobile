@@ -29,10 +29,13 @@ class CalendarScreen extends AbstractScreen
 
 	componentWillMount()
 	{
-		console.log(this.lendyooRegistry.instanceTime);
-		console.log(this.lendyooRegistry.isNewLoan);
-		console.log(this.model.id);
-		console.log(this.model.dateExpiration);
+		if (this.model && this.model.id)
+		{
+			console.log(this.lendyooRegistry.instanceTime);
+			console.log(this.lendyooRegistry.isNewLoan);
+			console.log(this.model.id);
+			console.log(this.model.dateExpiration);
+		}
 	}
 
 	/**
@@ -51,7 +54,10 @@ class CalendarScreen extends AbstractScreen
 	onDayPressed(day)
 	{
 		let nDate = new Date(day.year, day.month-1, day.day);
-		this.model.dateExpiration = nDate;
+		if (this.model && this.model.id)
+		{
+			this.model.dateExpiration = nDate;
+		}
 		this.setState({selectedDate: nDate}, () => this.props.navigation.goBack());
 	}
 

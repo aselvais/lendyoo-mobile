@@ -76,7 +76,7 @@ class LandingScreen extends AbstractScreen
 							textAlign: 'center',
 							backgroundColor: 'rgba(0,0,0,0)',
 						}}>
-							THIS IS A F*CKING GREAT ONBOARDING SCREEN
+							THIS IS AN AMAZING GREAT ONBOARDING SCREEN
 						</Text>
 					</View>
 
@@ -99,6 +99,7 @@ class LandingScreen extends AbstractScreen
 const _localStyles = StyleSheet.create(
 	{
 		mainContainer: {
+			paddingTop: 40,
 			flex: 1,
 			flexDirection: 'column',
 			justifyContent: 'space-between',

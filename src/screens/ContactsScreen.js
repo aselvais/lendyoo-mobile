@@ -144,7 +144,7 @@ const _localStyles = StyleSheet.create(
 		mainContainer: {
 			flex: 1,
 			flexDirection: 'column',
-			justifyContent: 'space-between',
+			justifyContent: 'flex-start',
 			alignItems: 'stretch',
 		},
 

@@ -3,7 +3,8 @@ import {observable} from 'mobx';
 class Todo
 {
 
-	@observable title = 'Super title';
+	@observable toggled = true;
+	@observable title = 'ABOUT';
 
 }
 

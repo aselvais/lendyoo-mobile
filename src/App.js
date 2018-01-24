@@ -13,6 +13,7 @@ import SignupScreen from "./screens/SignupScreen";
 import AboutScreen from "./screens/AboutScreen";
 import CalendarScreen from "./screens/CalendarScreen";
 import ImagedetailScreen from "./screens/ImagedetailScreen";
+import ImagepickerScreen from "./screens/ImagepickerScreen";
 
 
 const ObjDrawerNavigator = DrawerNavigator({
@@ -100,6 +101,13 @@ const ObjStackNavigator = StackNavigator({
 			drawerLabel: 'Image detail',
 			drawerIcon: <Icon name='information-circle'/>,
 			headerTitle: 'Image detail',
+		}
+	},
+	ImagepickerScreen: {
+		screen: ImagepickerScreen, navigationOptions: {
+			drawerLabel: 'Image picker',
+			drawerIcon: <Icon name='information-circle'/>,
+			headerTitle: 'Image picker',
 		}
 	},
 });
