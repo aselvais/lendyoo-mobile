@@ -33,7 +33,7 @@ class SettingsScreen extends AbstractScreen
 	 * @param bottomline
 	 * @returns {*}
 	 */
-	getFormElement(label = 'email', placeholder = 'email', bottomline = true)
+	getFormElement(label = 'email', placeholder = 'email', bottomline = true, k='')
 	{
 		let stl = [styles.formElemContainer];
 		if (bottomline)
@@ -43,8 +43,12 @@ class SettingsScreen extends AbstractScreen
 		return (
 			<View style={stl}>
 				<View style={styles.formElemRow01}><Text style={styles.formText}>{label}</Text></View>
-				<View style={styles.formElemRow02}><TextInput style={styles.formTextInput}
-															  underlineColorAndroid="transparent" value={placeholder}/></View>
+				<View style={styles.formElemRow02}>
+					<TextInput style={styles.formTextInput}
+							   onChangeText={(v) => this.syncValues(k, v)}
+							   underlineColorAndroid="transparent"
+							   value={placeholder}/>
+				</View>
 			</View>
 		);
 	}
@@ -57,7 +61,7 @@ class SettingsScreen extends AbstractScreen
 				this.props.navigation.navigate('CalendarScreen');
 				break;
 			case 'image':
-				this.props.navigation.navigate('ImagepickerScreen');
+				this.props.navigation.navigate('CameraScreen');
 				break;
 		}
 	}
@@ -71,6 +75,11 @@ class SettingsScreen extends AbstractScreen
 		this.syncValues('gender', value);
 	}
 
+	/**
+	 *
+	 * @param k
+	 * @param v
+	 */
 	syncValues(k, v)
 	{
 		let vv = {};
@@ -100,8 +109,8 @@ class SettingsScreen extends AbstractScreen
 					</View>
 
 					<View style={styles.genericRow}>
-						{this.getFormElement('First Name', this.state.fname, true)}
-						{this.getFormElement('Last Name', this.state.lname, true)}
+						{this.getFormElement('First Name', this.state.fname, true, 'fname')}
+						{this.getFormElement('Last Name', this.state.lname, true, 'lname')}
 
 						<View style={[styles.formElemContainer, styles.bottomLine]}>
 							<View style={styles.formElemRow01}><Text style={styles.formText}>Gender</Text></View>
@@ -119,7 +128,7 @@ class SettingsScreen extends AbstractScreen
 							</View>
 						</View>
 
-						{this.getFormElement('E-mail', this.state.email, true)}
+						{this.getFormElement('E-mail', this.state.email, true, 'email')}
 
 						<TouchableOpacity onPress={() => this.callPicker('date')}>
 							<View style={[styles.formElemContainer]}>

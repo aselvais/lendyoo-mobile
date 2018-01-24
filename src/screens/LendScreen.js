@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View,} from 'react-native';
 import AbstractScreen from "./AbstractScreen";
-import {Content, Icon} from 'native-base';
+import {Content, Icon,} from 'native-base';
 import Fromtobar from './components/Fromtobar';
 import moment from "moment/moment";
 import {observer} from 'mobx-react/native';
@@ -23,6 +23,9 @@ class LendScreen extends AbstractScreen
 		this.lendyooRegistry.setNewLoanMode(true);
 	}
 
+	/**
+	 *
+	 */
 	componentWillMount()
 	{
 		console.log(this.lendyooRegistry.instanceTime);
@@ -42,22 +45,69 @@ class LendScreen extends AbstractScreen
 
 	/**
 	 *
+	 */
+	onPressPhoto()
+	{
+		this.props.navigation.navigate('CameraScreen');
+	}
+
+	/**
+	 *
 	 * @returns {*}
 	 */
-	getPhotoContainerJSX()
+	getDateContainerJSX()
 	{
-		let { navigation } = this.props;
+		let {navigation} = this.props;
 		let mDate = moment((this.lendyooRegistry.newLoan && this.lendyooRegistry.newLoan.dateExpiration) ? this.lendyooRegistry.newLoan.dateExpiration : new Date()).format('DD/MM/YYYY');
 		return (
-			<TouchableOpacity onPress={ () => navigation.navigate('CalendarScreen') }>
-			<View style={{ alignItems: 'center', }}>
-				<View style={styles.formElemRow01}>
-					<Text style={styles.descText}>Return date</Text>
+			<TouchableOpacity onPress={() => navigation.navigate('CalendarScreen')}>
+				<View style={{alignItems: 'center',}}>
+					<View style={styles.formElemRow01}>
+						<Text style={styles.descText}>Return date</Text>
+					</View>
+					<View style={styles.formElemRow02}>
+						<Text style={styles.formTextInput}>{mDate}</Text>
+					</View>
 				</View>
-				<View style={styles.formElemRow02}>
-					<Text style={styles.formTextInput}>{mDate}</Text>
+			</TouchableOpacity>
+		);
+	}
+
+	/**
+	 *
+	 * @returns {*}
+	 */
+	getPhotoWidgetJSX()
+	{
+		return (
+			<TouchableOpacity onPress={() => this.onPressPhoto()}>
+				<View style={{
+					backgroundColor: '#000',
+					alignItems: 'center',
+					justifyContent: 'center',
+					height: '100%'
+				}}>
+					<Icon
+						name="ios-camera-outline"
+						style={{fontSize: 120, color: 'rgba(255,255,255,.4)'}}
+					/>
+					<Text style={{ color: 'rgba(255,255,255,.4)', }}>Take picture</Text>
 				</View>
-			</View>
+			</TouchableOpacity>
+		);
+	}
+
+	/**
+	 *
+	 * @returns {*}
+	 */
+	getBottomButtonJSX()
+	{
+		return (
+			<TouchableOpacity onPress={() => navigation.navigate('LoanstatusScreen')}>
+				<View style={styles.buttonOrangeContainer}>
+					<Text style={styles.buttonTextColor}>SAVE LOAN</Text>
+				</View>
 			</TouchableOpacity>
 		);
 	}
@@ -68,28 +118,40 @@ class LendScreen extends AbstractScreen
 	 */
 	getContent()
 	{
-		let { navigation } = this.props;
+		let {navigation} = this.props;
 		return (
-		<View style={styles.mainContainer}>
-			<Fromtobar navigation={navigation}/>
-			<View style={styles.photoContainer}>
-				<Text style={styles.titleText}>photo</Text>
+			<View style={styles.mainContainer}>
+
+				<View>
+					<Fromtobar navigation={navigation}/>
+				</View>
+
+				<View style={{flex: 1}}>
+					{this.getPhotoWidgetJSX()}
+				</View>
+
+				<View>
+					{this.getDateContainerJSX()}
+				</View>
+
+				<View>
+					{this.getBottomButtonJSX()}
+				</View>
+
 			</View>
-			{this.getPhotoContainerJSX()}
-			<View>
-				<TouchableOpacity onPress={ () => navigation.navigate('LoanstatusScreen') }>
-					<View style={styles.buttonOrangeContainer}>
-						<Text style={styles.buttonTextColor}>SAVE LOAN</Text>
-					</View>
-				</TouchableOpacity>
-			</View>
-		</View>
 		);
 	}
 }
 
 const _localStyles = StyleSheet.create(
 	{
+
+		fborder:
+			{
+				borderColor: 'red',
+				borderWidth: 1,
+			},
+
 		mainContainer: {
 			flex: 1,
 			flexDirection: 'column',
@@ -102,12 +164,6 @@ const _localStyles = StyleSheet.create(
 			justifyContent: 'center',
 		},
 
-		photoContainer: {
-			flex: 1,
-			backgroundColor: '#000',
-			alignItems: 'stretch',
-		},
-
 		formElemRow01: {},
 		descText: {
 			color: '#000',
@@ -117,7 +173,7 @@ const _localStyles = StyleSheet.create(
 
 		formElemRow02: {},
 		formTextInput: {
-			width: AbstractScreen.width-100,
+			width: AbstractScreen.width - 100,
 			textAlign: 'center',
 			color: '#555',
 			/* borderWidth: 1,

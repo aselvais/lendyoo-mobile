@@ -1,5 +1,14 @@
 import React from 'react';
-import {StyleSheet, View, Text, Image, TouchableOpacity, TouchableWithoutFeedback, Animated, Easing, } from "react-native";
+import {
+	Animated,
+	Easing,
+	Image,
+	StyleSheet,
+	Text,
+	TouchableOpacity,
+	TouchableWithoutFeedback,
+	View,
+} from "react-native";
 import AbstractScreen from "../AbstractScreen";
 
 /**
@@ -10,7 +19,10 @@ class Fromtobar extends AbstractScreen
 	/**
 	 * @type {{loanmaindirection: boolean}}
 	 */
-	state = { loanmaindirection: true, };
+	state = {
+		loanmaindirection: true,
+	};
+
 	/**
 	 *
 	 */
@@ -24,10 +36,10 @@ class Fromtobar extends AbstractScreen
 		let {loanmaindirection} = this.state;
 		this.flipValue.setValue(loanmaindirection ? 0 : 1);
 		Animated.timing(this.flipValue, {
-				toValue: loanmaindirection ? 1 : 0,
-				duration: 100,
-				easing: Easing.ease
-			}).start(
+			toValue: loanmaindirection ? 1 : 0,
+			duration: 100,
+			easing: Easing.ease
+		}).start(
 			() => this.setState({loanmaindirection: !this.state.loanmaindirection})
 		);
 	}
@@ -37,18 +49,23 @@ class Fromtobar extends AbstractScreen
 	 *
 	 * @param style
 	 * @param label
-	 * @param imgSrc01
-	 * @param imgSrc02
+	 * @param usr01
+	 * @param usr02
 	 * @returns {*}
 	 */
-	getAvatarJSX(style={marginLeft: 25,}, label='', imgSrc01, imgSrc02)
+	getAvatarJSX(style = {}, label = '', usr01 = {image: null, name: ''}, usr02 = { image: null, name: '' })
 	{
 		let {navigation} = this.props;
+		let labelname = (this.state.loanmaindirection) ? usr01.name : usr02.name;
+		let isMe = (labelname === this.user.getFullName()) ? true : false;
 		let _mJSX = <View style={[styles.avatarContainer, style]}>
-						<Image style={styles.imageAvatar} source={(this.state.loanmaindirection) ? imgSrc01 : imgSrc02}/>
-						<Text style={styles.titleTopText}>{label}</Text>
-					</View>;
-		return <TouchableOpacity onPress={ () => navigation.navigate('ContactsScreen') }>{_mJSX}</TouchableOpacity>;
+			<Image style={styles.imageAvatar}
+				   source={(this.state.loanmaindirection) ? usr01.image : usr02.image}/>
+			<Text style={styles.titleTopText01}>{label}</Text>
+			<Text style={[styles.titleTopText02, {color: isMe ? '#000' : '#00B8DD',}]}>{labelname}</Text>
+		</View>;
+
+		return isMe ? _mJSX : <TouchableOpacity onPress={() => navigation.navigate('ContactsScreen')}>{_mJSX}</TouchableOpacity>;
 	}
 
 	/**
@@ -59,20 +76,24 @@ class Fromtobar extends AbstractScreen
 	{
 		let {navigation} = this.props;
 		let {loanmaindirection} = this.state;
-		const spin = this.flipValue.interpolate({ inputRange: [0, 1], outputRange: [-1, 1] });
-		let usr01 = require('../../../images/contactDefault.png');
-		let usr02 = require('../../../images/contactDefault.png');
-		return(
+		const spin = this.flipValue.interpolate({inputRange: [0, 1], outputRange: [-1, 1]});
+
+		let usr01 = {image: require('../../../images/contactDefault.png'), name: this.user.getFullName()};
+		let usr02 = {image: require('../../../images/contactDefault.png'), name: 'Choose...'};
+
+		return (
 			<View style={styles.topContainer}>
-				{this.getAvatarJSX( {marginLeft: 25,}, 'FROM', usr01, usr02 )}
-				<TouchableWithoutFeedback onPress={ () => this.onPressLoanDirection() }>
-					<View>
+				{this.getAvatarJSX({ flex: 1, alignItems: 'center', width: AbstractScreen.width/3 }, 'FROM', usr01, usr02)}
+
+				<TouchableWithoutFeedback onPress={() => this.onPressLoanDirection()}>
+					<View style={{ flex: 1, alignItems: 'center', width: AbstractScreen.width/3 }}>
 						<Animated.Image
-							style={[styles.imageLogo, { transform: [{ scaleX: spin }] }]}
+							style={[styles.imageLogo, {transform: [{scaleX: spin}]}]}
 							source={require('../../../images/lendyoologoshadow.png')}/>
 					</View>
 				</TouchableWithoutFeedback>
-				{this.getAvatarJSX({ marginRight: 25,}, 'TO', usr02, usr01 )}
+
+				{this.getAvatarJSX({ flex: 1, alignItems: 'center', width: AbstractScreen.width/3 }, 'TO', usr02, usr01)}
 			</View>
 		);
 	}
@@ -81,8 +102,8 @@ class Fromtobar extends AbstractScreen
 const _localStyles = StyleSheet.create({
 	topContainer: {
 		flexDirection: 'row',
-		justifyContent: 'space-around',
-		alignItems: 'stretch',
+		justifyContent: 'center',
+		alignItems: 'center',
 	},
 	avatarContainer: {
 		justifyContent: 'center',
@@ -94,8 +115,15 @@ const _localStyles = StyleSheet.create({
 		borderRadius: 35,
 		marginTop: 15,
 	},
-	titleTopText: {
-		margin: 10,
+	titleTopText01: {
+		margin: 5,
+		fontSize: 10,
+		fontWeight: 'bold',
+	},
+	titleTopText02: {
+		margin: 5,
+		fontSize: 15,
+		marginBottom: 10,
 	},
 
 	imageLogo: {

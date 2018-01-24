@@ -14,8 +14,11 @@ import AboutScreen from "./screens/AboutScreen";
 import CalendarScreen from "./screens/CalendarScreen";
 import ImagedetailScreen from "./screens/ImagedetailScreen";
 import ImagepickerScreen from "./screens/ImagepickerScreen";
+import CameraScreen from "./screens/CameraScreen";
 
-
+/**
+ *
+ */
 const ObjDrawerNavigator = DrawerNavigator({
 	HistoryScreen: {
 		screen: HistoryScreen, navigationOptions: {
@@ -108,6 +111,13 @@ const ObjStackNavigator = StackNavigator({
 			drawerLabel: 'Image picker',
 			drawerIcon: <Icon name='information-circle'/>,
 			headerTitle: 'Image picker',
+		}
+	},
+	CameraScreen: {
+		screen: CameraScreen, navigationOptions: {
+			drawerLabel: 'Camera',
+			drawerIcon: <Icon name='camera'/>,
+			headerTitle: 'Camera',
 		}
 	},
 });
