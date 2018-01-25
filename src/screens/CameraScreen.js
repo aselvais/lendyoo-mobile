@@ -37,14 +37,32 @@ class CameraScreen extends AbstractScreen
 	 */
 	pressTakePicture()
 	{
+		// get localisation
+		navigator.geolocation.getCurrentPosition(
+			(position) => {
+				this.lendyooRegistry.newLoan.geolocation = {
+					latitude: position.coords.latitude,
+					longitude: position.coords.longitude,
+					error: null,
+				};
+			},
+			(error) => console.log({ error: error.message }),
+			{ enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+		);
+		// taking a picture
 		const options = {};
 		this.camera.capture({metadata: options})
 			.then((data) =>
 			{
 				if (data.mediaUri) this.lendyooRegistry.newLoan.mediaUri = data.mediaUri;
 				if (data.path) this.lendyooRegistry.newLoan.path = data.path;
-				console.log(data);
-				this.props.navigation.goBack();
+
+				RNFetchBlob.fs.readFile(data.path, 'base64').then(
+					(dd) => {
+						this.lendyooRegistry.newLoan.photo = dd;
+						this.props.navigation.goBack();
+					}
+				);
 			})
 			.catch(err => console.error(err));
 	}

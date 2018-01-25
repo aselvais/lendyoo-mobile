@@ -20,6 +20,7 @@ class Loan extends LoanFrontend
 	@observable remindersFrequency = 7;
 	@observable mediaUri = null;
 	@observable path = null;
+	@observable geolocation = null;
 
 	/**
 	 *

@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.5</string>
+	<string>1.6</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
@@ -41,10 +41,10 @@
 	<string>Your camera should be used to take pictures of the items you lend</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We would like to know the location of the loans</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Our application needs permission to write photos.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Your gallery can be used to add photos instead of shooting a new one</string>
-  <key>NSPhotoLibraryAddUsageDescription</key>
-  <string>Our application needs permission to write photos.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Entypo.ttf</string>

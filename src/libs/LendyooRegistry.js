@@ -24,7 +24,7 @@ class LendyooRegistry
 	 */
 	constructor()
 	{
-		if(!instance){
+		if(!instance) {
 
 			this.Console = new Console(true);
 			this.platform = Platform.OS;
