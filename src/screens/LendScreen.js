@@ -142,10 +142,10 @@ const _localStyles = StyleSheet.create({
 	},
 	photoIcon: {
 		fontSize: 100,
-		color: 'rgba(255,255,255,.4)',
+		color: 'rgba(255,255,255,.8)',
 	},
 	photoText: {
-		color: 'rgba(255,255,255,.4)',
+		color: 'rgba(255,255,255,.8)',
 	},
 	container: {
 		alignItems: 'stretch',
