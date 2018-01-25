@@ -115,9 +115,8 @@ const ObjStackNavigator = StackNavigator({
 	},
 	CameraScreen: {
 		screen: CameraScreen, navigationOptions: {
-			drawerLabel: 'Camera',
-			drawerIcon: <Icon name='camera'/>,
-			headerTitle: 'Camera',
+			headerMode: 'none',
+			header: null,
 		}
 	},
 });

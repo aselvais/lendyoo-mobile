@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View,} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View, Image, } from 'react-native';
 import AbstractScreen from "./AbstractScreen";
 import {Content, Icon,} from 'native-base';
 import Fromtobar from './components/Fromtobar';
@@ -12,7 +12,6 @@ import {observer} from 'mobx-react/native';
 @observer
 class LendScreen extends AbstractScreen
 {
-
 	/**
 	 *
 	 * @param props
@@ -21,26 +20,6 @@ class LendScreen extends AbstractScreen
 	{
 		super(props);
 		this.lendyooRegistry.setNewLoanMode(true);
-	}
-
-	/**
-	 *
-	 */
-	componentWillMount()
-	{
-		console.log(this.lendyooRegistry.instanceTime);
-		console.log(this.lendyooRegistry.isNewLoan);
-		console.log(this.lendyooRegistry.newLoan.id);
-		console.log(this.lendyooRegistry.newLoan.dateExpiration);
-	}
-
-	/**
-	 *
-	 * @returns {string}
-	 */
-	getTitle()
-	{
-		return 'Lend';
 	}
 
 	/**
@@ -58,14 +37,14 @@ class LendScreen extends AbstractScreen
 	getDateContainerJSX()
 	{
 		let {navigation} = this.props;
-		let mDate = moment((this.lendyooRegistry.newLoan && this.lendyooRegistry.newLoan.dateExpiration) ? this.lendyooRegistry.newLoan.dateExpiration : new Date()).format('DD/MM/YYYY');
+		let mDate = moment((this.lendyooRegistry.newLoan.loanExpirationDate) ? this.lendyooRegistry.newLoan.loanExpirationDate : new Date()).format('DD/MM/YYYY');
 		return (
 			<TouchableOpacity onPress={() => navigation.navigate('CalendarScreen')}>
 				<View style={{alignItems: 'center',}}>
-					<View style={styles.formElemRow01}>
+					<View>
 						<Text style={styles.descText}>Return date</Text>
 					</View>
-					<View style={styles.formElemRow02}>
+					<View>
 						<Text style={styles.formTextInput}>{mDate}</Text>
 					</View>
 				</View>
@@ -79,22 +58,33 @@ class LendScreen extends AbstractScreen
 	 */
 	getPhotoWidgetJSX()
 	{
-		return (
-			<TouchableOpacity onPress={() => this.onPressPhoto()}>
-				<View style={{
-					backgroundColor: '#000',
-					alignItems: 'center',
-					justifyContent: 'center',
-					height: '100%'
-				}}>
-					<Icon
-						name="ios-camera-outline"
-						style={{fontSize: 120, color: 'rgba(255,255,255,.4)'}}
-					/>
-					<Text style={{ color: 'rgba(255,255,255,.4)', }}>Take picture</Text>
-				</View>
-			</TouchableOpacity>
-		);
+		let uri = (this.lendyooRegistry.newLoan.mediaUri) ? this.lendyooRegistry.newLoan.mediaUri : null;
+		if (uri)
+		{
+			return (
+				<TouchableOpacity onPress={() => this.onPressPhoto()}>
+					<Image source={{uri: uri}}  style={styles.photoView}>
+						<Icon name="ios-camera-outline" style={styles.photoIcon}/>
+						<Text style={styles.photoText}>
+							{'Re-take picture'}
+						</Text>
+					</Image>
+				</TouchableOpacity>
+			);
+		}
+		else
+		{
+			return (
+				<TouchableOpacity onPress={() => this.onPressPhoto()}>
+					<View style={[styles.photoView, {backgroundColor: '#000',} ]}>
+						<Icon name="ios-camera-outline" style={styles.photoIcon}/>
+						<Text style={styles.photoText}>
+							{'Take picture'}
+						</Text>
+					</View>
+				</TouchableOpacity>
+			);
+		}
 	}
 
 	/**
@@ -121,70 +111,56 @@ class LendScreen extends AbstractScreen
 		let {navigation} = this.props;
 		return (
 			<View style={styles.mainContainer}>
-
-				<View>
-					<Fromtobar navigation={navigation}/>
-				</View>
-
-				<View style={{flex: 1}}>
-					{this.getPhotoWidgetJSX()}
-				</View>
-
-				<View>
-					{this.getDateContainerJSX()}
-				</View>
-
-				<View>
-					{this.getBottomButtonJSX()}
-				</View>
-
+				<View><Fromtobar navigation={navigation}/></View>
+				<View style={{flex: 1}}>{this.getPhotoWidgetJSX()}</View>
+				<View>{this.getDateContainerJSX()}</View>
+				<View>{this.getBottomButtonJSX()}</View>
 			</View>
 		);
 	}
 }
 
-const _localStyles = StyleSheet.create(
-	{
-
-		fborder:
-			{
-				borderColor: 'red',
-				borderWidth: 1,
-			},
-
-		mainContainer: {
-			flex: 1,
-			flexDirection: 'column',
-			justifyContent: 'space-between',
-			alignItems: 'stretch',
-		},
-
-		container: {
-			alignItems: 'stretch',
-			justifyContent: 'center',
-		},
-
-		formElemRow01: {},
-		descText: {
-			color: '#000',
-			fontSize: 20,
-			paddingTop: 5,
-		},
-
-		formElemRow02: {},
-		formTextInput: {
-			width: AbstractScreen.width - 100,
-			textAlign: 'center',
-			color: '#555',
-			/* borderWidth: 1,
-			borderColor: 'red', */
-			margin: 5,
-			padding: 0,
-		},
-
-
-	}
-);
+const _localStyles = StyleSheet.create({
+	fborder: {
+		borderColor: 'red',
+		borderWidth: 1,
+	},
+	mainContainer: {
+		flex: 1,
+		flexDirection: 'column',
+		justifyContent: 'space-between',
+		alignItems: 'stretch',
+	},
+	photoView: {
+//		backgroundColor: '#000',
+		alignItems: 'center',
+		justifyContent: 'center',
+		height: '100%',
+	},
+	photoIcon: {
+		fontSize: 100,
+		color: 'rgba(255,255,255,.4)',
+	},
+	photoText: {
+		color: 'rgba(255,255,255,.4)',
+	},
+	container: {
+		alignItems: 'stretch',
+		justifyContent: 'center',
+	},
+	descText: {
+		color: '#000',
+		fontSize: 20,
+		paddingTop: 5,
+	},
+	formTextInput: {
+		width: AbstractScreen.width - 100,
+		textAlign: 'center',
+		color: '#555',
+		margin: 5,
+		padding: 0,
+	},
+});
 const styles = {...AbstractScreen._styles, ..._localStyles};
 
 export default LendScreen;

@@ -22,12 +22,6 @@ class HistoryScreen extends AbstractScreen
 
 	/**
 	 *
-	 * @type {ContactCollection}
-	 */
-	contactCollection = new ContactCollection();
-
-	/**
-	 *
 	 * @param props
 	 */
 	constructor(props)
@@ -50,9 +44,9 @@ class HistoryScreen extends AbstractScreen
 	 */
 	componentDidMount()
 	{
-		this.contactCollection.setRemoteContactsFromUser(this.user._id).then(
+		this.lendyooRegistry.contactCollection.setRemoteContactsFromUser(this.user._id).then(
 			(d) => {
-				this.setState({contactCollectionModels: this.contactCollection.models}, () => {
+				this.setState({contactCollectionModels: this.lendyooRegistry.contactCollection.models}, () => {
 					this.loanCollection.setRemoteLoansFromUser(this.user._id).then(
 						(d) => {
 							if (d) {
@@ -106,7 +100,7 @@ class HistoryScreen extends AbstractScreen
 							</View>
 							<View style={styles.loanIemCol03}>
 								<Text style={styles.loanIemText04}></Text>
-								<Text style={styles.loanIemText04}>{this.contactCollection.getModelById(d.Contact_id).getFullName()}</Text>
+								<Text style={styles.loanIemText04}>{this.lendyooRegistry.contactCollection.getModelById(d.Contact_id).getFullName()}</Text>
 							</View>
 						</View>
 						</TouchableOpacity>

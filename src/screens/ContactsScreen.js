@@ -6,7 +6,6 @@ import Fromtobar from './components/Fromtobar';
 import LinearGradient from 'react-native-linear-gradient';
 import ContactCollection from "../models/ContactCollection";
 
-
 /**
  *
  */
@@ -58,10 +57,13 @@ class ContactsScreen extends AbstractScreen
 			<View style={styles.mainContainer}>
 				{
 					models.map( (d, k) => (
-						<TouchableOpacity key={d._id} onPress={ () => navigation.navigate('LendScreen') }>
+						<TouchableOpacity key={d._id} onPress={ () => {
+							this.lendyooRegistry.newLoan.toId = d._id;
+							navigation.navigate('LendScreen');
+						}}>
 							<View style={[styles.loanIemContainer, {backgroundColor: (k%2 == 0) ? '#FFF' : '#EEE'}]}>
 								<View style={styles.loanIemCol01}>
-									<Image style={styles.imageAvatar} source={require('../../images/contactDefault.png')}/>
+									<Image style={styles.imageAvatar} source={require('../../images/contactDefault2.png')}/>
 								</View>
 								<View style={styles.loanIemCol02}>
 									<Text style={styles.loanIemText02}>Name:</Text>

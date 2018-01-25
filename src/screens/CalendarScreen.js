@@ -13,30 +13,6 @@ import {observer} from 'mobx-react/native';
 @observer
 class CalendarScreen extends AbstractScreen
 {
-	/**
-	 *
-	 * @type {{selectedDate: Date}}
-	 */
-	state = {
-		selectedDate: new Date()
-	};
-
-	/**
-	 *
-	 * @type {Loan}
-	 */
-	model = (this.lendyooRegistry.isNewLoan) ? this.lendyooRegistry.newLoan : this.lendyooRegistry.loanCollection.getActiveModel();
-
-	componentWillMount()
-	{
-		if (this.model && this.model.id)
-		{
-			console.log(this.lendyooRegistry.instanceTime);
-			console.log(this.lendyooRegistry.isNewLoan);
-			console.log(this.model.id);
-			console.log(this.model.dateExpiration);
-		}
-	}
 
 	/**
 	 *
@@ -54,11 +30,8 @@ class CalendarScreen extends AbstractScreen
 	onDayPressed(day)
 	{
 		let nDate = new Date(day.year, day.month-1, day.day);
-		if (this.model && this.model.id)
-		{
-			this.model.dateExpiration = nDate;
-		}
-		this.setState({selectedDate: nDate}, () => this.props.navigation.goBack());
+		this.lendyooRegistry.newLoan.loanExpirationDate = nDate;
+		this.props.navigation.goBack();
 	}
 
 	/**
@@ -67,7 +40,7 @@ class CalendarScreen extends AbstractScreen
 	 */
 	getMarkedDates()
 	{
-		let sd = this.state.selectedDate;
+		let sd = this.lendyooRegistry.newLoan.loanExpirationDate;
 		let d = {};
 		let dStr = moment(sd).format('YYYY-MM-DD');
 		d[dStr] = {selected: true};

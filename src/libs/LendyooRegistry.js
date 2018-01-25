@@ -16,7 +16,7 @@ let instance = null;
 class LendyooRegistry
 {
 	@observable isNewLoan = true;
-	newLoan = new Loan({id: Math.random() });
+	@observable newLoan = new Loan();
 
 	/**
 	 *

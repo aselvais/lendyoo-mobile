@@ -18,6 +18,8 @@ class Loan extends LoanFrontend
 	@observable lastReminderSent = '';
 	@observable sendReminders = true;
 	@observable remindersFrequency = 7;
+	@observable mediaUri = null;
+	@observable path = null;
 
 	/**
 	 *
