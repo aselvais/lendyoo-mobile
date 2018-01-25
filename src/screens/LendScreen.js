@@ -32,6 +32,40 @@ class LendScreen extends AbstractScreen
 
 	/**
 	 *
+	 */
+	pressSaveLoan()
+	{
+		let contact = this.lendyooRegistry.contactCollection.getModelById(this.lendyooRegistry.newLoan.toId);
+		// set required data
+		this.lendyooRegistry.newLoan.User_id = this.user._id;
+		this.lendyooRegistry.newLoan.Group_id = this.user.Group_id;
+		if (contact) this.lendyooRegistry.newLoan.Contact_id = contact._id;
+
+		// save photo here and do not store the photo data in photo (use the local path for that)
+
+		this.lendyooRegistry.newLoan.save().then(
+			(d) =>
+			{
+				console.log(d);
+				// reload the list of loans
+				this.loanCollection.setRemoteLoansFromUser(this.user._id).then(
+					(dd) => {
+						console.log(dd);
+						// @todo Should we update the loan ID ?
+						// set the selected loan to this one
+						this.lendyooRegistry.loanCollection.setActiveModel(this.lendyooRegistry.newLoan);
+						// redirect to the loan status for a complement of info
+						this.props.navigation.navigate('LoanstatusScreen');
+
+					}
+				);
+			},
+			(err) => { console.log('error', err); }
+		);
+	}
+
+	/**
+	 *
 	 * @returns {*}
 	 */
 	getDateContainerJSX()
@@ -97,7 +131,7 @@ class LendScreen extends AbstractScreen
 	getBottomButtonJSX()
 	{
 		return (
-			<TouchableOpacity onPress={() => navigation.navigate('LoanstatusScreen')}>
+			<TouchableOpacity onPress={() => this.pressSaveLoan()}>
 				<View style={styles.buttonOrangeContainer}>
 					<Text style={styles.buttonTextColor}>SAVE LOAN</Text>
 				</View>

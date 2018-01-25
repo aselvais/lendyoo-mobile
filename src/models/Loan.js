@@ -40,16 +40,6 @@ class Loan extends LoanFrontend
 		this.loanExpirationDate = this.loanDate.setMonth(this.loanDate.getMonth()+2);
 	}
 
-	/**
-	 * @todo implement this thing
-	 */
-	save()
-	{
-		// this.Console.log('Loan.save() Save the thing ...');
-	}
-
-
-
 }
 
 export default Loan;
