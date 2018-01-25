@@ -58,12 +58,25 @@ class LendScreen extends AbstractScreen
 	 */
 	getPhotoWidgetJSX()
 	{
-		let uri = (this.lendyooRegistry.newLoan.mediaUri) ? this.lendyooRegistry.newLoan.mediaUri : null;
+		// let uri = (this.lendyooRegistry.newLoan.mediaUri) ? this.lendyooRegistry.newLoan.mediaUri : null;
+		let uri = null;
+		try
+		{
+			//uri = (this.lendyooRegistry.newLoan.path) ? require(this.lendyooRegistry.newLoan.path) : null;
+		} catch (err)
+		{
+			console.log(err);
+		}
+		// let uri = null;
+
+//		source={require('../../../images/lendyoologoshadow.png')}
+//		<Image source={{uri: uri, isStatic:true }} style={styles.photoView}>
+
 		if (uri)
 		{
 			return (
 				<TouchableOpacity onPress={() => this.onPressPhoto()}>
-					<Image source={{uri: uri}}  style={styles.photoView}>
+					<Image source={uri} style={styles.photoView}>
 						<Icon name="ios-camera-outline" style={styles.photoIcon}/>
 						<Text style={styles.photoText}>
 							{'Re-take picture'}

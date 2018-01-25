@@ -3,6 +3,7 @@ import {StyleSheet, Text, TouchableOpacity, View,} from 'react-native';
 import AbstractScreen from "./AbstractScreen";
 import {Body, Card, CardItem, Icon,} from 'native-base';
 import Camera from 'react-native-camera';
+import RNFetchBlob from 'react-native-fetch-blob';
 
 /**
  *
@@ -42,6 +43,7 @@ class CameraScreen extends AbstractScreen
 			{
 				if (data.mediaUri) this.lendyooRegistry.newLoan.mediaUri = data.mediaUri;
 				if (data.path) this.lendyooRegistry.newLoan.path = data.path;
+				console.log(data);
 				this.props.navigation.goBack();
 			})
 			.catch(err => console.error(err));

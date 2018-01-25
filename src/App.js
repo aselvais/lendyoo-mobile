@@ -55,6 +55,16 @@ const ObjDrawerNavigator = DrawerNavigator({
 	drawerToggleRoute: 'DrawerToggle',
 });
 const ObjStackNavigator = StackNavigator({
+
+	/*ImagepickerScreen: {
+		screen: ImagepickerScreen, navigationOptions: {
+			drawerLabel: 'Image picker',
+			drawerIcon: <Icon name='information-circle'/>,
+			headerTitle: 'Image picker',
+		}
+	},*/
+
+
 	LandingScreen: {
 		screen: LandingScreen, navigationOptions: {
 			headerMode: 'none',
