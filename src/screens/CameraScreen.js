@@ -38,31 +38,51 @@ class CameraScreen extends AbstractScreen
 	pressTakePicture()
 	{
 		// get localisation
-		navigator.geolocation.getCurrentPosition(
-			(position) => {
-				this.lendyooRegistry.newLoan.geolocation = {
-					latitude: position.coords.latitude,
-					longitude: position.coords.longitude,
-					error: null,
-				};
-			},
-			(error) => console.log({ error: error.message }),
-			{ enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
-		);
+		try
+		{
+			navigator.geolocation.getCurrentPosition(
+				(position) =>
+				{
+					this.lendyooRegistry.newLoan.geolocation = {
+						latitude: position.coords.latitude,
+						longitude: position.coords.longitude,
+						error: null,
+					};
+				},
+				(error) => console.log({error: error.message}),
+				{enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
+			);
+		} catch (err)
+		{
+			console.log(err);
+		}
 		// taking a picture
 		const options = {};
 		this.camera.capture({metadata: options})
 			.then((data) =>
 			{
 				if (data.mediaUri) this.lendyooRegistry.newLoan.mediaUri = data.mediaUri;
-				if (data.path) this.lendyooRegistry.newLoan.path = data.path;
+				if (data.path) {
+					this.lendyooRegistry.newLoan.path = data.path;
+					this.lendyooRegistry.newLoan.photo = data.path;
+					this.lendyooRegistry.newPhoto.localpath = data.path;
+				}
+				try
+				{
+					RNFetchBlob.fs.readFile(data.path, 'base64').then(
+						(dd) =>
+						{
+							this.lendyooRegistry.newPhoto.data = dd;
+							this.lendyooRegistry.newPhoto.initImageSize();
+							this.lendyooRegistry.newPhoto.initFilename();
+							this.props.navigation.goBack();
+						}
+					);
+				} catch (err)
+				{
+					console.log(err);
+				}
 
-				RNFetchBlob.fs.readFile(data.path, 'base64').then(
-					(dd) => {
-						this.lendyooRegistry.newLoan.photo = dd;
-						this.props.navigation.goBack();
-					}
-				);
 			})
 			.catch(err => console.error(err));
 	}
@@ -118,7 +138,10 @@ class CameraScreen extends AbstractScreen
 			<View style={styles.globalContainer}>
 				<View style={{flex: 1}}>
 					<Camera
-						ref={(cam) => { this.camera = cam; }}
+						ref={(cam) =>
+						{
+							this.camera = cam;
+						}}
 						style={styles.cameraWidget}
 						onBarCodeRead={(d) => this.onBarCodeRead(d)}
 					/>

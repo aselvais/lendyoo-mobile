@@ -60,7 +60,11 @@ class ImagepickerScreen extends AbstractScreen
 		RNFetchBlob.fs.readFile(this.state.photos[index].node.image.uri, 'base64').then(
 			(dd) =>
 			{
-				this.lendyooRegistry.newLoan.photo = dd;
+				this.lendyooRegistry.newLoan.photo = this.state.photos[index].node.image.uri;
+				this.lendyooRegistry.newPhoto.localpath = this.state.photos[index].node.image.uri;
+				this.lendyooRegistry.newPhoto.data = dd;
+				this.lendyooRegistry.newPhoto.initImageSize();
+				this.lendyooRegistry.newPhoto.initFilename();
 				// this.props.navigation.goBack();
 				this.props.navigation.navigate('LendScreen');
 			});

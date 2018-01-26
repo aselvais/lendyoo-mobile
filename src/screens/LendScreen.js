@@ -38,6 +38,7 @@ class LendScreen extends AbstractScreen
 		let contact = this.lendyooRegistry.contactCollection.getModelById(this.lendyooRegistry.newLoan.toId);
 		// set required data
 		this.lendyooRegistry.newLoan.User_id = this.user._id;
+		this.lendyooRegistry.newLoan.dateCreated = new Date();
 		this.lendyooRegistry.newLoan.Group_id = this.user.Group_id;
 		if (contact) this.lendyooRegistry.newLoan.Contact_id = contact._id;
 
@@ -46,18 +47,17 @@ class LendScreen extends AbstractScreen
 		this.lendyooRegistry.newLoan.save().then(
 			(d) =>
 			{
-				console.log(d);
-				// reload the list of loans
-				this.loanCollection.setRemoteLoansFromUser(this.user._id).then(
-					(dd) => {
-						console.log(dd);
-						// @todo Should we update the loan ID ?
-						// set the selected loan to this one
+				this.lendyooRegistry.newPhoto.Loan_id = this.lendyooRegistry.newLoan._id;
+				this.lendyooRegistry.newPhoto.save().then(
+					(ddd) => {
+						this.lendyooRegistry.loanCollection.addModel(this.lendyooRegistry.newLoan);
 						this.lendyooRegistry.loanCollection.setActiveModel(this.lendyooRegistry.newLoan);
-						// redirect to the loan status for a complement of info
+						console.log(this.lendyooRegistry.newPhoto);
+						console.log(this.lendyooRegistry.newLoan);
+						this.lendyooRegistry.newPhoto.uploadImage();
 						this.props.navigation.navigate('LoanstatusScreen');
-
-					}
+					},
+					(err) => { console.log('error', err); }
 				);
 			},
 			(err) => { console.log('error', err); }
@@ -92,13 +92,13 @@ class LendScreen extends AbstractScreen
 	 */
 	getPhotoWidgetJSX()
 	{
-		if (this.lendyooRegistry.newLoan.photo)
+		if (this.lendyooRegistry.newPhoto.data)
 		{
 			return (
 				<TouchableOpacity onPress={() => this.onPressPhoto()}>
 					<Image source={{
 							   isStatic: true,
-							   uri: 'data:image/jpeg;base64,'+this.lendyooRegistry.newLoan.photo,
+							   uri: 'data:image/jpeg;base64,'+this.lendyooRegistry.newPhoto.data,
 						   }}
 						   style={styles.photoView}>
 						<Icon name="ios-camera-outline" style={styles.photoIcon}/>

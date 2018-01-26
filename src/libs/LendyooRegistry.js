@@ -4,6 +4,7 @@ import User from '../models/User';
 import ContactCollection from '../models/ContactCollection';
 import LoanCollection from '../models/LoanCollection';
 import Loan from '../models/Loan';
+import Photo from '../models/Photo';
 import {observable} from 'mobx';
 
 let instance = null;
@@ -17,6 +18,7 @@ class LendyooRegistry
 {
 	@observable isNewLoan = true;
 	@observable newLoan = new Loan();
+	@observable newPhoto = new Photo();
 
 	/**
 	 *
