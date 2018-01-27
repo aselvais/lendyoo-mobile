@@ -28,6 +28,7 @@ class HistoryScreen extends AbstractScreen
 	{
 		super(props);
 		this.lendyooRegistry.setNewLoanMode(false);
+		this.lendyooRegistry.resetNewLoan();
 	}
 
 	/**

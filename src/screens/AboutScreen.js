@@ -12,11 +12,30 @@ import Todo from '../models/Todo';
 @observer
 class AboutScreen extends AbstractScreen
 {
+
+	/**
+	 *
+	 * @param props
+	 */
+	constructor(props)
+	{
+		super(props);
+		this.lendyooRegistry.resetNewLoan();
+	}
+
+	/**
+	 *
+	 * @returns {string}
+	 */
 	getTitle()
 	{
 		return 'AboutScreen';
 	}
 
+	/**
+	 *
+	 * @returns {*}
+	 */
 	getContent()
 	{
 		return (

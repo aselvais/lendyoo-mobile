@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View,} from 'react-native';
 import AbstractScreen from "./AbstractScreen";
-import {Body, Card, CardItem, Icon,} from 'native-base';
+import { Card, CardItem, Icon,} from 'native-base';
 import Camera from 'react-native-camera';
 import RNFetchBlob from 'react-native-fetch-blob';
 
@@ -99,52 +99,13 @@ class CameraScreen extends AbstractScreen
 	 *
 	 * @returns {*}
 	 */
-	getbarCodeWindowJSX()
-	{
-		return (
-			<View style={styles.overlayLayer}>
-				<Card>
-					<CardItem header>
-						<Text style={{fontSize: 18, fontWeight: 'bold',}}>Barcode</Text>
-					</CardItem>
-					<CardItem>
-						<Body>
-						<Text>
-							You can just point the camera to a barcode and you will see an alert with
-							suggestion as what the article is.
-							{"\n\n"}
-							One done, you can just take a picture of the article you are lending.
-							{"\n"}
-						</Text>
-						</Body>
-					</CardItem>
-					<TouchableOpacity onPress={() => this.setState({showBarcodeInfo: false})}>
-						<View style={[styles.buttonOrangeContainer, {padding: 7,}]}>
-							<Text style={styles.buttonTextColor}>OK</Text>
-						</View>
-					</TouchableOpacity>
-				</Card>
-			</View>
-		);
-	}
-
-	/**
-	 *
-	 * @returns {*}
-	 */
 	render()
 	{
 		return (
 			<View style={styles.globalContainer}>
 				<View style={{flex: 1}}>
-					<Camera
-						ref={(cam) =>
-						{
-							this.camera = cam;
-						}}
-						style={styles.cameraWidget}
-						onBarCodeRead={(d) => this.onBarCodeRead(d)}
-					/>
+					<Camera ref={(cam) => this.camera=cam}
+							style={styles.cameraWidget} onBarCodeRead={(d) => this.onBarCodeRead(d)}/>
 				</View>
 				<View style={styles.iconMainContainer}>
 					<TouchableOpacity onPress={() => this.setState({showBarcodeInfo: true})}>
@@ -164,7 +125,9 @@ class CameraScreen extends AbstractScreen
 						</View>
 					</TouchableOpacity>
 				</View>
-				{(this.state.showBarcodeInfo) ? this.getbarCodeWindowJSX() : null}
+				{(this.state.showBarcodeInfo) ? this.getbarCodeWindowJSX("Barcode", "You can just point the camera to a barcode " +
+					"and you will see an alert with suggestion as what the article is." +
+					"\n\nOne done, you can just take a picture of the article you are lending.") : null}
 			</View>
 		);
 	}
@@ -206,14 +169,6 @@ const _localStyles = StyleSheet.create({
 		color: '#FFF',
 		fontSize: 10,
 		textAlign: 'center',
-	},
-	overlayLayer: {
-		flex: 1,
-		position: 'absolute',
-		left: 0,
-		top: 0,
-		width: AbstractScreen.width,
-		padding: 30,
 	},
 });
 const styles = {...AbstractScreen._styles, ..._localStyles};

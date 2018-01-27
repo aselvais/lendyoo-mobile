@@ -12,6 +12,11 @@ import {observer} from 'mobx-react/native';
 @observer
 class LendScreen extends AbstractScreen
 {
+	state = {
+		showBarcodeInfo: false,
+		errorMsg: '',
+	};
+
 	/**
 	 *
 	 * @param props
@@ -33,8 +38,33 @@ class LendScreen extends AbstractScreen
 	/**
 	 *
 	 */
+	checkLoanValidity()
+	{
+		if (!this.lendyooRegistry.contactCollection.getModelById(this.lendyooRegistry.newLoan.toId))
+		{
+			this.setState({showBarcodeInfo: true, errorMsg: 'You need to choose a contact'});
+			return false;
+		}
+		if (!this.lendyooRegistry.newPhoto.data)
+		{
+			this.setState({showBarcodeInfo: true, errorMsg: 'You need to add a picture of the item lent'});
+			return false;
+		}
+		if (!this.lendyooRegistry.newLoan.title)
+		{
+			this.setState({showBarcodeInfo: true, errorMsg: 'The loan title is missing'});
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 *
+	 */
 	pressSaveLoan()
 	{
+		if (!this.checkLoanValidity()) return false;
+
 		let contact = this.lendyooRegistry.contactCollection.getModelById(this.lendyooRegistry.newLoan.toId);
 		// set required data
 		this.lendyooRegistry.newLoan.User_id = this.user._id;
@@ -55,7 +85,7 @@ class LendScreen extends AbstractScreen
 						console.log(this.lendyooRegistry.newPhoto);
 						console.log(this.lendyooRegistry.newLoan);
 						this.lendyooRegistry.newPhoto.uploadImage();
-						this.props.navigation.navigate('LoanstatusScreen');
+						this.props.navigation.navigate('HistoryScreen');
 					},
 					(err) => { console.log('error', err); }
 				);
@@ -152,6 +182,7 @@ class LendScreen extends AbstractScreen
 				<View style={{flex: 1}}>{this.getPhotoWidgetJSX()}</View>
 				<View>{this.getDateContainerJSX()}</View>
 				<View>{this.getBottomButtonJSX()}</View>
+				{(this.state.showBarcodeInfo) ? this.getbarCodeWindowJSX("Heads up!", this.state.errorMsg) : null}
 			</View>
 		);
 	}

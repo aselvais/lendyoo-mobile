@@ -73,6 +73,15 @@ class LendyooRegistry
 		this.isNewLoan = v;
 	}
 
+	/**
+	 *
+	 */
+	resetNewLoan()
+	{
+		this.newLoan = new Loan();
+		this.newPhoto = new Photo();
+	}
+
 
 
 }

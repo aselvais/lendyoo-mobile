@@ -19,6 +19,16 @@ class SettingsScreen extends AbstractScreen
 
 	/**
 	 *
+	 * @param props
+	 */
+	constructor(props)
+	{
+		super(props);
+		this.lendyooRegistry.resetNewLoan();
+	}
+
+	/**
+	 *
 	 * @returns {string}
 	 */
 	getTitle()
@@ -53,6 +63,10 @@ class SettingsScreen extends AbstractScreen
 		);
 	}
 
+	/**
+	 *
+	 * @param type
+	 */
 	callPicker(type = 'date')
 	{
 		switch (type)

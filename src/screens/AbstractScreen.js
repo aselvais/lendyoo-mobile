@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {Dimensions, StyleSheet, Text} from 'react-native';
+import {Dimensions, Text, View, TouchableOpacity, } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {Body, Button, Container, Content, Footer, FooterTab, Header, Icon, Left, Right, Title, Root, } from 'native-base';
+import {Body, Button, Container, Content, Footer, FooterTab, Header, Icon, Left, Right, Title, Root, Card, CardItem, } from 'native-base';
+
 import LendyooRegistry from '../libs/LendyooRegistry';
 
 import styles from './GlobalStyles';
@@ -84,6 +85,41 @@ class AbstractScreen extends Component
 				</Text>
 			</Content>
 		);
+	}
+
+	/**
+	 *
+	 * @returns {*}
+	 */
+	getbarCodeWindowJSX(title='', msg='')
+	{
+		if (this.state.showBarcodeInfo)
+		return (
+			<View style={styles.overlayLayer}>
+				<View style={styles.overlayLayer1}>
+					<Card>
+						<CardItem header>
+							<Text style={{fontSize: 18, fontWeight: 'bold', }}>{title}</Text>
+						</CardItem>
+						<CardItem>
+							<Body>
+							<Text>{msg + "\n\n"}</Text>
+							</Body>
+						</CardItem>
+						<TouchableOpacity onPress={() => this.setState({showBarcodeInfo: false})}>
+							<View style={[styles.buttonOrangeContainer, {padding: 7,}]}>
+								<Text style={styles.buttonTextColor}>OK</Text>
+							</View>
+						</TouchableOpacity>
+					</Card>
+				</View>
+				<View>
+					<View style={styles.overlayLayer2}/>
+				</View>
+			</View>
+		);
+		else
+			return null;
 	}
 
 	/**

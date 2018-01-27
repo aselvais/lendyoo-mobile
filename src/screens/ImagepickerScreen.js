@@ -37,7 +37,7 @@ class ImagepickerScreen extends AbstractScreen
 	getPhotos()
 	{
 		CameraRoll.getPhotos({
-			first: 40,
+			first: 3*8,
 			assetType: 'All'
 		}).then(r => this.setState({photos: r.edges}))
 	}
