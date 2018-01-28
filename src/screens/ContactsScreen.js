@@ -1,8 +1,7 @@
 import React from 'react';
 import AbstractScreen from "./AbstractScreen";
-import {StyleSheet, Text, TouchableOpacity, View, ScrollView, Image} from 'react-native';
-import {Body, Button, Container, Content, Footer, FooterTab, Header, Icon, Left, Right, Title} from 'native-base';
-import Fromtobar from './components/Fromtobar';
+import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Button, Container, Content, Footer, FooterTab, Header, Icon, Left, Right, Title} from 'native-base';
 import LinearGradient from 'react-native-linear-gradient';
 import ContactCollection from "../models/ContactCollection";
 
@@ -47,6 +46,14 @@ class ContactsScreen extends AbstractScreen
 
 	/**
 	 *
+	 */
+	onPressAddressbook()
+	{
+		console.log('onPressAddressbook');
+	}
+
+	/**
+	 *
 	 * @returns {*}
 	 */
 	getContent()
@@ -56,14 +63,16 @@ class ContactsScreen extends AbstractScreen
 		return (
 			<View style={styles.mainContainer}>
 				{
-					models.map( (d, k) => (
-						<TouchableOpacity key={d._id} onPress={ () => {
+					models.map((d, k) => (
+						<TouchableOpacity key={d._id} onPress={() =>
+						{
 							this.lendyooRegistry.newLoan.toId = d._id;
 							navigation.navigate('LendScreen');
 						}}>
-							<View style={[styles.loanIemContainer, {backgroundColor: (k%2 == 0) ? '#FFF' : '#EEE'}]}>
+							<View style={[styles.loanIemContainer, {backgroundColor: (k % 2 == 0) ? '#FFF' : '#EEE'}]}>
 								<View style={styles.loanIemCol01}>
-									<Image style={styles.imageAvatar} source={require('../../images/contactDefault2.png')}/>
+									<Image style={styles.imageAvatar}
+										   source={require('../../images/contactDefault2.png')}/>
 								</View>
 								<View style={styles.loanIemCol02}>
 									<Text style={styles.loanIemText02}>Name:</Text>
@@ -71,7 +80,7 @@ class ContactsScreen extends AbstractScreen
 								</View>
 							</View>
 						</TouchableOpacity>
-					) )
+					))
 				}
 			</View>
 		);
@@ -85,17 +94,21 @@ class ContactsScreen extends AbstractScreen
 	{
 		let {navigation} = this.props;
 		return (
-			<LinearGradient colors={['#FFFFFF', '#AAAAAA']} style={styles.linearGradient}>
 				<View style={styles.mainContainer}>
-			<Container>
 
-				<ScrollView contentContainerStyle={{ flexGrow: 1 }} >
-					{this.getContent()}
-				</ScrollView>
+						<ScrollView contentContainerStyle={{flexGrow: 1}}>
+							{this.getContent()}
+						</ScrollView>
 
-			</Container>
+						<View style={styles.genericRow}>
+							<TouchableOpacity onPress={() => this.onPressAddressbook() }>
+								<View style={styles.buttonOrangeContainer}>
+									<Text style={styles.buttonTextColor}>Open my book</Text>
+								</View>
+							</TouchableOpacity>
+						</View>
+
 				</View>
-			</LinearGradient>
 		);
 	};
 
@@ -148,6 +161,7 @@ const _localStyles = StyleSheet.create(
 			flexDirection: 'column',
 			justifyContent: 'flex-start',
 			alignItems: 'stretch',
+			backgroundColor: '#FFF',
 		},
 
 		genericRow: {
@@ -164,12 +178,12 @@ const _localStyles = StyleSheet.create(
 			margin: 20,
 		},
 		fbBtnCol01: {
-			flex:1,
+			flex: 1,
 			alignItems: 'flex-end',
 			paddingRight: 10,
 		},
 		fbBtnCol02: {
-			flex:2,
+			flex: 2,
 		},
 		fbBtnText: {
 			color: '#FFFFFF',
@@ -187,13 +201,6 @@ const _localStyles = StyleSheet.create(
 			textDecorationLine: 'underline',
 			fontSize: 25,
 		},
-		buttonOrangeContainer: {
-			alignItems: 'center',
-			backgroundColor: '#ED7322',
-			borderRadius: 0,
-			padding: 15,
-		},
-
 
 	}
 );
