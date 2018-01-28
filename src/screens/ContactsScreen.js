@@ -2,8 +2,9 @@ import React from 'react';
 import AbstractScreen from "./AbstractScreen";
 import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Button, Container, Content, Footer, FooterTab, Header, Icon, Left, Right, Title} from 'native-base';
-import LinearGradient from 'react-native-linear-gradient';
 import ContactCollection from "../models/ContactCollection";
+import ContactsWrapper from 'react-native-contacts-wrapper';
+import Contact from '../models/Contact';
 
 /**
  *
@@ -31,6 +32,59 @@ class ContactsScreen extends AbstractScreen
 	getTitle()
 	{
 		return 'LOAN HISTORY';
+	}
+
+	/**
+	 *
+	 * @param id
+	 */
+	onPressContact(contact)
+	{
+		this.console.log('Contactselectionscreen.onPressContact()');
+		this.lendyooRegistry.contactCollection.setActiveModel(contact);
+		this.lendyooRegistry.newLoan.Contact_id = contact._id;
+		this.navigation.goBack();
+	}
+
+	/**
+	 *
+	 */
+	onPressAddressbook()
+	{
+		var _that = this;
+		ContactsWrapper.getContact()
+			.then((contact) =>
+			{
+				var _fc = _that.lendyooRegistry.contactCollection.getModelByName(contact.name);
+				if (!_fc)
+				{
+					var _c = new Contact();
+					_c.Group_id = _that.user.Group_id;
+					_c.User_id = _that.user._id;
+					_c.name = contact.name;
+					_c.email = contact.email;
+					_c.phone = contact.phone;
+					_c.save().then(
+						function (c)
+						{
+							_that.lendyooRegistry.contactCollection.addModel(_c);
+							_that.lendyooRegistry.contactCollection.setActiveModel(_c);
+							_that.setState({models: _that.lendyooRegistry.contactCollection.models});
+							_that.lendyooRegistry.newLoan.Contact_id = _c._id;
+							_that.routes.goTo(_that.nextScreen);
+						}
+					);
+				} else
+				{
+					_that.lendyooRegistry.contactCollection.setActiveModel(_fc);
+					_that.routes.goTo(_that.nextScreen);
+				}
+			})
+			.catch((error) =>
+			{
+				this.console.log("ERROR CODE: ", error.code);
+				this.console.log("ERROR MESSAGE: ", error.message);
+			});
 	}
 
 	/**
@@ -94,21 +148,21 @@ class ContactsScreen extends AbstractScreen
 	{
 		let {navigation} = this.props;
 		return (
-				<View style={styles.mainContainer}>
+			<View style={styles.mainContainer}>
 
-						<ScrollView contentContainerStyle={{flexGrow: 1}}>
-							{this.getContent()}
-						</ScrollView>
+				<ScrollView contentContainerStyle={{flexGrow: 1}}>
+					{this.getContent()}
+				</ScrollView>
 
-						<View style={styles.genericRow}>
-							<TouchableOpacity onPress={() => this.onPressAddressbook() }>
-								<View style={styles.buttonOrangeContainer}>
-									<Text style={styles.buttonTextColor}>Open my book</Text>
-								</View>
-							</TouchableOpacity>
+				<View style={styles.genericRow}>
+					<TouchableOpacity onPress={() => this.onPressAddressbook()}>
+						<View style={styles.buttonOrangeContainer}>
+							<Text style={styles.buttonTextColor}>Open my book</Text>
 						</View>
-
+					</TouchableOpacity>
 				</View>
+
+			</View>
 		);
 	};
 
