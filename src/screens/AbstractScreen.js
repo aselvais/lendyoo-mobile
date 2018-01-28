@@ -91,9 +91,9 @@ class AbstractScreen extends Component
 	 *
 	 * @returns {*}
 	 */
-	getbarCodeWindowJSX(title='', msg='')
+	getbarCodeWindowJSX(title='', msg='', showButton=true)
 	{
-		if (this.state.showBarcodeInfo)
+		if (this.state.showWinpopupInfo)
 		return (
 			<View style={styles.overlayLayer}>
 				<View style={styles.overlayLayer1}>
@@ -106,11 +106,15 @@ class AbstractScreen extends Component
 							<Text>{msg + "\n\n"}</Text>
 							</Body>
 						</CardItem>
-						<TouchableOpacity onPress={() => this.setState({showBarcodeInfo: false})}>
-							<View style={[styles.buttonOrangeContainer, {padding: 7,}]}>
-								<Text style={styles.buttonTextColor}>OK</Text>
-							</View>
-						</TouchableOpacity>
+						{
+							(showButton) ? (
+								<TouchableOpacity onPress={() => this.setState({showWinpopupInfo: false})}>
+									<View style={[styles.buttonOrangeContainer, {padding: 7,}]}>
+										<Text style={styles.buttonTextColor}>OK</Text>
+									</View>
+								</TouchableOpacity>
+							) : null
+						}
 					</Card>
 				</View>
 				<View>

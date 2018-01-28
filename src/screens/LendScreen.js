@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View, Image, } from 'react-native';
+import {Image, StyleSheet, Text, TextInput, TouchableOpacity, View,} from 'react-native';
 import AbstractScreen from "./AbstractScreen";
 import {Content, Icon,} from 'native-base';
 import Fromtobar from './components/Fromtobar';
@@ -13,8 +13,10 @@ import {observer} from 'mobx-react/native';
 class LendScreen extends AbstractScreen
 {
 	state = {
-		showBarcodeInfo: false,
+		showWinpopupInfo: false,
 		errorMsg: '',
+		showBtn: true,
+		title: this.lendyooRegistry.newLoan.title,
 	};
 
 	/**
@@ -42,17 +44,17 @@ class LendScreen extends AbstractScreen
 	{
 		if (!this.lendyooRegistry.contactCollection.getModelById(this.lendyooRegistry.newLoan.toId))
 		{
-			this.setState({showBarcodeInfo: true, errorMsg: 'You need to choose a contact'});
+			this.setState({showWinpopupInfo: true, errorMsg: 'You need to choose a contact'});
 			return false;
 		}
 		if (!this.lendyooRegistry.newPhoto.data)
 		{
-			this.setState({showBarcodeInfo: true, errorMsg: 'You need to add a picture of the item lent'});
+			this.setState({showWinpopupInfo: true, errorMsg: 'You need to add a picture of the item lent'});
 			return false;
 		}
 		if (!this.lendyooRegistry.newLoan.title)
 		{
-			this.setState({showBarcodeInfo: true, errorMsg: 'The loan title is missing'});
+			this.setState({showWinpopupInfo: true, errorMsg: 'The loan title is missing'});
 			return false;
 		}
 		return true;
@@ -70,28 +72,52 @@ class LendScreen extends AbstractScreen
 		this.lendyooRegistry.newLoan.User_id = this.user._id;
 		this.lendyooRegistry.newLoan.dateCreated = new Date();
 		this.lendyooRegistry.newLoan.Group_id = this.user.Group_id;
+		// this.lendyooRegistry.newLoan.title = this.state.title;
 		if (contact) this.lendyooRegistry.newLoan.Contact_id = contact._id;
 
-		// save photo here and do not store the photo data in photo (use the local path for that)
-
+		this.setState({showWinpopupInfo: true, errorMsg: 'Saving loan ...', showBtn: false,});
 		this.lendyooRegistry.newLoan.save().then(
 			(d) =>
 			{
 				this.lendyooRegistry.newPhoto.Loan_id = this.lendyooRegistry.newLoan._id;
 				this.lendyooRegistry.newPhoto.save().then(
-					(ddd) => {
+					(ddd) =>
+					{
 						this.lendyooRegistry.loanCollection.addModel(this.lendyooRegistry.newLoan);
 						this.lendyooRegistry.loanCollection.setActiveModel(this.lendyooRegistry.newLoan);
-						console.log(this.lendyooRegistry.newPhoto);
-						console.log(this.lendyooRegistry.newLoan);
-						this.lendyooRegistry.newPhoto.uploadImage();
-						this.props.navigation.navigate('HistoryScreen');
+						this.setState({
+							showWinpopupInfo: true,
+							errorMsg: 'Uploading image ... ' + this.lendyooRegistry.newLoan.uploadprogress,
+							showBtn: false,
+						});
+						this.lendyooRegistry.newPhoto.uploadImage().then(
+							(dd) => this.setState({ showWinpopupInfo: true, errorMsg: 'Done ...', showBtn: false, }, () => this.props.navigation.navigate('HistoryScreen')),
+							(dd2) => this.setState({ showWinpopupInfo: true, errorMsg: 'Upload error...', showBtn: false,}),
+						);
 					},
-					(err) => { console.log('error', err); }
+					(err) =>
+					{
+						this.setState({showWinpopupInfo: false,});
+					}
 				);
 			},
-			(err) => { console.log('error', err); }
+			(err) =>
+			{
+				this.setState({showWinpopupInfo: false,});
+			}
 		);
+	}
+
+	/**
+	 *
+	 * @param k
+	 * @param v
+	 */
+	syncValues(k, v)
+	{
+		let vv = {};
+		vv[k] = v;
+		this.setState(vv, () => this.lendyooRegistry.newLoan[k] = v);
 	}
 
 	/**
@@ -103,16 +129,29 @@ class LendScreen extends AbstractScreen
 		let {navigation} = this.props;
 		let mDate = moment((this.lendyooRegistry.newLoan.loanExpirationDate) ? this.lendyooRegistry.newLoan.loanExpirationDate : new Date()).format('DD/MM/YYYY');
 		return (
-			<TouchableOpacity onPress={() => navigation.navigate('CalendarScreen')}>
-				<View style={{alignItems: 'center',}}>
+			<View>
+				<View style={styles.inputBcontainer}>
 					<View>
-						<Text style={styles.descText}>Return date</Text>
+						<Text style={styles.descText}>Description</Text>
 					</View>
 					<View>
-						<Text style={styles.formTextInput}>{mDate}</Text>
+						<TextInput style={styles.formTextInput}
+								   onChangeText={(v) => this.syncValues('title', v)}
+								   underlineColorAndroid="transparent"
+								   value={this.state.title}/>
 					</View>
 				</View>
-			</TouchableOpacity>
+				<TouchableOpacity onPress={() => navigation.navigate('CalendarScreen')}>
+					<View style={styles.inputBcontainer}>
+						<View>
+							<Text style={styles.descText}>Return date</Text>
+						</View>
+						<View>
+							<Text style={styles.formTextInput}>{mDate}</Text>
+						</View>
+					</View>
+				</TouchableOpacity>
+			</View>
 		);
 	}
 
@@ -127,9 +166,9 @@ class LendScreen extends AbstractScreen
 			return (
 				<TouchableOpacity onPress={() => this.onPressPhoto()}>
 					<Image source={{
-							   isStatic: true,
-							   uri: 'data:image/jpeg;base64,'+this.lendyooRegistry.newPhoto.data,
-						   }}
+						isStatic: true,
+						uri: 'data:image/jpeg;base64,' + this.lendyooRegistry.newPhoto.data,
+					}}
 						   style={styles.photoView}>
 						<Icon name="ios-camera-outline" style={styles.photoIcon}/>
 						<Text style={styles.photoText}>
@@ -143,7 +182,7 @@ class LendScreen extends AbstractScreen
 		{
 			return (
 				<TouchableOpacity onPress={() => this.onPressPhoto()}>
-					<View style={[styles.photoView, {backgroundColor: '#000',} ]}>
+					<View style={[styles.photoView, {backgroundColor: '#000',}]}>
 						<Icon name="ios-camera-outline" style={styles.photoIcon}/>
 						<Text style={styles.photoText}>
 							{'Take picture'}
@@ -182,7 +221,7 @@ class LendScreen extends AbstractScreen
 				<View style={{flex: 1}}>{this.getPhotoWidgetJSX()}</View>
 				<View>{this.getDateContainerJSX()}</View>
 				<View>{this.getBottomButtonJSX()}</View>
-				{(this.state.showBarcodeInfo) ? this.getbarCodeWindowJSX("Heads up!", this.state.errorMsg) : null}
+				{(this.state.showWinpopupInfo) ? this.getbarCodeWindowJSX("Heads up!", this.state.errorMsg, this.state.showBtn) : null}
 			</View>
 		);
 	}
@@ -212,20 +251,35 @@ const _localStyles = StyleSheet.create({
 	photoText: {
 		color: 'rgba(255,255,255,.8)',
 	},
+
+	inputBcontainer:
+		{
+			alignItems: 'center',
+			flexDirection: 'row',
+			padding: 3,
+
+			borderBottomWidth: 2,
+			borderBottomColor: '#000',
+			marginLeft: 20,
+			marginRight: 20,
+
+		},
+
 	container: {
 		alignItems: 'stretch',
 		justifyContent: 'center',
 	},
 	descText: {
 		color: '#000',
-		fontSize: 20,
+		fontSize: 15,
 		paddingTop: 5,
+//		paddingLeft: 20,
 	},
 	formTextInput: {
 		width: AbstractScreen.width - 100,
 		textAlign: 'center',
 		color: '#555',
-		margin: 5,
+		paddingTop: 8,
 		padding: 0,
 	},
 });

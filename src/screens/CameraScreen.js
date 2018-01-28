@@ -11,7 +11,10 @@ import RNFetchBlob from 'react-native-fetch-blob';
 class CameraScreen extends AbstractScreen
 {
 	state = {
-		showBarcodeInfo: false,
+		showWinpopupInfo: false,
+		errorMsg: '',
+		showBtn: true,
+		title: "Barcode",
 	};
 
 	/**
@@ -37,6 +40,7 @@ class CameraScreen extends AbstractScreen
 	 */
 	pressTakePicture()
 	{
+		this.setState({title: 'Saving', showWinpopupInfo: true, errorMsg: 'Saving image ...', showBtn: false,});
 		// get localisation
 		try
 		{
@@ -75,6 +79,7 @@ class CameraScreen extends AbstractScreen
 							this.lendyooRegistry.newPhoto.data = dd;
 							this.lendyooRegistry.newPhoto.initImageSize();
 							this.lendyooRegistry.newPhoto.initFilename();
+							this.setState({showWinpopupInfo: true, errorMsg: 'Done ...', showBtn: false,});
 							this.props.navigation.goBack();
 						}
 					);
@@ -108,7 +113,9 @@ class CameraScreen extends AbstractScreen
 							style={styles.cameraWidget} onBarCodeRead={(d) => this.onBarCodeRead(d)}/>
 				</View>
 				<View style={styles.iconMainContainer}>
-					<TouchableOpacity onPress={() => this.setState({showBarcodeInfo: true})}>
+					<TouchableOpacity onPress={() => this.setState({showWinpopupInfo: true, errorMsg: "You can just point " +
+						"the camera to a barcode and you will see an alert with suggestion as what the article is." +
+						"\n\nOne done, you can just take a picture of the article you are lending.", showBtn: true})}>
 						<View style={styles.iconContainer}><Icon name="ios-barcode-outline" style={styles.photoIcon}/>
 							<Text style={styles.textLabels}>Barcode</Text>
 						</View>
@@ -125,9 +132,7 @@ class CameraScreen extends AbstractScreen
 						</View>
 					</TouchableOpacity>
 				</View>
-				{(this.state.showBarcodeInfo) ? this.getbarCodeWindowJSX("Barcode", "You can just point the camera to a barcode " +
-					"and you will see an alert with suggestion as what the article is." +
-					"\n\nOne done, you can just take a picture of the article you are lending.") : null}
+				{(this.state.showWinpopupInfo) ? this.getbarCodeWindowJSX(this.state.title, this.state.errorMsg, this.state.showBtn) : null}
 			</View>
 		);
 	}

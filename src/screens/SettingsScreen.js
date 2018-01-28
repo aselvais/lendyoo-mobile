@@ -54,10 +54,8 @@ class SettingsScreen extends AbstractScreen
 			<View style={stl}>
 				<View style={styles.formElemRow01}><Text style={styles.formText}>{label}</Text></View>
 				<View style={styles.formElemRow02}>
-					<TextInput style={styles.formTextInput}
-							   onChangeText={(v) => this.syncValues(k, v)}
-							   underlineColorAndroid="transparent"
-							   value={placeholder}/>
+					<TextInput style={styles.formTextInput} onChangeText={(v) => this.syncValues(k, v)}
+							   underlineColorAndroid="transparent" value={placeholder}/>
 				</View>
 			</View>
 		);

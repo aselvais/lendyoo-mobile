@@ -58,7 +58,7 @@ class Fromtobar extends AbstractScreen
 		let _mJSX = <View style={[styles.avatarContainer, style]}>
 			<Text style={styles.titleTopText01}>{label}</Text>
 			<Image style={styles.imageAvatar} source={(this.state.loanmaindirection) ? usr01.image : usr02.image}/>
-			<Text style={[styles.titleTopText02, {color: isMe ? '#000' : '#00B8DD',}]}>{labelname}</Text>
+			<Text numberOfLines={1} style={[styles.titleTopText02, {color: isMe ? '#000' : '#00B8DD',}]}>{labelname}</Text>
 		</View>;
 		return isMe ? _mJSX :
 			<TouchableOpacity onPress={() => navigation.navigate('ContactsScreen')}>{_mJSX}</TouchableOpacity>;
