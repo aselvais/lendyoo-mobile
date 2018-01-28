@@ -43,7 +43,7 @@ class ContactsScreen extends AbstractScreen
 		this.console.log('Contactselectionscreen.onPressContact()');
 		this.lendyooRegistry.contactCollection.setActiveModel(contact);
 		this.lendyooRegistry.newLoan.Contact_id = contact._id;
-		this.navigation.goBack();
+		this.props.navigation.goBack();
 	}
 
 	/**
@@ -71,19 +71,20 @@ class ContactsScreen extends AbstractScreen
 							_that.lendyooRegistry.contactCollection.setActiveModel(_c);
 							_that.setState({models: _that.lendyooRegistry.contactCollection.models});
 							_that.lendyooRegistry.newLoan.Contact_id = _c._id;
-							_that.routes.goTo(_that.nextScreen);
+							_that.props.navigation.goBack();
 						}
 					);
 				} else
 				{
 					_that.lendyooRegistry.contactCollection.setActiveModel(_fc);
-					_that.routes.goTo(_that.nextScreen);
+					_that.props.navigation.goBack();
 				}
 			})
 			.catch((error) =>
 			{
 				this.console.log("ERROR CODE: ", error.code);
 				this.console.log("ERROR MESSAGE: ", error.message);
+				_that.props.navigation.goBack();
 			});
 	}
 
@@ -96,14 +97,6 @@ class ContactsScreen extends AbstractScreen
 			(d) => this.setState({models: this.contactCollection.models}),
 			(err) => console.log('error', err)
 		);
-	}
-
-	/**
-	 *
-	 */
-	onPressAddressbook()
-	{
-		console.log('onPressAddressbook');
 	}
 
 	/**
