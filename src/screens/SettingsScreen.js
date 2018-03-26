@@ -159,7 +159,7 @@ class SettingsScreen extends AbstractScreen
 					</View>
 
 					<View style={styles.genericRow}>
-						<TouchableOpacity onPress={() => this.props.navigation.navigate('LandingScreen')}>
+						<TouchableOpacity onPress={() => this.props.navigation.navigate('LogoutScreen')}>
 							<View style={styles.titleContainer}>
 								<Text style={styles.forgotText}>Log-out</Text>
 							</View>
