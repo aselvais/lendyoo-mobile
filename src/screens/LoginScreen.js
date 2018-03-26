@@ -3,6 +3,7 @@ import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from '
 import AbstractScreen from "./AbstractScreen";
 import {Button, Content, Icon, Root, Toast,} from 'native-base';
 import LinearGradient from 'react-native-linear-gradient';
+import Lstorage from "../libs/Lstorage";
 
 /**
  *
@@ -10,12 +11,31 @@ import LinearGradient from 'react-native-linear-gradient';
 class LoginScreen extends AbstractScreen
 {
 	state = {
-		email: 'raphael@thys.email',
-		password: 'Al1c3150273',
-		//email: 'arnaud@antidot.ca',
-		//password: 'test',
+		email: '',
+		password: '',
 		showToast: false,
 	};
+
+	/**
+	 *
+	 */
+	componentDidMount()
+	{
+		Lstorage.retrieveLoginParams().then(
+			p => {
+				if (p !== false)
+				{
+					return this.setState({
+						email: p.login,
+						password: p.password
+					}, () => this.clickLogin());
+				}
+				return false;
+			},
+			err => console.log(err),
+		);
+	}
+
 
 	/**
 	 *
@@ -40,6 +60,7 @@ class LoginScreen extends AbstractScreen
 				if (d)
 				{
 					// Toast.show({ text: 'Success', position: 'top', buttonText: 'OK', type: 'success', });
+					Lstorage.saveLoginParams(username, password);
 					navigation.navigate('Home');
 				}
 				else

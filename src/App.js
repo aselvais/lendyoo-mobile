@@ -8,6 +8,7 @@ import ContactsScreen from "./screens/ContactsScreen";
 import LendScreen from "./screens/LendScreen";
 import LoanstatusScreen from "./screens/LoanstatusScreen";
 import LoginScreen from "./screens/LoginScreen";
+import LogoutScreen from "./screens/LogoutScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import SignupScreen from "./screens/SignupScreen";
 import AboutScreen from "./screens/AboutScreen";
@@ -46,6 +47,13 @@ const ObjDrawerNavigator = DrawerNavigator({
 			drawerLabel: 'About',
 			drawerIcon: <Icon name='information-circle'/>,
 			headerTitle: 'About',
+		}
+	},
+	LogoutScreen: {
+		screen: LogoutScreen, navigationOptions: {
+			drawerLabel: 'Log-out',
+			drawerIcon: <Icon name='ios-log-out'/>,
+			headerTitle: 'Log-out',
 		}
 	},
 }, {
