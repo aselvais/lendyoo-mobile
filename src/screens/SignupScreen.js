@@ -4,6 +4,7 @@ import {Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View,}
 import LinearGradient from 'react-native-linear-gradient';
 import {Root, Toast, Item, Picker,} from 'native-base';
 import moment from 'moment';
+import DatePicker from 'react-native-datepicker';
 
 /**
  *
@@ -152,18 +153,36 @@ class SignupScreen extends AbstractScreen
 
 									{this.getFormElement('E-mail', this.state.email, true, 'email')}
 
-									<TouchableOpacity onPress={() => this.callPicker('date')}>
 										<View style={[styles.formElemContainer]}>
 											<View style={styles.formElemRow01}><Text style={styles.formText}>
 												Date of birth
 											</Text></View>
 											<View style={styles.formElemRow02}>
-												<Text style={[styles.formTextInput, {paddingTop: 10, fontSize: 15}]}>
-													{moment(this.state.dateOfBirth).format('DD/MM/YYYY')}
-												</Text>
+												<DatePicker
+													style={{ width: '100%', }}
+													date={this.state.dateOfBirth}
+													mode="date"
+													placeholder="select date"
+													format="DD/MM/YYYY"
+													minDate="1900-01-01"
+													maxDate="2018-01-01"
+													confirmBtnText="Confirm"
+													cancelBtnText="Cancel"
+													onDateChange={(date) => {this.setState({dateOfBirth: date})}}
+													showIcon={false}
+													customStyles={{
+														dateInput: {
+															flex: 1,
+															height: 40,
+															borderWidth: 0,
+															borderColor: 'rgba(0,0,0,0)',
+															alignItems: 'center',
+															justifyContent: 'center'
+														},
+													}}
+												/>
 											</View>
 										</View>
-									</TouchableOpacity>
 
 
 								</View>
