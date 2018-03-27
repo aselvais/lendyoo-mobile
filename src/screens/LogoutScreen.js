@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import AbstractScreen from "./AbstractScreen";
 import Lstorage from "../libs/Lstorage";
+import User from '../models/User';
 
 /**
  *
@@ -18,9 +19,13 @@ class LogoutScreen extends AbstractScreen
 		super(props);
 	}
 
+	/**
+	 *
+	 */
 	componentDidMount()
 	{
 		// replace this by a delete of the local storage data
+		this.lendyooRegistry.user.reset();
 		Lstorage.saveLoginParams('','');
 		this.props.navigation.navigate('LandingScreen');
 	}

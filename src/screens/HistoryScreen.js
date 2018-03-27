@@ -96,12 +96,12 @@ class HistoryScreen extends AbstractScreen
 								<Image style={styles.imageAvatar} source={{uri: 'https://api.lendyou.io/api-v2/photo/getloanimage/' + d._id + '/100'}} />
 							</View>
 							<View style={styles.loanIemCol02}>
-								<Text style={styles.loanIemText02}>Item</Text>
-								<Text style={styles.loanIemText03}>{d.title}</Text>
+								<Text numberOfLines={1} style={styles.loanIemText02}>Item</Text>
+								<Text numberOfLines={1} style={styles.loanIemText03}>{d.title}</Text>
 							</View>
 							<View style={styles.loanIemCol03}>
-								<Text style={styles.loanIemText04}></Text>
-								<Text style={styles.loanIemText04}>{this.lendyooRegistry.contactCollection.getModelById(d.Contact_id).getFullName()}</Text>
+								<Text numberOfLines={1} style={styles.loanIemText04}></Text>
+								<Text numberOfLines={1} style={styles.loanIemText04}>{this.lendyooRegistry.contactCollection.getModelById(d.Contact_id).getFullName()}</Text>
 							</View>
 						</View>
 						</TouchableOpacity>

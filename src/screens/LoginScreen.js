@@ -1,7 +1,7 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import AbstractScreen from "./AbstractScreen";
-import {Button, Content, Icon, Root, Toast,} from 'native-base';
+import {Root, Toast,} from 'native-base';
 import LinearGradient from 'react-native-linear-gradient';
 import Lstorage from "../libs/Lstorage";
 
@@ -22,7 +22,8 @@ class LoginScreen extends AbstractScreen
 	componentDidMount()
 	{
 		Lstorage.retrieveLoginParams().then(
-			p => {
+			p =>
+			{
 				if (p !== false)
 				{
 					return this.setState({
@@ -103,21 +104,27 @@ class LoginScreen extends AbstractScreen
 
 								<View style={[styles.formElemContainer, styles.bottomLine]}>
 									<View style={styles.formElemRow01}><Text style={styles.formText}>Email</Text></View>
-									<View style={styles.formElemRow02}><TextInput style={styles.formTextInput}
-																				  underlineColorAndroid="transparent"
-																				  onChangeText={(email) => this.setState({email})}
-																				  value={this.state.email}/></View>
+									<View style={styles.formElemRow02}>
+										<TextInput style={styles.formTextInput}
+												   underlineColorAndroid="transparent"
+												   onChangeText={(email) => this.setState({email})}
+												   value={this.state.email}
+												   autoCapitalize="none"
+												   keyboardType="email-address"
+										/></View>
 								</View>
 
 								<View style={styles.formElemContainer}>
 									<View style={styles.formElemRow01}><Text
 										style={styles.formText}>Password</Text></View>
-									<View style={styles.formElemRow02}><TextInput
-										style={styles.formTextInput}
-										secureTextEntry={true}
-										underlineColorAndroid="transparent"
-										onChangeText={(password) => this.setState({password})}
-										value={this.state.password}/></View>
+									<View style={styles.formElemRow02}>
+										<TextInput
+											style={styles.formTextInput}
+											secureTextEntry={true}
+											underlineColorAndroid="transparent"
+											onChangeText={(password) => this.setState({password})}
+											value={this.state.password}
+										/></View>
 								</View>
 
 								<View style={styles.genericRow}>
@@ -151,7 +158,7 @@ class LoginScreen extends AbstractScreen
 								</View>
 
 								<View style={styles.genericRow}>
-									<TouchableOpacity onPress={() => console.warn('fbBtn Touch Touched !')}>
+									<TouchableOpacity onPress={() => this.props.navigation.navigate('SignupScreen') }>
 										<View style={[styles.buttonOrangeContainer, styles.buttonOrange2Container]}>
 											<Text style={styles.buttonTextColor}>CREATE ACCOUNT</Text>
 										</View>

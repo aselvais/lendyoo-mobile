@@ -36,7 +36,7 @@ class LendyooRegistry
 			this.instanceTime = new Date();
 			// The authenticated user
 			this.user = new User();
-			this.user.setStoredData();
+			// this.user.setStoredData();
 			this.contactCollection = new ContactCollection();
 			this.loanCollection = new LoanCollection();
 			this.loanCollection.createNewLoan();

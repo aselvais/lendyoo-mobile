@@ -53,11 +53,12 @@ class CalendarScreen extends AbstractScreen
 	 */
 	render()
 	{
+		let {mindate} = this.props.navigation.state.params;
 		return (
 			<Container>
 				<Content>
 				<Calendar
-					minDate={new Date()}
+					minDate={mindate ? mindate : new Date() }
 					onDayPress={(day) => this.onDayPressed(day)}
 					markedDates={ this.getMarkedDates() }
 				/>

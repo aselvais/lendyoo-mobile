@@ -8,6 +8,11 @@ let instance = null;
 class User extends UserFrontend
 {
 
+	/**
+	 *
+	 * @param data
+	 * @returns {*}
+	 */
 	constructor(data={})
 	{
 		if(!instance){
@@ -34,15 +39,15 @@ class User extends UserFrontend
 	/**
 	 * Will set the data stored on disk in this model
 	 */
-	setStoredData()
+	reset()
 	{
-		this.isRegistered = true;
-		this.username = 'rthys';
-		this.password = 'rthys11';
-		this.fname = 'Raphael';
-		this.lname = 'Thys';
+		this.isRegistered = false;
+		this.username = '';
+		this.password = '';
+		this.fname = '';
+		this.lname = '';
 		this.gender = 'M';
-		this.email = 'raphael.thys@gmail.com';
+		this.email = '';
 	}
 
 	/**
