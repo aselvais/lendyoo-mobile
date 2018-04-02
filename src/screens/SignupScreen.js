@@ -17,6 +17,8 @@ class SignupScreen extends AbstractScreen
 		gender: this.user.gender,
 		email: this.user.email,
 		dateOfBirth: this.user.dateOfBirth,
+		password: this.user.password,
+		password2: this.user.password2,
 	};
 
 	/**
@@ -44,7 +46,7 @@ class SignupScreen extends AbstractScreen
 	 * @param bottomline
 	 * @returns {*}
 	 */
-	getFormElement(label = 'email', placeholder = 'email', bottomline = true, k = '')
+	getFormElement(label = 'email', placeholder = 'email', bottomline = true, k = '', isPassword=false)
 	{
 		let stl = [styles.formElemContainer];
 		if (bottomline)
@@ -56,7 +58,7 @@ class SignupScreen extends AbstractScreen
 				<View style={styles.formElemRow01}><Text style={styles.formText}>{label}</Text></View>
 				<View style={styles.formElemRow02}>
 					<TextInput style={styles.formTextInput} onChangeText={(v) => this.syncValues(k, v)}
-							   underlineColorAndroid="transparent" value={placeholder}/>
+							   secureTextEntry={isPassword} underlineColorAndroid="transparent" value={placeholder}/>
 				</View>
 			</View>
 		);
@@ -115,12 +117,10 @@ class SignupScreen extends AbstractScreen
 							<View style={styles.mainContainer}>
 
 								<View style={styles.genericRow}>
-									<TouchableOpacity onPress={() => this.callPicker('image')}>
 										<View style={styles.imageContainer}>
 											<Image style={styles.imageAvatar}
 												   source={require('../../images/contactDefault.png')}/>
 										</View>
-									</TouchableOpacity>
 									<View style={styles.titleContainer}>
 										<Text style={styles.titleTxtSettings}>{this.getTitle()}</Text>
 									</View>
@@ -153,7 +153,7 @@ class SignupScreen extends AbstractScreen
 
 									{this.getFormElement('E-mail', this.state.email, true, 'email')}
 
-										<View style={[styles.formElemContainer]}>
+										<View style={[styles.formElemContainer, styles.bottomLine]}>
 											<View style={styles.formElemRow01}><Text style={styles.formText}>
 												Date of birth
 											</Text></View>
@@ -183,6 +183,9 @@ class SignupScreen extends AbstractScreen
 												/>
 											</View>
 										</View>
+
+									{this.getFormElement('Password', this.state.password, true, 'password', true)}
+									{this.getFormElement('Re-type password', this.state.password2, false, 'password2', true)}
 
 
 								</View>
@@ -228,6 +231,7 @@ const _localStyles = StyleSheet.create(
 			paddingTop: 10,
 			color: '#00B8EC',
 			fontSize: 28,
+			backgroundColor: 'rgba(0,0,0,0)'
 		},
 
 		genericRow: {

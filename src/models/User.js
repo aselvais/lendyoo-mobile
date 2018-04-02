@@ -28,6 +28,7 @@ class User extends UserFrontend
 			if (!this.dob) this.dob = '';
 			if (!this.gender) this.gender = '';
 			if (!this.password) this.password = '';
+			if (!this.password2) this.password2 = '';
 			if (!this.email) this.email = '';
 			if (!this.lang) this.lang = 'en';
 			instance = this;
