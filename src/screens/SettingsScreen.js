@@ -1,8 +1,9 @@
 import React from 'react';
 import AbstractScreen from "./AbstractScreen";
-import {Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View,} from 'react-native';
-import {Content, Icon, Item, Picker,} from 'native-base';
-import moment from 'moment';
+import {Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Alert, } from 'react-native';
+import {Content, Icon, Item, Picker, Toast,} from 'native-base';
+import DatePicker from 'react-native-datepicker';
+import Lstorage from "../libs/Lstorage";
 
 /**
  *
@@ -99,6 +100,53 @@ class SettingsScreen extends AbstractScreen
 		this.setState(vv, () => this.user[k] = v);
 	}
 
+	save()
+	{
+		var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+		if (!re.test(this.state.email))
+		{
+			return Toast.show({
+				text: 'The email address is not valid',
+				position: 'top',
+				buttonText: 'OK',
+				type: 'danger',
+			});
+		}
+		else
+		{
+			this.user.email = this.state.email;
+			this.user.username = this.state.email;
+			this.user.fname = this.state.fname;
+			this.user.lname = this.state.lname;
+			this.user.gender = this.state.gender;
+			let dob = this.state.dateOfBirth.split(/\//);
+			this.user.dateOfBirth = new Date(parseInt(dob[2]), parseInt(dob[1]), parseInt(dob[0]));
+			this.user.save().then(
+				d =>
+				{
+					Lstorage.saveLoginParams(this.user.username, this.user.password);
+					return Toast.show({
+						text: 'Thank you. Update successful.',
+						position: 'top',
+						buttonText: 'OK',
+						type: 'success',
+					});
+				},
+				err =>
+				{
+					console.log(err);
+					return Toast.show({
+						text: 'Something went wrong. ' + (err.message ? err.message : '...'),
+						position: 'top',
+						buttonText: 'OK',
+						type: 'danger',
+					});
+				}
+			);
+		}
+	}
+
 	/**
 	 *
 	 * @returns {*}
@@ -142,24 +190,53 @@ class SettingsScreen extends AbstractScreen
 
 						{this.getFormElement('E-mail', this.state.email, true, 'email')}
 
-						<TouchableOpacity onPress={() => this.callPicker('date')}>
-							<View style={[styles.formElemContainer]}>
-								<View style={styles.formElemRow01}><Text style={styles.formText}>
-									Date of birth
-								</Text></View>
-								<View style={styles.formElemRow02}>
-									<Text style={[styles.formTextInput, {paddingTop: 10, fontSize: 15}]}>
-										{moment(this.state.dateOfBirth).format('DD/MM/YYYY')}
-									</Text>
-								</View>
+						<View style={[styles.formElemContainer, styles.bottomLine]}>
+							<View style={styles.formElemRow01}><Text style={styles.formText}>
+								Date of birth
+							</Text></View>
+							<View style={styles.formElemRow02}>
+								<DatePicker
+									style={{width: '100%',}}
+									date={ this.state.dateOfBirth.getDate ? this.state.dateOfBirth.getDate() + '/' + (this.state.dateOfBirth.getMonth()+1) + '/' + this.state.dateOfBirth.getFullYear() : '' }
+									mode="date"
+									placeholder="select date"
+									format="DD/MM/YYYY"
+									minDate="1900-01-01"
+									maxDate="2018-01-01"
+									confirmBtnText="Confirm"
+									cancelBtnText="Cancel"
+									onDateChange={(date) =>
+									{
+										this.setState({dateOfBirth: date})
+									}}
+									showIcon={false}
+									customStyles={{
+										dateInput: {
+											flex: 1,
+											height: 40,
+											borderWidth: 0,
+											borderColor: 'rgba(0,0,0,0)',
+											alignItems: 'center',
+											justifyContent: 'center'
+										},
+									}}
+								/>
 							</View>
-						</TouchableOpacity>
+						</View>
 
 
 					</View>
 
 					<View style={styles.genericRow}>
-						<TouchableOpacity onPress={() => this.props.navigation.navigate('LogoutScreen')}>
+						<TouchableOpacity onPress={() => Alert.alert(
+							'Are you sure?',
+							'You will have to enter your credential again to log back in... Do you really want to log-out?',
+							[
+								{text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+								{text: 'OK', onPress: () => this.props.navigation.navigate('LogoutScreen')},
+							],
+							{ cancelable: false }
+						)}>
 							<View style={styles.titleContainer}>
 								<Text style={styles.forgotText}>Log-out</Text>
 							</View>
@@ -167,7 +244,7 @@ class SettingsScreen extends AbstractScreen
 					</View>
 
 					<View style={styles.genericRow}>
-						<TouchableOpacity onPress={() => console.warn('fbBtn Touch Touched !')}>
+						<TouchableOpacity onPress={() => this.save()}>
 							<View style={styles.buttonOrangeContainer}>
 								<Text style={styles.buttonTextColor}>SAVE</Text>
 							</View>
