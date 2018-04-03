@@ -53,14 +53,14 @@ class LoginScreen extends AbstractScreen
 	clickLogin()
 	{
 		let {navigation} = this.props;
-		let username = this.state.email; // 'arnaud@antidot.ca';
-		let password = this.state.password; //'test';
+		let username = this.state.email;
+		let password = this.state.password;
 		this.user.authenticate(username, password).then(
 			(d) =>
 			{
 				if (d)
 				{
-					// Toast.show({ text: 'Success', position: 'top', buttonText: 'OK', type: 'success', });
+					Toast.show({ text: 'Success!', position: 'top', buttonText: 'OK', type: 'success', });
 					Lstorage.saveLoginParams(username, password);
 					navigation.navigate('Home');
 				}
@@ -89,7 +89,6 @@ class LoginScreen extends AbstractScreen
 	render()
 	{
 		return (
-			<Root>
 				<LinearGradient colors={['#FFFFFF', '#AAAAAA']} style={styles.linearGradient}>
 					<View style={styles.mainContainer}>
 						<ScrollView contentContainerStyle={{flexGrow: 1}}>
@@ -185,7 +184,7 @@ class LoginScreen extends AbstractScreen
 						</ScrollView>
 					</View>
 				</LinearGradient>
-			</Root>
+
 		);
 	}
 

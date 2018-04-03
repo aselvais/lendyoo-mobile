@@ -15,7 +15,7 @@ class User extends UserFrontend
 	 */
 	constructor(data={})
 	{
-		if(!instance){
+		if(!instance) {
 			super(data);
 			if (!this.instanceTime) this.instanceTime = new Date();
 			if (!this.creationDate) this.creationDate = new Date();
@@ -25,7 +25,7 @@ class User extends UserFrontend
 			if (!this.username) this.username = '';
 			if (!this.fname) this.fname = '';
 			if (!this.lname) this.lname = '';
-			if (!this.dob) this.dob = '';
+			if (!this.dateOfBirth) this.dateOfBirth = '';
 			if (!this.gender) this.gender = '';
 			if (!this.password) this.password = '';
 			if (!this.password2) this.password2 = '';

@@ -1,6 +1,6 @@
 import React from 'react';
 import {DrawerNavigator, StackNavigator, } from 'react-navigation';
-import {Icon} from 'native-base';
+import {Icon, Root} from 'native-base';
 
 import LandingScreen from "./screens/LandingScreen";
 import HistoryScreen from "./screens/HistoryScreen";
@@ -142,5 +142,5 @@ const ObjStackNavigator = StackNavigator({
 	},
 });
 
-export default ObjStackNavigator;
+export default () => <Root><ObjStackNavigator/></Root>;
 
